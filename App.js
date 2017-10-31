@@ -1,6 +1,8 @@
 import React from 'react';
-import Style from './Styles/Main.js';
-import { Container, Header, Content, Button, Text, Left, Body, Right, Icon, Title } from 'native-base';
+import Style from './Styles/Main';
+import Colors from './Styles/Colors'
+import { Container, Header, Content, Button, Text, Left, Body, Right, Icon, Title, Spinner } from 'native-base';
+import { View } from 'react-native'
 
 
 export default class App extends React.Component {
@@ -42,7 +44,11 @@ export default class App extends React.Component {
         </Container>
       );
     }else{
-      return null;
+      return (
+          <View style={Style.global.spinnerContent}>
+            <Spinner color={Colors.primary} />
+          </View>
+      );
     }
   }
 }
