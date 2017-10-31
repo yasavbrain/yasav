@@ -1,5 +1,8 @@
 import React from 'react';
-
+import Style from './Styles/Main';
+import Colors from './Styles/Colors'
+import { Spinner } from 'native-base';
+import { View } from 'react-native'
 import Routes from './Routes';
 
 export default class App extends React.Component {
@@ -20,7 +23,11 @@ export default class App extends React.Component {
     if (this.state.fontLoaded) {
       return <Routes />;
     } else {
-      return null;
+      return (
+          <View style={Style.global.spinnerContent}>
+            <Spinner color={Colors.primary} />
+          </View>
+      );
     }
   }
 }
