@@ -1,6 +1,8 @@
-import { StyleSheet } from 'react-native'
-import Home from './Home'
+import { StyleSheet } from 'react-native';
+import Home from './Home';
+import Global from './Global';
 
 export default {
-  home: Home
+  home: Home,
+  global: Global
 }
