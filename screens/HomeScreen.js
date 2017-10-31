@@ -12,26 +12,24 @@ export default class HomeScreen extends React.Component {
     const { navigate } = this.props.navigation
 
     return(
-      <View>
-        <Button
-          primary
-          title="Liste d'activités"
-          onPress={() => navigate('ActivityListScreen')}
-        />
-        <Button
-          title="Liste de Todos"
-          onPress={() => navigate('TodoListScreen')}
-        />
-        <Button
-          title="Vue d'une activité"
-          onPress={() => navigate('ActivityViewScreen')}
-        />
-        <Button
-          title="vue d'un Todo"
-          onPress={() => navigate('TodoViewScreen')}
-        />
-        <Button primary><Text> Primary </Text></Button>
-      </View>
+      <Content>
+        <Button primary onPress={() => navigate('ActivityListScreen')}>
+          <Text>Liste d'activités</Text>
+        </Button>
+        <Button primary onPress={() => navigate('TodoListScreen')}>
+          <Text>Liste de Todos</Text>
+        </Button>
+        <Button primary onPress={() => navigate('ActivityViewScreen')}>
+          <Text>Vue d'une activité</Text>
+        </Button>
+        <Button primary onPress={() => navigate('TodoViewScreen')}>
+          <Text>Vue d'un Todo</Text>
+        </Button>
+      </Content>
     );
   }
 }
+
+HomeScreen.navigationOptions = () => ({
+  title: 'Yasav',
+})

@@ -9,3 +9,7 @@ export default class ActivityListScreen extends React.Component {
         );
     }
 }
+
+ ActivityListScreen.navigationOptions = () => ({
+   title: 'ActivityListScreen Title'
+})

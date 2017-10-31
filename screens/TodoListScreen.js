@@ -9,3 +9,7 @@ export default class TodoListScreen extends React.Component {
         );
     }
 }
+
+TodoListScreen.navigationOptions = () => ({
+  title: 'TodoListScreen Title'
+})

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Container, Header, Content, Button, Left, Icon, Body,
-  Title, Right } from 'native-base';
+
 import Routes from './Routes';
 
 export default class App extends React.Component {
@@ -18,30 +17,9 @@ export default class App extends React.Component {
   }
 
   render() {
-    if(this.state.fontLoaded){
-      return (
-        <Container>
-          <Header>
-            <Left>
-              <Button transparent>
-                <Icon name='arrow-back' />
-              </Button>
-            </Left>
-            <Body>
-              <Title>Header</Title>
-            </Body>
-            <Right>
-              <Button transparent>
-                <Icon name='menu' />
-              </Button>
-            </Right>
-          </Header>
-          <Content>
-            <Routes />
-          </Content>
-        </Container>
-      );
-    }else{
+    if (this.state.fontLoaded) {
+      return <Routes />;
+    } else {
       return null;
     }
   }

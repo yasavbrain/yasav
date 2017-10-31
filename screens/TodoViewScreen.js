@@ -9,3 +9,7 @@ export default class TodoViewScreen extends React.Component {
         );
     }
 }
+
+TodoViewScreen.navigationOptions = () => ({
+  title: 'TodoViewScreen Title'
+})
