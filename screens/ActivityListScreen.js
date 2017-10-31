@@ -1,15 +1,23 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Content, Button, Text } from 'native-base';
 
 export default class ActivityListScreen extends React.Component {
 
-    render() {
-        return(
-            <Text>ActivityListScreen</Text>
-        );
-    }
+  render() {
+
+    const { navigate } = this.props.navigation;
+    return(
+      <Content>
+        <Button primary onPress={() => navigate('ActivityViewScreen')}>
+          <Text>Voir une activité</Text>
+        </Button>
+        <Text>En tant quutilisateur, je veux pouvoir visualiser la liste de
+          mes activités</Text>
+      </Content>
+    );
+  }
 }
 
  ActivityListScreen.navigationOptions = () => ({
-   title: 'ActivityListScreen Title'
+   title: 'Liste des activités'
 })

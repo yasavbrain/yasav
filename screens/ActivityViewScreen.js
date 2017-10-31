@@ -1,15 +1,19 @@
 import React from 'react';
 import { Text } from 'react-native';
+import { Content } from 'native-base';
 
 export default class ActivityViewScreen extends React.Component {
 
-    render() {
-        return(
-            <Text>ActivityViewScreen</Text>
-        );
-    }
+  render() {
+    return(
+      <Content>
+        <Text>En tant quutilisateur, je veux pouvoir visualiser une
+          activité</Text>
+      </Content>
+    );
+  }
 }
 
 ActivityViewScreen.navigationOptions = () => ({
-  title: 'ActivityViewScreen Title'
+  title: 'Voir une activité'
 })

@@ -1,15 +1,18 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Content, Text } from 'native-base';
 
 export default class TodoListScreen extends React.Component {
 
-    render() {
-        return(
-            <Text>TodoListScreen</Text>
-        );
-    }
+  render() {
+    return(
+      <Content>
+        <Text>En tant quutilisateur, je veux pouvoir voir toutes mes ToDo
+          sous forme de liste</Text>
+      </Content>
+    );
+  }
 }
 
 TodoListScreen.navigationOptions = () => ({
-  title: 'TodoListScreen Title'
+  title: 'Liste des todo'
 })

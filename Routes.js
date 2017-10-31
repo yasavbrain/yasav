@@ -4,16 +4,18 @@ import { StackNavigator } from 'react-navigation';
 import CustomHeader from './Header';
 import HomeScreen from './screens/HomeScreen';
 import ActivityListScreen from './screens/ActivityListScreen';
-import TodoListScreen from './screens/TodoListScreen';
 import ActivityViewScreen from './screens/ActivityViewScreen';
-import TodoViewScreen from './screens/TodoViewScreen';
+import ActivityAddScreen from './screens/ActivityAddScreen';
+import TodoListScreen from './screens/TodoListScreen';
+import TodoAddScreen from './screens/TodoAddScreen';
 
 const Routes = StackNavigator({
-    HomeScreen: { screen: HomeScreen },
-    ActivityListScreen: { screen: ActivityListScreen },
-    TodoListScreen: { screen: TodoListScreen },
-    ActivityViewScreen: { screen: ActivityViewScreen },
-    TodoViewScreen: { screen: TodoViewScreen },
+  HomeScreen: { screen: HomeScreen },
+  ActivityListScreen: { screen: ActivityListScreen },
+  ActivityViewScreen: { screen: ActivityViewScreen },
+  ActivityAddScreen: { screen: ActivityAddScreen },
+  TodoListScreen: { screen: TodoListScreen },
+  TodoAddScreen: { screen: TodoAddScreen },
 },
 {
   navigationOptions: ({ navigation }) => ({

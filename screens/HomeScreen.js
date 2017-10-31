@@ -9,7 +9,7 @@ export default class HomeScreen extends React.Component {
 
   render() {
 
-    const { navigate } = this.props.navigation
+    const { navigate } = this.props.navigation;
 
     return(
       <Content>
@@ -19,11 +19,8 @@ export default class HomeScreen extends React.Component {
         <Button primary onPress={() => navigate('TodoListScreen')}>
           <Text>Liste de Todos</Text>
         </Button>
-        <Button primary onPress={() => navigate('ActivityViewScreen')}>
-          <Text>Vue d'une activité</Text>
-        </Button>
-        <Button primary onPress={() => navigate('TodoViewScreen')}>
-          <Text>Vue d'un Todo</Text>
+        <Button primary onPress={() => navigate('ActivityAddScreen')}>
+          <Text>Ajouter une activité</Text>
         </Button>
       </Content>
     );
