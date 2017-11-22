@@ -12,11 +12,12 @@ export default class ActivityAddScreen extends React.Component {
     this.state = {
       title: "",
       description: "",
-      date: moment.now()
+      date: moment()
     }
   }
 
   render() {
+    const { navigate } = this.props.navigation;
 
     return(
       <Form>
@@ -41,7 +42,7 @@ export default class ActivityAddScreen extends React.Component {
             
           />
         </Item>
-        <Button primary full onPress={ (e) => this.props.callback(this.state) }>
+        <Button primary full onPress={ (e) => navigate("ActivityListScreen", { newElement: this.state })}>
           <Text>Ajouter l'activité</Text>
         </Button>
 

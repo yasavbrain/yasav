@@ -9,39 +9,49 @@ export default class ActivityListScreen extends React.Component {
         super(props);
 
         this.state = {
-            activityList: [ { title: "lol", content: "pascontent"} ],
-            adding: false
+            activityList: []
         }
         this.addElementToList = this.addElementToList.bind(this);
+    }
 
-
+    componentDidMount(){
+        const { state } = this.props.navigation;
+        if(state.params && state.params.newElement){
+            this.addElementToList(state.params.newElement);
+        }
     }
 
     addElementToList (e) {
+        // TODO: When redux is here. Save the activitylist in redux (not persisted for now)
+
         let activities = this.state.activityList;
-        activities.push(e)
+        activities.push(e);
        
-        this.setState( { activityList: activities, adding: false });
+        this.setState( { activityList: activities });
     }
 
     render() {
         const { navigate } = this.props.navigation;
         const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        if(this.state.adding){
-            return <ActivityAdd callback={this.addElementToList}/>
-        }else{
-            return(
-                <View>
-                    <ListView dataSource={ds.cloneWithRows(this.state.activityList)} 
-                renderRow={(row, j, k) => <Text node={row} index={parseInt(k,10)}>{row.title} </Text> } />
-                    <Button primary onPress={() => navigate('ActivityViewScreen')}>
-                            <Text>Voir une activité</Text>
-                    </Button>
 
-                    <Button full primary onPress={() => this.setState({adding: true})}><Text>Ajouter une activité</Text></Button>
-                </View>
-            );
-        }
+        return(
+            <View>
+                <ListView   
+                    dataSource={ds.cloneWithRows(this.state.activityList)} 
+                    renderRow={(row, j, k) => 
+                        <Text node={row} index={parseInt(k,10)} style={{height: 75, fontSize: 50}}
+                            onPress={() => navigate("ActivityViewScreen", {activity: row})}> {row.title} </Text>
+                    }
+                />
+                <Button primary onPress={() => navigate('ActivityViewScreen')}>
+                    <Text>Voir une activité</Text>
+                </Button>
+
+                <Button full primary onPress={() => navigate("ActivityAddScreen")}>
+                    <Text>Ajouter une activité</Text>
+                </Button>
+            </View>
+        );
 
     }
 }
