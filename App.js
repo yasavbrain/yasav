@@ -1,4 +1,5 @@
 import React from 'react';
+import I18n from 'ex-react-native-i18n';
 import Style from './Styles/Main';
 import Colors from './Styles/Colors'
 import { Spinner } from 'native-base';
@@ -10,6 +11,11 @@ export default class App extends React.Component {
   state = {
     fontLoaded: false,
   };
+
+  // Async call to init the locale
+  componentWillMount() {
+    I18n.initAsync();
+  }
 
   async componentDidMount() {
     await Expo.Font.loadAsync({
