@@ -4,7 +4,7 @@ import { StackNavigator } from 'react-navigation';
 import CustomHeader from './viewElements/shared/Header';
 import HomeScreen from './screens/Home/HomeScreen';
 import ActivityListScreen from './screens/ActivityList/ActivityListScreen';
-import ActivityViewScreen from './screens/ActivityView/ActivityViewScreen';
+import ActivityDisplayScreen from './screens/ActivityDisplay/ActivityDisplayScreen';
 import ActivityAddScreen from './screens/ActivityAdd/ActivityAddScreen';
 import TodoListScreen from './screens/TodoList/TodoListScreen';
 import TodoAddScreen from './screens/TodoAdd/TodoAddScreen';
@@ -12,7 +12,7 @@ import TodoAddScreen from './screens/TodoAdd/TodoAddScreen';
 const Routes = StackNavigator({
   HomeScreen: { screen: HomeScreen },
   ActivityListScreen: { screen: ActivityListScreen },
-  ActivityViewScreen: { screen: ActivityViewScreen },
+  ActivityDisplayScreen: { screen: ActivityDisplayScreen },
   ActivityAddScreen: { screen: ActivityAddScreen },
   TodoListScreen: { screen: TodoListScreen },
   TodoAddScreen: { screen: TodoAddScreen },

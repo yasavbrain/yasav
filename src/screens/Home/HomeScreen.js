@@ -1,9 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Container, Header, Content, Button, Text, Left, Body, Right, Icon,
-  Title } from 'native-base';
-
-import Style from '../../styles/Main.js';
+import HomeContainer from './containers/HomeContainer'
 
 export default class HomeScreen extends React.Component {
 
@@ -12,17 +8,11 @@ export default class HomeScreen extends React.Component {
     const { navigate } = this.props.navigation;
 
     return(
-      <Content>
-        <Button primary onPress={() => navigate('ActivityListScreen')}>
-          <Text>Liste d'activités</Text>
-        </Button>
-        <Button primary onPress={() => navigate('TodoListScreen')}>
-          <Text>Liste de Todos</Text>
-        </Button>
-        <Button primary onPress={() => navigate('ActivityAddScreen')}>
-          <Text>Ajouter une activité</Text>
-        </Button>
-      </Content>
+      <HomeContainer
+        navigateToActivityList={() => navigate('ActivityListScreen')}
+        navigateToTodoList={() => navigate('TodoListScreen')}
+        navigateToActivityAdd={() => navigate('ActivityAddScreen')}
+      />
     );
   }
 }
