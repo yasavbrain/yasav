@@ -9,7 +9,7 @@ export default class ActivityAddScreen extends React.Component {
     return(
       <ActivityAddContainer 
         navigateToTodoAddScreen={()       => navigate('TodoAddScreen')}
-        navigateToActivityListScreen={(e) => navigate("ActivityListScreen", e)}
+        navigateToActivityListScreen={() => navigate("ActivityListScreen")}
       />
     );
   }

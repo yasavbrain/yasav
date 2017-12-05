@@ -20,7 +20,10 @@ export default class ActivityAddContainer extends React.Component {
     return(
       <ActivityAddView 
         navigateToTodoAddScreen={this.props.navigateToTodoAddScreen}
-        navigateToActivityListScreen={(e) => this.props.navigateToActivityListScreen({ newElement: this.state })}
+        navigateToActivityListScreen={(e) => {
+          // Add element to the list with Redux (probably here)
+          this.props.navigateToActivityListScreen()
+          }}
 
         setTitle={(title) => this.setState({title})}
         setDescription={(description) => this.setState({description})}
