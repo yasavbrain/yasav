@@ -7,7 +7,7 @@ export default class ActivityDisplayScreen extends React.Component {
   render() {
     if( this.props.stateParams ){
       return(
-        <ActivityDisplayView activity={stateParams.activity} />
+        <ActivityDisplayView activity={this.props.stateParams.activity} />
       );
     }else{
       return(

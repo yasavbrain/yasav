@@ -7,13 +7,15 @@ export default class HomeView extends React.Component {
   render() {
     return (
       <Content>
-        <Button primary onPress={() => this.props.navigateToActivityList()}>
+        <Button primary style={{marginTop: 10}} onPress={() => { console.log("Pressed"); this.props.navigateToActivityList()}}>
           <Text>{I18n.t('home.activityListButton')}</Text>
         </Button>
-        <Button primary onPress={() => this.props.navigateToTodoList()}>
+
+        <Button primary style={{marginTop: 10}} onPress={() => this.props.navigateToTodoList()}>
           <Text>{I18n.t('home.todoListButton')}</Text>
         </Button>
-        <Button primary onPress={() => this.props.navigateToActivityAdd()}>
+
+        <Button primary style={{marginTop: 10}} onPress={() => this.props.navigateToActivityAdd()}>
           <Text>{I18n.t('home.addActivityButton')}</Text>
         </Button>
       </Content>
