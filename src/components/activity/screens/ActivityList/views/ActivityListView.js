@@ -1,6 +1,7 @@
 import React from 'react';
 import { Content, Button, Text } from 'native-base';
 import { View, ListView } from 'react-native';
+import I18n from 'yasav/locales/i18n'
 
 export default class ActivityListView extends React.Component {
 
@@ -10,19 +11,18 @@ export default class ActivityListView extends React.Component {
 
         return(
             <View>
-                <ListView   
+                <ListView
                     dataSource={ds.cloneWithRows(this.props.displayActivityList)}
-                    renderRow={(row, j, k) => 
+                    renderRow={(row, j, k) =>
                         <Text node={row} index={parseInt(k,10)} style={{height: 75, fontSize: 50}}
                             onPress={ () => this.props.navigateToActivityListScreen(row) }> {row.title}</Text>
                     }
                 />
                 <Button full primary onPress={() => this.props.navigateToActivityAddScreen}>
-                    <Text>Ajouter une activité</Text>
+                    <Text>{I18n.t('activity.activityList.content')}</Text>
                 </Button>
             </View>
         );
 
     }
 }
-
