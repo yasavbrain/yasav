@@ -1,18 +1,18 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
 
-import CustomHeader from './Header';
-import HomeScreen from './screens/HomeScreen';
-import ActivityListScreen from './screens/ActivityListScreen';
-import ActivityViewScreen from './screens/ActivityViewScreen';
-import ActivityAddScreen from './screens/ActivityAddScreen';
-import TodoListScreen from './screens/TodoListScreen';
-import TodoAddScreen from './screens/TodoAddScreen';
+import CustomHeader from './viewElements/shared/Header';
+import HomeScreen from './components/Home/HomeScreen';
+import ActivityListScreen from './components/activity/screens/ActivityList/ActivityListScreen';
+import ActivityDisplayScreen from './components/activity/screens/ActivityDisplay/ActivityDisplayScreen';
+import ActivityAddScreen from './components/activity/screens/ActivityAdd/ActivityAddScreen';
+import TodoListScreen from './components/todo/screens/TodoList/TodoListScreen';
+import TodoAddScreen from './components/todo/screens/TodoAdd/TodoAddScreen';
 
 const Routes = StackNavigator({
   HomeScreen: { screen: HomeScreen },
   ActivityListScreen: { screen: ActivityListScreen },
-  ActivityViewScreen: { screen: ActivityViewScreen },
+  ActivityDisplayScreen: { screen: ActivityDisplayScreen },
   ActivityAddScreen: { screen: ActivityAddScreen },
   TodoListScreen: { screen: TodoListScreen },
   TodoAddScreen: { screen: TodoAddScreen },
