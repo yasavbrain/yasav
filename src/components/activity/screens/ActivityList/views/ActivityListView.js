@@ -15,7 +15,7 @@ export default class ActivityListView extends React.Component {
                     dataSource={ds.cloneWithRows(this.props.displayActivityList)}
                     renderRow={(row, j, k) =>
                         <Text node={row} index={parseInt(k,10)} style={{height: 75, fontSize: 50}}
-                            onPress={ () => this.props.navigateToActivityListScreen(row) }> {row.title}</Text>
+                            onPress={ () => this.props.navigateToActivityDisplayScreen(row) }> {row.title}</Text>
                     }
                 />
                 <Button full primary onPress={() => this.props.navigateToActivityAddScreen}>
