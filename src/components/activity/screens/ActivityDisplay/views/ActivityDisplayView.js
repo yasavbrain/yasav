@@ -11,7 +11,7 @@ export default class ActivityDisplayView extends React.Component {
   render() {
     return (
       <Content>
-        <Text>{I18n.t('activity.activityDisplay.content')}</Text>
+        <Text>{I18n.t('activity.activityDisplay.title')}</Text>
         <Text>{this.props.activity ? this.props.activity.title : null }</Text>
         <Text>{this.props.activity.description}</Text>
         <Text>{this.props.activity.date.format("DD/MM/YYYY HH:mm") }</Text>
