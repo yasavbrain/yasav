@@ -15,13 +15,16 @@ class ActivityAddContainer extends React.Component {
     this.state = {
       title: "",
       description: "",
-      date: moment()
+      date: moment(),
+      key: 0
     }
     this.addActivity = this.addActivity.bind(this)
   }
 
-  addActivity(activity) {
-    this.props.addActivity(activity)
+  addActivity() {
+    console.log(this.props.lastID+1);
+    this.setState({key: this.props.lastID + 1})
+    this.props.addActivity(this.state)
     this.props.goBackToActivityListScreen()
   }
 
@@ -36,10 +39,17 @@ class ActivityAddContainer extends React.Component {
   }
 }
 
+
+function mapStateToProps(state) {
+  return {
+    lastID: state.activity.lastID
+  }
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     addActivity: (activity) => dispatch(addActivity(activity))
   }
 }
 
-export default connect(null, mapDispatchToProps)(ActivityAddContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(ActivityAddContainer)

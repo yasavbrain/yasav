@@ -7,7 +7,7 @@ class ActivityListContainer extends React.Component {
   render() {
     return(
       <ActivityListView
-        navigateToActivityAddScreen = {() => this.props.navigateToActivityAddScreen }
+        navigateToActivityAddScreen = {this.props.navigateToActivityAddScreen }
         navigateToActivityDisplayScreen = {(e) => this.props.navigateToActivityDisplayScreen({activity: e}) }
         displayActivityList = {this.props.activityList}
       />
