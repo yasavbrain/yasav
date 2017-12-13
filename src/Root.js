@@ -25,7 +25,6 @@ export default class Root extends React.Component {
 
   render() {
     if (this.state.fontLoaded) {
-      console.log(store.getState())
       return (
         <Provider store={store}>
           <Routes />

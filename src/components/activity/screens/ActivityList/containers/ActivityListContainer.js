@@ -22,7 +22,7 @@ class ActivityListContainer extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    activityList: state.activityAdd.activityList
+    activityList: state.activity.activityList
   }
 }
 

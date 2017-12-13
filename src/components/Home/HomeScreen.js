@@ -1,6 +1,6 @@
 import React from 'react';
-import HomeContainer from 'src/screens/Home/containers/HomeContainer'
 import I18n from 'yasav/locales/i18n'
+import HomeContainer from './containers/HomeContainer'
 
 export default class HomeScreen extends React.Component {
 

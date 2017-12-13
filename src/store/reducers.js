@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
-import activityAdd from 'src/screens/ActivityAdd/reducers/index';
+import activityAdd from 'src/components/activity/reducers/index';
 
 export default combineReducers({
-  activityAdd,
+  activity,
 });

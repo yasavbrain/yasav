@@ -1,5 +1,5 @@
 import React from 'react';
-import HomeView from 'src/screens/Home/views/HomeView'
+import HomeView from '../views/HomeView'
 
 export default class HomeContainer extends React.Component {
 
