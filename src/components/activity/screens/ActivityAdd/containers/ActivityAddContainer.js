@@ -5,7 +5,7 @@ import 'moment/locale/fr';
 moment.locale('fr');
 
 import ActivityAddView from '../views/ActivityAddView';
-import { addActivity } from 'src/screens/ActivityAdd/actions';
+import { addActivity } from '../actions/index';
 
 
 class ActivityAddContainer extends React.Component {

@@ -2,12 +2,12 @@ import React from 'react';
 import { StackNavigator } from 'react-navigation';
 
 import CustomHeader from './viewElements/shared/Header';
-import HomeScreen from './screens/Home/HomeScreen';
-import ActivityListScreen from './screens/ActivityList/ActivityListScreen';
-import ActivityDisplayScreen from './screens/ActivityDisplay/ActivityDisplayScreen';
-import ActivityAddScreen from './screens/ActivityAdd/ActivityAddScreen';
-import TodoListScreen from './screens/TodoList/TodoListScreen';
-import TodoAddScreen from './screens/TodoAdd/TodoAddScreen';
+import HomeScreen from './components/Home/HomeScreen';
+import ActivityListScreen from './components/activity/screens/ActivityList/ActivityListScreen';
+import ActivityDisplayScreen from './components/activity/screens/ActivityDisplay/ActivityDisplayScreen';
+import ActivityAddScreen from './components/activity/screens/ActivityAdd/ActivityAddScreen';
+import TodoListScreen from './components/todo/screens/TodoList/TodoListScreen';
+import TodoAddScreen from './components/todo/screens/TodoAdd/TodoAddScreen';
 
 const Routes = StackNavigator({
   HomeScreen: { screen: HomeScreen },
