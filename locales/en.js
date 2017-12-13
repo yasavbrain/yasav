@@ -14,13 +14,13 @@ export default {
       content: "404 Not Found"
     },
     activityDisplay: {
-      content: "Hello this is the activity"
+      title: "Hello this is the activity"
     },
     activityDisplayScreen: {
       title: "See activity"
     },
     activityList: {
-      content: "Add activity"
+      addActivityButton: "Add activity"
     },
   },
   home: {

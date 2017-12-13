@@ -19,7 +19,7 @@ export default class ActivityListView extends React.Component {
                     }
                 />
                 <Button full primary onPress={() => this.props.navigateToActivityAddScreen}>
-                    <Text>{I18n.t('activity.activityList.content')}</Text>
+                    <Text>{I18n.t('activity.activityList.addActivityButton')}</Text>
                 </Button>
             </View>
         );
