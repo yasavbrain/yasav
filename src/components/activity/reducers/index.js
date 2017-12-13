@@ -1,4 +1,4 @@
-import { ADD_ACTIVITY } from 'src/components/activity/screens/ActivityAdd/actions/types';
+import { ADD_ACTIVITY } from '../screens/ActivityAdd/actions/types';
 
 const initialState = {
   activityList: [],
