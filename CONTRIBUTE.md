@@ -18,24 +18,49 @@
 │   │   └── shared
 │   ├── config
 │   │   ├── constants.js - Constants and Configs
-│   ├── sceens
-│   │   ├── home
-│   │   │   ├── home.js (contain navigation)
+│   ├── components
+│   │   ├── activity
+│   │   │   ├── screens
+│   │   │   │   ├── ActivityAdd
+│   │   │   │   │   ├── ActivityAddScreen.js (contain navigation)
+│   │   │   │   │   ├── actions
+│   │   │   │   │   │   ├── index.js - Action Creators
+│   │   │   │   │   │   └── types.js - Action Types
+│   │   │   │   │   ├── containers
+│   │   │   │   │   │   └── ActivityAddContainer.js - Logic part of the container
+│   │   │   │   │   ├── views
+│   │   │   │   │   │   └── ActivityAddView.js - Display part of the container
+│   │   │   │   │   └── styles
+│   │   │   │   │       └── style.js
+│   │   │   │   ├── ActivityList
+│   │   │   │   │   ├── ActivityListScreen.js (contain navigation)
+│   │   │   │   │   ├── actions
+│   │   │   │   │   │   ├── index.js - Action Creators
+│   │   │   │   │   │   └── types.js - Action Types
+│   │   │   │   │   ├── containers
+│   │   │   │   │   │   └── ActivityListContainer.js - Logic part of the container
+│   │   │   │   │   ├── views
+│   │   │   │   │   │   └── ActivityListView.js - Display part of the container
+│   │   │   │   │   └── styles
+│   │   │   │   │       └── style.js
+│   │   │   │   └── ...
+│   │   │   └── reducers
+│   │   │       ├── index.js - Redux Module 
+│   │   │       └── reducers.js - Redux Module Reducers
+│   │   ├── Home
+│   │   │   ├── ActivityListScreen.js (contain navigation)
 │   │   │   ├── actions
 │   │   │   │   ├── index.js - Action Creators
 │   │   │   │   └── types.js - Action Types
 │   │   │   ├── containers
-│   │   │   │   └── HomeContainer1.js - Logic part of the container
+│   │   │   │   └── ActivityListContainer.js - Logic part of the container
 │   │   │   ├── views
-│   │   │   │   └── HomeView1.js - Display part of the container
+│   │   │   │   └── ActivityListView.js - Display part of the container
 │   │   │   ├── styles
-│   │   │   │   └── style.js
+│   │   │   |   └── style.js
 │   │   │   └── reducers
 │   │   │       ├── index.js - Redux Module 
 │   │   │       └── reducers.js - Redux Module Reducers
-│   │   ├── (events)
-│   │   ├── (navigation)
-│   │   ├── ...
 │   ├── store
 │   │   ├── store.js
 │   │   └── reducers.js
