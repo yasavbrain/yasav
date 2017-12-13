@@ -1,18 +1,18 @@
 import React from 'react';
 import { Content, Text } from 'native-base';
+import I18n from 'yasav/locales/i18n'
 
 export default class TodoListScreen extends React.Component {
 
   render() {
     return(
       <Content>
-        <Text>En tant quutilisateur, je veux pouvoir voir toutes mes ToDo
-          sous forme de liste</Text>
+        <Text>{I18n.t('todo.todoListScreen.content')}</Text>
       </Content>
     );
   }
 }
 
 TodoListScreen.navigationOptions = () => ({
-  title: 'Liste des todo'
+  title: I18n.t('todo.todoListScreen.title')
 })
