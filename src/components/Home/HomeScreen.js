@@ -1,4 +1,5 @@
 import React from 'react';
+import I18n from 'yasav/locales/i18n'
 import HomeContainer from './containers/HomeContainer'
 
 export default class HomeScreen extends React.Component {
@@ -18,5 +19,5 @@ export default class HomeScreen extends React.Component {
 }
 
 HomeScreen.navigationOptions = () => ({
-  title: 'Yasav',
+  title: I18n.t('homeScreen.title'),
 })
