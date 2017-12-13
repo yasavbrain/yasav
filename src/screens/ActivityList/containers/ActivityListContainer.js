@@ -1,28 +1,29 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import ActivityListView from '../views/ActivityListView'
 
-export default class ActivityListContainer extends React.Component {
+class ActivityListContainer extends React.Component {
 
-    constructor(props){
-        super(props);
+  constructor(props){
+    super(props);
+  }
 
-        this.state = {
-            //Get the status of ActivityList when Redux will be implemented
-            activityList: []
-        }
-    }
-
-
-
-    render() {
-
-        return(
-            <ActivityListView
-            navigateToActivityAddScreen = {() => this.props.navigateToActivityAddScreen }
-            navigateToActivityListScreen = {(e) => this.props.navigateToActivityListScreen({activity: e}) }
-            displayActivityList = {this.state.activityList}
-            />
-        );
-
-    }
+  render() {
+    return(
+      <ActivityListView
+        navigateToActivityAddScreen = {() => this.props.navigateToActivityAddScreen }
+        navigateToActivityListScreen = {(e) => this.props.navigateToActivityListScreen({activity: e}) }
+        displayActivityList = {this.props.activityList}
+      />
+    );
+  }
 }
+
+function mapStateToProps(state) {
+  return {
+    activityList: state.activityAdd.activityList
+  }
+}
+
+export default connect(mapStateToProps)(ActivityListContainer)

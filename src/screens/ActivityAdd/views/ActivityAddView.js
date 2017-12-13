@@ -14,17 +14,17 @@ export default class ActivityAddContainer extends React.Component {
         </Item>
         <Item floatingLabel>
           <Label>Contenu</Label>
-          <Input 
+          <Input
             onChangeText={(description) => this.props.setDescription(description)}
             multiline
             blurOnSubmit={false}
             numberOfLines={5}
             returnKeyType='none'
             style={Style.textarea}
-            
+
           />
         </Item>
-        <Button primary full onPress={() => this.props.navigateToActivityListScreen()}>
+        <Button primary full onPress={this.props.addActivity}>
           <Text>Ajouter l'activité</Text>
         </Button>
 

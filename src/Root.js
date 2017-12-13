@@ -1,9 +1,13 @@
 import React from 'react';
-import Style from './styles/Main';
-import Colors from './styles/Colors'
+
+import { Provider } from 'react-redux';
 import { Spinner } from 'native-base';
 import { View } from 'react-native'
+
+import Style from './styles/Main';
+import Colors from './styles/Colors'
 import Routes from './Routes';
+import store from 'src/store/store';
 
 export default class Root extends React.Component {
 
@@ -21,7 +25,12 @@ export default class Root extends React.Component {
 
   render() {
     if (this.state.fontLoaded) {
-      return <Routes />;
+      console.log(store.getState())
+      return (
+        <Provider store={store}>
+          <Routes />
+        </Provider>
+      );
     } else {
       return (
           <View style={Style.global.spinnerContent}>
