@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Form, Item, Input, Label, Textarea, Button, Content } from 'native-base';
+import { Text, Form, Item, Input, Label, Button } from 'native-base';
 import { View, TextInput } from 'react-native';
 
 import I18n from 'yasav/locales/i18n';
