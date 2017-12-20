@@ -1,14 +1,13 @@
 import React from 'react';
 import { Container, Header, Left, Right, Body, Content, Title, List, ListItem,
   Button, Text, Icon } from 'native-base';
-import { View, FlatList } from 'react-native';
 import I18n from 'yasav/locales/i18n';
 
 export default class TodoListView extends React.Component {
 
   constructor(props) {
     super(props)
-    this.renderItem = this.renderItem.bind(this)
+    this.renderRow = this.renderRow.bind(this)
     this.goBack = this.goBack.bind(this)
   }
 
@@ -16,7 +15,7 @@ export default class TodoListView extends React.Component {
     this.props.goBack()
   }
 
-  renderItem(item) {
+  renderRow(item) {
     return (
       <ListItem>
         <Text>TEST</Text>
@@ -39,12 +38,10 @@ export default class TodoListView extends React.Component {
           <Right />
         </Header>
         <Content>
-          <List>
-            <FlatList
-              data={this.props.todoList}
-              renderItem={this.renderItem}
-            />
-          </List>
+          <List
+            dataArray={this.props.todoList}
+            renderRow={this.renderRow}
+          />
         </Content>
       </Container>
     );
