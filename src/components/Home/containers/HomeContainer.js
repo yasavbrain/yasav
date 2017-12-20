@@ -9,6 +9,7 @@ export default class HomeContainer extends React.Component {
         navigateToActivityList={this.props.navigateToActivityList}
         navigateToTodoList={this.props.navigateToTodoList}
         navigateToActivityAdd={this.props.navigateToActivityAdd}
+        navigateToTodoAdd={this.props.navigateToTodoAdd}
         />
     );
   }
