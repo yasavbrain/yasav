@@ -6,35 +6,17 @@ import 'moment/locale/fr';
 moment.locale('fr');
 
 const initialState = {
-  activityList: [{
-    title: "Activité 1",
-    description: "Description de l'activité 1",
-    date: moment()
-  }, 
-  {
-    title: "Activité 2",
-    description: "Description de l'activité 2",
-    date: moment()
-  },
-  {
-    title: "Activité 3",
-    description: "Description de l'activité 3",
-    date: moment()
-  }],
+  activityList: [],
+  lastID: 0
 }
 
-// To be uncommented when activit add is working
-/*
-const initialState = {
-  activityList: [],
-}
-*/
 export default function reducer(state = initialState, action) {
 
   switch(action.type) {
 
     case ADD_ACTIVITY:
-      return {...state, activityList: state.activityList.concat(action.activity)};
+      let newID = state.lastID + 1;
+      return {...state, activityList: state.activityList.concat(action.activity), lastID: newID};
 
     default:
       return state;
