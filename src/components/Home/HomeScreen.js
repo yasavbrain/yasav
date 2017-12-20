@@ -13,6 +13,7 @@ export default class HomeScreen extends React.Component {
         navigateToActivityList={() => navigate('ActivityListScreen')}
         navigateToTodoList={() => navigate('TodoListScreen')}
         navigateToActivityAdd={() => navigate('ActivityAddScreen')}
+        navigateToTodoAdd={() => navigate('TodoAddScreen')}
       />
     );
   }

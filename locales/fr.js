@@ -27,11 +27,16 @@ export default {
     activityListButton: "Liste d'activités",
     todoListButton: "Liste de Todos",
     addActivityButton: "Ajouter une activité",
+    todoAddButton: "Ajouter une ToDo"
   },
   homeScreen: {
     title: "Yasav"
   },
   todo: {
+    todoAdd: {
+      title: "Titre",
+      addTodoButton: "Ajouter une todo"
+    },
     todoAddScreen: {
       title: "Ajouter un todo",
       content: "En tant quutilisateur, je veux pouvoir me créer une TODO lors de la créa dune acti"

@@ -1,15 +1,15 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { Content } from 'native-base';
-import I18n from 'yasav/locales/i18n'
+import I18n from 'yasav/locales/i18n';
+import TodoAddContainer from './containers/TodoAddContainer';
 
 export default class TodoAddScreen extends React.Component {
 
   render() {
+    const { goBack } = this.props.navigation;
     return(
-      <Content>
-        <Text>{I18n.t('todo.todoAddScreen.content')}</Text>
-      </Content>
+      <TodoAddContainer 
+        goBackToTodoListScreen={() => goBack()}
+      />    
     );
   }
 }
