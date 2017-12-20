@@ -41,7 +41,7 @@ export default {
       title: "Add a todo",
       content: "As a user, I want to create a todo when creating an activity"
     },
-    todoListScreen: {
+    todoList: {
       title: "Todo List",
       content: "As a user, I want to see all my todos as a list"
     },

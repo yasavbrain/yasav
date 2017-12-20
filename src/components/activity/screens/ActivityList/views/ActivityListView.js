@@ -5,7 +5,6 @@ import I18n from 'yasav/locales/i18n'
 
 export default class ActivityListView extends React.Component {
 
-
   render() {
     return(
       <Content>

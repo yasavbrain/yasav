@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ActivityListView from '../views/ActivityListView'
+import ActivityListView from '../views/ActivityListView';
 
 class ActivityListContainer extends React.Component {
   render() {

@@ -2,7 +2,7 @@ import { ADD_TODO } from '../screens/TodoAdd/actions/types';
 
 const initialState = {
   todoList: [],
-  lastID: 0
+  lastID: 0,
 }
 
 export default function reducer(state = initialState, action) {

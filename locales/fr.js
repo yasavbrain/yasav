@@ -41,7 +41,7 @@ export default {
       title: "Ajouter un todo",
       content: "En tant quutilisateur, je veux pouvoir me créer une TODO lors de la créa dune acti"
     },
-    todoListScreen: {
+    todoList: {
       title: "Liste des todo",
       content: "En tant quutilisateur, je veux pouvoir voir toutes mes ToDo sous forme de liste"
     },
