@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Header, Left, Right, Body, Content, Title, List, ListItem,
-  Button, Text, Icon } from 'native-base';
+  Button, Text, Icon, CheckBox } from 'native-base';
 import I18n from 'yasav/locales/i18n';
 
 export default class TodoListView extends React.Component {
@@ -16,9 +16,14 @@ export default class TodoListView extends React.Component {
   }
 
   renderRow(item) {
+    const id = item.key
     return (
-      <ListItem>
-        <Text>{item.title}</Text>
+      <ListItem style={{backgroundColor: 0}} 
+        onPress = { () => this.props.toggleTodo(id)}>
+        <CheckBox
+        checked={item.completed}
+        />
+        <Text> {item.title}</Text>
       </ListItem>
     );
   }
