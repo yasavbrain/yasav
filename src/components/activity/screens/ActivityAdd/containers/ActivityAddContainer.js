@@ -16,14 +16,12 @@ class ActivityAddContainer extends React.Component {
       title: "",
       description: "",
       date: moment(),
-      key: 0
+      key: this.props.lastID + 1
     }
     this.addActivity = this.addActivity.bind(this)
   }
 
   addActivity() {
-    console.log(this.props.lastID+1);
-    this.setState({key: this.props.lastID + 1})
     this.props.addActivity(this.state)
     this.props.goBackToActivityListScreen()
   }

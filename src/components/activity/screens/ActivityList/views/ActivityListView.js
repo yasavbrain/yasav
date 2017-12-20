@@ -11,13 +11,14 @@ export default class ActivityListView extends React.Component {
       <Content>
         <FlatList
           data={this.props.displayActivityList}
-          renderItem={(row, i) =>
-            <Text 
+          renderItem={(row, i) => {
+            return <Text 
               style={{height: 75, fontSize: 50}}
-              onPress={ () => this.props.navigateToActivityDisplayScreen(row) }
+              onPress={ () => this.props.navigateToActivityDisplayScreen(row.item) }
             > 
-              {row.title}
+              {row.item.title}
             </Text>
+            }
           }
         />
         <Button full primary onPress={() => {this.props.navigateToActivityAddScreen()}}>

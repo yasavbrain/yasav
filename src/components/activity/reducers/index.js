@@ -9,8 +9,8 @@ export default function reducer(state = initialState, action) {
   switch(action.type) {
 
     case ADD_ACTIVITY:
-      // Checker cette histoire de lastID. IL a pas l'air d'être vraiment incrémenté.
-      return {...state, activityList: state.activityList.concat(action.activity), lastID: state.lastID + 1};
+      let newID = state.lastID + 1;
+      return {...state, activityList: state.activityList.concat(action.activity), lastID: newID};
 
     default:
       return state;
