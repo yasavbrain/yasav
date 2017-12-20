@@ -18,7 +18,7 @@ export default class TodoListView extends React.Component {
   renderRow(item) {
     return (
       <ListItem>
-        <Text>TEST</Text>
+        <Text>{item.title}</Text>
       </ListItem>
     );
   }
