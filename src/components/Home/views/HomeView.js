@@ -12,7 +12,7 @@ export default class HomeView extends React.Component {
           <Text>{I18n.t('home.activityListButton')}</Text>
         </Button>
 
-        <Button full primary style={{marginTop: 10, height: 150}} onPress={this.props.navigateToTodoList}>
+        <Button full primary style={{marginTop: 10}} onPress={this.props.navigateToTodoList}>
           <Text>{I18n.t('home.todoListButton')}</Text>
         </Button>
 

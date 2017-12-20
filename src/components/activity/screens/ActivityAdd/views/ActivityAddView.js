@@ -22,19 +22,22 @@ export default class ActivityAddContainer extends React.Component {
             numberOfLines={5}
             returnKeyType='none'
             style={Style.textarea}
-
           />
         </Item>
         <Button primary full onPress={this.props.addActivity}>
           <Text>{I18n.t('activity.activityAdd.addActivityButton')}</Text>
         </Button>
-        <Content>
-        <Button primary onPress={() => this.props.navigateToTodoAddScreen()}>
-          <Text>{I18n.t('activity.activityAdd.addTodoButton')}t</Text>
+
+        <Button primary full style={{ marginTop: 20 }}>
+          <Text>{I18n.t('activity.activityAdd.addTodoButton')}</Text>
         </Button>
-        <Text>{I18n.t('activity.activityAdd.hintText')}</Text>
-      </Content>
       </Form>
     );
   }
 }
+
+
+//<Button primary onPress={() => this.props.navigateToTodoAddScreen()}>
+/*
+  For linking to
+*/
