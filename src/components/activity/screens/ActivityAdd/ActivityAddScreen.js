@@ -5,12 +5,11 @@ import I18n from 'yasav/locales/i18n'
 
 export default class ActivityAddScreen extends React.Component {
   render() {
-    const { navigate } = this.props.navigation;
+    const { goBack } = this.props.navigation;
 
     return(
       <ActivityAddContainer
-        navigateToTodoAddScreen={() => navigate('TodoAddScreen')}
-        navigateToActivityListScreen={() => navigate("ActivityListScreen")}
+        goBackToActivityListScreen={() => goBack()}
       />
     );
   }

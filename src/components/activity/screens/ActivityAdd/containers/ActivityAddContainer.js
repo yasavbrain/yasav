@@ -15,25 +15,32 @@ class ActivityAddContainer extends React.Component {
     this.state = {
       title: "",
       description: "",
-      date: moment()
+      date: moment(),
+      key: this.props.lastID + 1
     }
     this.addActivity = this.addActivity.bind(this)
   }
 
-  addActivity(activity) {
-    this.props.addActivity(activity)
-    this.props.navigateToActivityListScreen()
+  addActivity() {
+    this.props.addActivity(this.state)
+    this.props.goBackToActivityListScreen()
   }
 
   render() {
     return(
       <ActivityAddView
-        navigateToTodoAddScreen={this.props.navigateToTodoAddScreen}
         addActivity={this.addActivity}
         setTitle={(title) => this.setState({title})}
         setDescription={(description) => this.setState({description})}
       />
     );
+  }
+}
+
+
+function mapStateToProps(state) {
+  return {
+    lastID: state.activity.lastID
   }
 }
 
@@ -43,4 +50,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(null, mapDispatchToProps)(ActivityAddContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(ActivityAddContainer)
