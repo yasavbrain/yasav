@@ -9,14 +9,17 @@ class TodoAddContainer extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      title: ""
+      title: "",
+      completed: false,
+      key: this.props.LastID + 1,
+      activity_id: 0
     }
     this.addTodo = this.addTodo.bind(this)
   }
 
-  addTodo(todo) {
-    this.props.addTodo(todo)
-    //this.props.navigateToTodoListScreen()
+  addTodo() {
+    this.props.addTodo(this.state)
+    this.props.goBackToTodoListScreen()
   }
 
   render() {
@@ -29,12 +32,18 @@ class TodoAddContainer extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    lastID: state.todo.lastID
+  }
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     addTodo: (todo) => dispatch(addTodo(todo))
   }
 }
 
-export default connect(null, mapDispatchToProps)(TodoAddContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(TodoAddContainer)
 
 

@@ -5,8 +5,11 @@ import TodoAddContainer from './containers/TodoAddContainer';
 export default class TodoAddScreen extends React.Component {
 
   render() {
+    const { goBack } = this.props.navigation;
     return(
-      <TodoAddContainer />    
+      <TodoAddContainer 
+        goBackToTodoListScreen={() => goBack()}
+      />    
     );
   }
 }
