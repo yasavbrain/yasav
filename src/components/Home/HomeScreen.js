@@ -4,21 +4,39 @@ import HomeContainer from './containers/HomeContainer'
 
 export default class HomeScreen extends React.Component {
 
-  render() {
+  constructor(props) {
+    super(props);
+    this.navigateToActivityList = this.navigateToActivityList.bind(this)
+    this.navigateToTodoList = this.navigateToTodoList.bind(this)
+    this.navigateToActivityAdd = this.navigateToActivityAdd.bind(this)
+    this.navigateToTodoAdd = this.navigateToTodoAdd.bind(this)
+  }
 
-    const { navigate } = this.props.navigation;
+  navigateToActivityList() {
+    this.props.navigation.navigate('ActivityListScreen');
+  }
+
+  navigateToTodoList() {
+    this.props.navigation.navigate('TodoListScreen');
+  }
+
+  navigateToActivityAdd() {
+    this.props.navigation.navigate('ActivityAddScreen');
+  }
+
+  navigateToTodoAdd() {
+    this.props.navigation.navigate('TodoAddScreen');
+  }
+
+  render() {
 
     return(
       <HomeContainer
-        navigateToActivityList={() => navigate('ActivityListScreen')}
-        navigateToTodoList={() => navigate('TodoListScreen')}
-        navigateToActivityAdd={() => navigate('ActivityAddScreen')}
-        navigateToTodoAdd={() => navigate('TodoAddScreen')}
+        navigateToActivityList={this.navigateToActivityList}
+        navigateToTodoList={this.navigateToTodoList}
+        navigateToActivityAdd={this.navigateToActivityAdd}
+        navigateToTodoAdd={this.navigateToTodoAdd}
       />
     );
   }
 }
-
-HomeScreen.navigationOptions = () => ({
-  title: I18n.t('homeScreen.title'),
-})

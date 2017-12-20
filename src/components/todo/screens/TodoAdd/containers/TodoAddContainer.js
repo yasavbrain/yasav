@@ -5,7 +5,7 @@ import TodoAddView from '../views/TodoAddView';
 import { addTodo } from '../actions/index';
 
 class TodoAddContainer extends React.Component {
-  
+
   constructor(props){
     super(props);
     this.state = {
@@ -19,12 +19,13 @@ class TodoAddContainer extends React.Component {
 
   addTodo() {
     this.props.addTodo(this.state)
-    this.props.goBackToTodoListScreen()
+    this.props.goBack()
   }
 
   render() {
     return (
       <TodoAddView
+        goBack={this.props.goBack}
         addTodo={this.addTodo}
         setTitle={(title) => this.setState({title})}
       />
@@ -45,5 +46,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoAddContainer)
-
-

@@ -23,12 +23,14 @@ class ActivityAddContainer extends React.Component {
 
   addActivity() {
     this.props.addActivity(this.state)
-    this.props.goBackToActivityListScreen()
+    this.props.goBack()
   }
 
   render() {
     return(
       <ActivityAddView
+        goBack={this.props.goBack}
+        navigateToTodoAddScreen={this.props.navigateToTodoAddScreen}
         addActivity={this.addActivity}
         setTitle={(title) => this.setState({title})}
         setDescription={(description) => this.setState({description})}

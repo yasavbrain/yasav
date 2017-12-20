@@ -1,7 +1,6 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
 
-import CustomHeader from './viewElements/shared/Header';
 import HomeScreen from './components/Home/HomeScreen';
 import ActivityListScreen from './components/activity/screens/ActivityList/ActivityListScreen';
 import ActivityDisplayScreen from './components/activity/screens/ActivityDisplay/ActivityDisplayScreen';
@@ -16,18 +15,8 @@ const Routes = StackNavigator({
   ActivityAddScreen: { screen: ActivityAddScreen },
   TodoListScreen: { screen: TodoListScreen },
   TodoAddScreen: { screen: TodoAddScreen },
-},
-{
-  navigationOptions: ({ navigation }) => ({
-    header: (headerProps) => {
-      // Workaround https://github.com/react-community/react-navigation/issues/1886
-      // Used to get the title from the child screen
-      const { getScreenDetails, scene } = headerProps
-      const details = getScreenDetails(scene)
-
-      return <CustomHeader navigation={navigation} title={details.options.title} />
-    }
-  })
+}, {
+  headerMode: 'none',
 });
 
 export default Routes
