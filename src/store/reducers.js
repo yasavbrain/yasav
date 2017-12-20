@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
 
-import activityAdd from 'src/components/activity/reducers/index';
+import activity from 'src/components/activity/reducers';
+import todo from 'src/components/todo/reducers';
 
 export default combineReducers({
   activity,
+  todo,
 });

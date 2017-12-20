@@ -4,9 +4,19 @@ import TodoListContainer from './containers/TodoListContainer';
 
 export default class TodoListScreen extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.goBack = this.goBack.bind(this)
+  }
+
+  goBack() {
+    this.props.navigation.goBack()
+  }
+
   render() {
+
     return(
-      <TodoListContainer />
+      <TodoListContainer goBack={this.goBack} />
     );
   }
 }
