@@ -28,16 +28,10 @@ export default class ActivityAddContainer extends React.Component {
           <Text>{I18n.t('activity.activityAdd.addActivityButton')}</Text>
         </Button>
 
-        <Button primary full style={{ marginTop: 20 }}>
+        <Button primary full style={{ marginTop: 20 }} onPress={this.props.addTodoActivity}>
           <Text>{I18n.t('activity.activityAdd.addTodoButton')}</Text>
         </Button>
       </Form>
     );
   }
 }
-
-
-//<Button primary onPress={() => this.props.navigateToTodoAddScreen()}>
-/*
-  For linking to
-*/

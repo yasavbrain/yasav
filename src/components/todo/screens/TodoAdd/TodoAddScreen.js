@@ -8,7 +8,8 @@ export default class TodoAddScreen extends React.Component {
     const { goBack } = this.props.navigation;
     return(
       <TodoAddContainer 
-        goBackToTodoListScreen={() => goBack()}
+        goBackToPreviousScreen={(screenId) => goBack(screenId)}
+        navParams={this.props.navigation.state.params}
       />    
     );
   }

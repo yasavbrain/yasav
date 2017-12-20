@@ -19,11 +19,17 @@ class ActivityAddContainer extends React.Component {
       key: this.props.lastID + 1
     }
     this.addActivity = this.addActivity.bind(this)
+    this.addTodoActivity = this.addTodoActivity.bind(this)
   }
 
   addActivity() {
     this.props.addActivity(this.state)
     this.props.goBackToActivityListScreen()
+  }
+
+  addTodoActivity() {
+    this.props.addActivity(this.state)
+    this.props.goToAddTodo(this.state.key)
   }
 
   render() {
@@ -32,6 +38,7 @@ class ActivityAddContainer extends React.Component {
         addActivity={this.addActivity}
         setTitle={(title) => this.setState({title})}
         setDescription={(description) => this.setState({description})}
+        addTodoActivity={this.addTodoActivity}
       />
     );
   }
