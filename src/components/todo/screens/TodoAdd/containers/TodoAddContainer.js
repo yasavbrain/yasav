@@ -11,7 +11,7 @@ class TodoAddContainer extends React.Component {
     this.state = {
       title: "",
       completed: false,
-      key: this.props.LastID + 1,
+      key: this.props.lastID + 1,
       activity_id: 0
     }
     this.addTodo = this.addTodo.bind(this)
