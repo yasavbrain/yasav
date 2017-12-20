@@ -26,6 +26,5 @@ export default class ActivityListView extends React.Component {
         </Button>
       </Content>
     );
-
   }
 }
