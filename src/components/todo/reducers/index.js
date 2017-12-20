@@ -14,7 +14,7 @@ export default function reducer(state = initialState, action) {
     
     case TOGGLE_TODO:
       return {...state, todoList: state.todoList.map((todo) => {
-        if (todo.key === action.id) {
+        if (todo.key === action.todo_id) {
           return Object.assign({}, todo, {
             completed: !todo.completed
           })

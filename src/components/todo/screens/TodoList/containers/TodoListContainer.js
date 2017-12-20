@@ -9,18 +9,13 @@ class TodoListContainer extends React.Component {
     super(props)
     this.toggleTodo = this.toggleTodo.bind(this)
   }
-  
-  toggleTodo(id) {
-    this.props.toggleTodo(id)
-
-  }
 
   render() {
     return (
       <TodoListView
         todoList={this.props.todoList}
         goBack={this.props.goBack}
-        toggleTodo={ this.toggleTodo }
+        toggleTodo={ this.props.toggleTodo }
       />
     );
   }

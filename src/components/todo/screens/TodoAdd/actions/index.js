@@ -5,5 +5,5 @@ export function addTodo(todo) {
 }
 
 export function toggleTodo(id) {
-  return { type: TOGGLE_TODO, id : id }
+  return { type: TOGGLE_TODO, todo_id : id }
 }
