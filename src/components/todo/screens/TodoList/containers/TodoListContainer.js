@@ -7,7 +7,6 @@ import { toggleTodo } from '../../TodoAdd/actions/index';
 class TodoListContainer extends React.Component {
   constructor(props) {
     super(props)
-    this.toggleTodo = this.toggleTodo.bind(this)
   }
 
   render() {
