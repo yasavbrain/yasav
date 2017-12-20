@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text, Form, Item, Input, Label, Textarea, Button, Content } from 'native-base';
-import { View, TextInput } from 'react-native';
 
 import I18n from 'yasav/locales/i18n';
 import Style from '../styles/style.js';
@@ -29,7 +28,6 @@ export default class ActivityAddContainer extends React.Component {
         <Button primary full onPress={this.props.addActivity}>
           <Text>{I18n.t('activity.activityAdd.addActivityButton')}</Text>
         </Button>
-
         <Content>
         <Button primary onPress={() => this.props.navigateToTodoAddScreen()}>
           <Text>{I18n.t('activity.activityAdd.addTodoButton')}t</Text>
