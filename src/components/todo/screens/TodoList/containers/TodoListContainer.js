@@ -11,6 +11,7 @@ class TodoListContainer extends React.Component {
       <TodoListView
         todoList={this.props.todoList}
         goBack={this.props.goBack}
+        toggleTodo={ this.props.toggleTodo }
       />
     );
   }
@@ -22,4 +23,11 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(TodoListContainer);
+function mapDispatchToProps(dispatch) {
+  return {
+    toggleTodo : (id) => dispatch(toggleTodo(id))
+
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoListContainer);

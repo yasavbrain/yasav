@@ -4,7 +4,7 @@ export default {
       title: "Add activity",
       content: "Content",
       addActivityButton: "Add Activity",
-      addTodoButton: "Add the corresponding todo",
+      addTodoButton: "Add a corresponding todo",
       hintText: "As a user, I want to create a generic activity that contains a content and a title"
     },
     activityDisplayError: {

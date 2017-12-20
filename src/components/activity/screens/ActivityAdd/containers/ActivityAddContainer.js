@@ -19,6 +19,7 @@ class ActivityAddContainer extends React.Component {
       key: this.props.lastID + 1
     }
     this.addActivity = this.addActivity.bind(this)
+    this.addTodoActivity = this.addTodoActivity.bind(this)
   }
 
   addActivity() {
@@ -26,12 +27,17 @@ class ActivityAddContainer extends React.Component {
     this.props.goBack()
   }
 
+  addTodoActivity() {
+    this.props.addActivity(this.state)
+    this.props.navigateToTodoAddScreen(this.state.key)
+  }
+
   render() {
     return(
       <ActivityAddView
         goBack={this.props.goBack}
-        navigateToTodoAddScreen={this.props.navigateToTodoAddScreen}
         addActivity={this.addActivity}
+        addTodoActivity={this.addTodoActivity}
         setTitle={(title) => this.setState({title})}
         setDescription={(description) => this.setState({description})}
       />

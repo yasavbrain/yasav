@@ -7,15 +7,6 @@ import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
 
 export default class ActivityAddContainer extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.navigateToTodoAddScreen = this.navigateToTodoAddScreen.bind(this);
-  }
-
-  navigateToTodoAddScreen() {
-    this.props.navigateToTodoAddScreen()
-  }
-
   // TODO : Remove the arrow functions from the render
   render() {
     return(
@@ -46,10 +37,9 @@ export default class ActivityAddContainer extends React.Component {
               <Text>{I18n.t('activity.activityAdd.addActivityButton')}</Text>
             </Button>
             <Content>
-            <Button primary onPress={this.navigateToTodoAddScreen}>
+            <Button primary full style={{ marginTop: 20 }} onPress={this.props.addTodoActivity}>
               <Text>{I18n.t('activity.activityAdd.addTodoButton')}t</Text>
             </Button>
-            <Text>{I18n.t('activity.activityAdd.hintText')}</Text>
           </Content>
           </Form>
         </Content>

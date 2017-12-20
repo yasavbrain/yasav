@@ -8,18 +8,27 @@ class TodoAddContainer extends React.Component {
 
   constructor(props){
     super(props);
+    let activityId = 0;
+    this.screen_id = null
+    if(props.navParams && props.navParams.activity_id){
+      activityId = props.navParams.activity_id;
+    }
+    if(props.navParams && props.navParams.screen_id){
+      this.screen_id = props.navParams.screen_id
+    }
     this.state = {
       title: "",
       completed: false,
       key: this.props.lastID + 1,
-      activity_id: 0
+      activity_id: activityId
     }
     this.addTodo = this.addTodo.bind(this)
   }
 
   addTodo() {
     this.props.addTodo(this.state)
-    this.props.goBack()
+    this.props.goBackToPreviousScreen(this.screen_id)
+
   }
 
   render() {
