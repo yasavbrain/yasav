@@ -5,13 +5,18 @@ import ActivityDisplayError from '../views/ActivityDisplayError';
 export default class ActivityDisplayScreen extends React.Component {
 
   render() {
-    if( this.props.stateParams ){
+
+    console.log(this.props.stateParams);
+    if (this.props.stateParams){
       return(
-        <ActivityDisplayView activity={this.props.stateParams.activity} />
+        <ActivityDisplayView
+          goBack={this.props.goBack}
+          activity={this.props.stateParams}
+        />
       );
     }else{
       return(
-        <ActivityDisplayError />
+        <ActivityDisplayError goBack={this.props.goBack} />
       )
     }
   }

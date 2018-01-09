@@ -1,45 +1,35 @@
 export default {
   activity: {
     activityAdd: {
-      title: "Title",
+      title: "Add activity",
       content: "Content",
       addActivityButton: "Add Activity",
       addTodoButton: "Add a corresponding todo",
       hintText: "As a user, I want to create a generic activity that contains a content and a title"
     },
-    activityAddScreen: {
-      title: "Add activity"
-    },
     activityDisplayError: {
+      title: "Activity Error",
       content: "404 Not Found"
     },
     activityDisplay: {
-      title: "Hello this is the activity"
-    },
-    activityDisplayScreen: {
       title: "See activity"
     },
     activityList: {
+      title: "My Memory",
       addActivityButton: "Add activity"
     },
   },
   home: {
+    title: "Yasav",
     activityListButton: "Activity List",
     todoListButton: "Todo List",
     addActivityButton: "Add activity",
     todoAddButton: "Add ToDo"
   },
-  homeScreen: {
-    title: "Yasav"
-  },
   todo: {
     todoAdd: {
-      title: "Title",
-      addTodoButton: "Add ToDo"
-    },
-    todoAddScreen: {
       title: "Add a todo",
-      content: "As a user, I want to create a todo when creating an activity"
+      addTodoButton: "Add ToDo"
     },
     todoList: {
       title: "Todo List",

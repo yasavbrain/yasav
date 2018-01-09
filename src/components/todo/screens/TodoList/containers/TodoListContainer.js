@@ -5,9 +5,6 @@ import TodoListView from '../views/TodoListView';
 import { toggleTodo } from '../../TodoAdd/actions/index';
 
 class TodoListContainer extends React.Component {
-  constructor(props) {
-    super(props)
-  }
 
   render() {
     return (

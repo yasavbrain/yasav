@@ -4,12 +4,14 @@ import { connect } from 'react-redux';
 import ActivityListView from '../views/ActivityListView';
 
 class ActivityListContainer extends React.Component {
+
   render() {
     return(
       <ActivityListView
-        navigateToActivityAddScreen = {this.props.navigateToActivityAddScreen }
-        navigateToActivityDisplayScreen = {(e) => this.props.navigateToActivityDisplayScreen({activity: e}) }
-        displayActivityList = {this.props.activityList}
+        goBack={this.props.goBack}
+        navigateToActivityAddScreen={this.props.navigateToActivityAddScreen}
+        navigateToActivityDisplayScreen={this.props.navigateToActivityDisplayScreen}
+        displayActivityList={this.props.activityList}
       />
     );
   }
