@@ -13,7 +13,7 @@ export const CREATE_DB_TABLES_REQUESTS = [
     activity_date DATE,
     visible BOOLEAN,
     interlocutor_id INT,
-      FOREIGN KEY (interlocutor_id) REFERENCES interlocutor(id)
+    FOREIGN KEY (interlocutor_id) REFERENCES interlocutor(id)
   );`,
   `CREATE TABLE IF NOT EXISTS interlocutor (
     id INTEGER PRIMARY KEY NOT NULL,
@@ -29,10 +29,24 @@ export const CREATE_DB_TABLES_REQUESTS = [
     priority INT,
     status INT,
     activity_id INT,
-      FOREIGN KEY (activity_id) REFERENCES activity(id)
+    FOREIGN KEY (activity_id) REFERENCES activity(id)
   );`,
   `CREATE TABLE IF NOT EXISTS tag (
     id INTEGER PRIMARY KEY NOT NULL,
     name TEXT
+  );`,
+  `CREATE TABLE IF NOT EXISTS activity_tag (
+    id INTEGER PRIMARY KEY NOT NULL,
+    activity_id INT,
+    tag_id INT,
+    FOREIGN KEY (activity_id) REFERENCES activity(id),
+    FOREIGN KEY (tag_id) REFERENCES tag(id)
+  );`,
+  `CREATE TABLE IF NOT EXISTS activity_link (
+    id INTEGER PRIMARY KEY NOT NULL,
+    activity_one_id INT,
+    activity_two_id INT,
+    FOREIGN KEY (activity_one_id) REFERENCES activity(id),
+    FOREIGN KEY (activity_two_id) REFERENCES activity(id)
   );`
 ];
