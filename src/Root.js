@@ -24,21 +24,10 @@ export default class Root extends React.Component {
     });
     this.setState({ fontLoaded: true });
 
+    // TODO : add scripts to update the database scheme in newer versions
     db.transaction(tx => {
       CREATE_DB_TABLES_REQUESTS.forEach(req => tx.executeSql(req));
     });
-
-    db.transaction(tx => {
-      tx.executeSql(
-        `SELECT * FROM sqlite_master WHERE type='table'`,
-        null,
-        (tx, res) => {
-          res.rows._array.forEach(table => console.log(table.name))
-        },
-        (tx, err) => console.log(err)
-      );
-    });
-
   }
 
   render() {
