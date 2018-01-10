@@ -16,10 +16,14 @@ class ActivityAddContainer extends React.Component {
       title: "",
       description: "",
       date: moment(),
+      type: "",
       key: this.props.lastID + 1
     }
     this.addActivity = this.addActivity.bind(this)
     this.addTodoActivity = this.addTodoActivity.bind(this)
+    this.setTypeEvent = this.setTypeEvent.bind(this)
+    this.setTypeMeeting = this.setTypeMeeting.bind(this)
+    this.setTypeContent = this.setTypeContent.bind(this)
   }
 
   addActivity() {
@@ -32,6 +36,18 @@ class ActivityAddContainer extends React.Component {
     this.props.navigateToTodoAddScreen(this.state.key)
   }
 
+  setTypeEvent(){
+    this.setState({type: "event"});
+  }
+
+  setTypeMeeting(){
+    this.setState({type: "meeting"});
+  }
+
+  setTypeContent(){
+    this.setState({type: "content"});
+  }
+
   render() {
     return(
       <ActivityAddView
@@ -40,6 +56,10 @@ class ActivityAddContainer extends React.Component {
         addTodoActivity={this.addTodoActivity}
         setTitle={(title) => this.setState({title})}
         setDescription={(description) => this.setState({description})}
+        setTypeEvent={this.setTypeEvent}
+        setTypeMeeting={this.setTypeMeeting}
+        setTypeContent={this.setTypeContent}
+        type={this.state.type}
       />
     );
   }

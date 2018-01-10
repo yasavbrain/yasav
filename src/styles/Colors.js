@@ -11,5 +11,8 @@ export default {
 
   text: "#111111",
 
+  selected: "#C14555",
+  unselected: "#5545C1",
+
   background: "#FFFFFF"
 }

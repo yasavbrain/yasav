@@ -1,5 +1,7 @@
 import React from 'react';
-import { Container, Content, Text, Form, Item, Input, Label, Textarea, Button } from 'native-base';
+import { Container, Content, Text, Form, Item, Input, Label, Textarea, Button, Radio, ListItem, Right } from 'native-base';
+import { Col, Row, Grid } from 'react-native-easy-grid';
+import {RadioBlock} from 'yasav/src/viewElements/shared/radioSelection/RadioBlock'
 
 import I18n from 'yasav/locales/i18n';
 import Style from '../styles/style.js';
@@ -17,6 +19,31 @@ export default class ActivityAddContainer extends React.Component {
         />
         <Content>
           <Form>
+              <Content>
+                <Grid>
+                  <Col style={{ height: 50 }}>
+                    <RadioBlock
+                      title="Event"
+                      onPress={this.props.setTypeEvent}
+                      selected={this.props.type == "event"}
+                    />
+                  </Col>
+                  <Col style={{ height: 50 }}>
+                    <RadioBlock
+                        title="Contenu"
+                        onPress={this.props.setTypeContent}
+                        selected={this.props.type == "content"}
+                      />
+                  </Col>
+                  <Col style={{ height: 50 }}>
+                    <RadioBlock
+                        title="Rencontre"
+                        onPress={this.props.setTypeMeeting}
+                        selected={this.props.type == "meeting"}
+                      />
+                  </Col>
+                </Grid>
+              </Content>
             <Item floatingLabel>
               <Label>{I18n.t('activity.activityAdd.title')}</Label>
               <Input onChangeText={(title) => this.props.setTitle(title)} />
