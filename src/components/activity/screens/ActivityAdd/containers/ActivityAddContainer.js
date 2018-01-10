@@ -20,6 +20,8 @@ class ActivityAddContainer extends React.Component {
       contentSource: "",
       eventWhat: "",
       meetingWho: "",
+      tags: [],
+      tagInput: "",
       key: this.props.lastID + 1
     }
     this.addActivity = this.addActivity.bind(this)
@@ -33,6 +35,8 @@ class ActivityAddContainer extends React.Component {
     this.setMeetingWho = this.setMeetingWho.bind(this)
     this.setDescription = this.setDescription.bind(this)
     this.setTitle = this.setTitle.bind(this)
+    this.manageTag = this.manageTag.bind(this)
+    this.removeTag = this.removeTag.bind(this)
   }
 
   addActivity() {
@@ -78,6 +82,31 @@ class ActivityAddContainer extends React.Component {
     this.setState({title: title})
   }
 
+  removeTag(tag){
+    this.setState({tags: this.state.tags.filter((item) => item != tag)})
+  }
+
+  manageTag(string){
+    if(string.indexOf(",") !== -1){
+      newTagsRessource = string.split(",")
+      newTags = []
+      newTagsRessource.forEach(element => {
+        element = element.trim()
+        if(element != ""){
+          newTags.push(element)
+        }
+      });
+      concatenated = this.state.tags.concat(newTags)
+      updatedState = concatenated.filter(function(item, pos) {
+        return concatenated.indexOf(item) == pos;
+      })
+      this.setState({tags: updatedState})
+      this.setState({tagInput: ""})
+    }else{
+      this.setState({tagInput: string})
+    }
+  }
+
   render() {
     return(
       <ActivityAddView
@@ -96,8 +125,10 @@ class ActivityAddContainer extends React.Component {
         setTypeMeeting={this.setTypeMeeting}
         setTypeContent={this.setTypeContent}
         type={this.state.type}
-
-
+        tags={this.state.tags}
+        manageTag={this.manageTag}
+        tagInput={this.state.tagInput}
+        removeTag={this.removeTag}
       />
     );
   }
