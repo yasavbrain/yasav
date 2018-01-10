@@ -16,7 +16,10 @@ class ActivityAddContainer extends React.Component {
       title: "",
       description: "",
       date: moment(),
-      type: "",
+      type: "content",
+      contentSource: "",
+      eventWhat: "",
+      meetingWho: "",
       key: this.props.lastID + 1
     }
     this.addActivity = this.addActivity.bind(this)
@@ -24,9 +27,16 @@ class ActivityAddContainer extends React.Component {
     this.setTypeEvent = this.setTypeEvent.bind(this)
     this.setTypeMeeting = this.setTypeMeeting.bind(this)
     this.setTypeContent = this.setTypeContent.bind(this)
+    this.setTitle = this.setTitle.bind(this)
+    this.setContentSource = this.setContentSource.bind(this)
+    this.setEventWhat = this.setEventWhat.bind(this)
+    this.setMeetingWho = this.setMeetingWho.bind(this)
+    this.setDescription = this.setDescription.bind(this)
+    this.setTitle = this.setTitle.bind(this)
   }
 
   addActivity() {
+
     this.props.addActivity(this.state)
     this.props.goBack()
   }
@@ -48,18 +58,46 @@ class ActivityAddContainer extends React.Component {
     this.setState({type: "content"});
   }
 
+  setContentSource(source){
+    this.setState({contentSource: source})
+  }
+
+  setEventWhat(what){
+    this.setState({eventWhat: what})
+  }
+
+  setMeetingWho(who){
+    this.setState({meetingWho: who})
+  }
+
+  setDescription(description){
+    this.setState({description: description})
+  }
+
+  setTitle(title){
+    this.setState({title: title})
+  }
+
   render() {
     return(
       <ActivityAddView
         goBack={this.props.goBack}
         addActivity={this.addActivity}
         addTodoActivity={this.addTodoActivity}
-        setTitle={(title) => this.setState({title})}
-        setDescription={(description) => this.setState({description})}
+        setTitle={this.setTitle}
+        setDescription={this.setDescription}
+        setContentSource={this.setContentSource}
+        setMeetingWho={this.setMeetingWho}
+        setEventWhat={this.setEventWhat}
+        contentSource={this.state.contentSource}
+        meetingWho={this.state.meetingWho}
+        eventWhat={this.state.eventWhat}
         setTypeEvent={this.setTypeEvent}
         setTypeMeeting={this.setTypeMeeting}
         setTypeContent={this.setTypeContent}
         type={this.state.type}
+
+
       />
     );
   }

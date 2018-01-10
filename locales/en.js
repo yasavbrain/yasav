@@ -3,9 +3,17 @@ export default {
     activityAdd: {
       title: "Add activity",
       content: "Content",
+      activityTitle: "Title",
       addActivityButton: "Add Activity",
       addTodoButton: "Add a corresponding todo",
-      hintText: "As a user, I want to create a generic activity that contains a content and a title"
+      hintText: "As a user, I want to create a generic activity that contains a content and a title",
+      eventWhat: "What was it ?",
+      contentSource: "Source",
+      type: {
+        meeting: "Meeting",
+        event: "Event",
+        content: "Content"
+      }
     },
     activityDisplayError: {
       title: "Activity Error",
