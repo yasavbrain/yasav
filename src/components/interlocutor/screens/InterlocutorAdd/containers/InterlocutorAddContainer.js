@@ -8,7 +8,7 @@ import InterlocutorAddView from '../views/InterlocutorAddView';
 import { addInterlocutor } from '../actions/index';
 
 
-export default class InterlocutorAddContainer extends React.Component {
+class InterlocutorAddContainer extends React.Component {
 
   constructor(props){
     super(props);
