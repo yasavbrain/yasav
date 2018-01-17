@@ -1,7 +1,7 @@
 export const ActivityTypeEnum = {
-  BOOK: 0,
-  PEOPLE: 1,
-  CONFERENCE: 2,
+  CONTENT: 0,
+  MEETING: 1,
+  EVENT: 2,
 }
 
 export const PriorityEnum = {
@@ -12,6 +12,5 @@ export const PriorityEnum = {
 
 export const StatusEnum = {
   TODO: 0,
-  DOING: 1,
-  DONE: 2,
+  DONE: 1,
 }

@@ -8,7 +8,7 @@ export const CREATE_DB_TABLES_REQUESTS = [
   `CREATE TABLE IF NOT EXISTS activity (
     id INTEGER PRIMARY KEY NOT NULL,
     title TEXT,
-    content TEXT,
+    description TEXT,
     type INT,
     activity_date DATE,
     visible BOOLEAN,
@@ -44,6 +44,8 @@ export const CREATE_DB_TABLES_REQUESTS = [
   );`,
   `CREATE TABLE IF NOT EXISTS activity_link (
     id INTEGER PRIMARY KEY NOT NULL,
+    weight INT,
+    comment TEXT,
     activity_one_id INT,
     activity_two_id INT,
     FOREIGN KEY (activity_one_id) REFERENCES activity(id),
