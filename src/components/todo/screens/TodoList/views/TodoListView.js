@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Content, List, ListItem, Button, Text, CheckBox } from 'native-base';
 import I18n from 'yasav/locales/i18n';
 import { GenericHeader } from 'src/viewElements/shared/Header';
+import { StatusEnum } from 'yasav/src/const';
 
 export default class TodoListView extends React.Component {
 
@@ -11,12 +12,11 @@ export default class TodoListView extends React.Component {
   }
 
   renderRow(item) {
-    const id = item.key
     return (
       <ListItem style={{backgroundColor: 0}}
-        onPress = { () => this.props.toggleTodo(id)}>
+        onPress={() => this.props.toggleTodo(item)}>
         <CheckBox
-        checked={item.completed}
+        checked={item.status == StatusEnum.DONE}
         />
         <Text> {item.title}</Text>
       </ListItem>
