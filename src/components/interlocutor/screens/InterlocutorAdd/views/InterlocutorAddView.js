@@ -10,16 +10,12 @@ export default class InterlocutorAddView extends React.Component {
     return(
       <Form>
         <Item floatingLabel>
-          <Label>{I18n.t('interlocutor.activityAdd.firstName')}</Label>
-          <Input onChangeText={(firstname) => this.props.setFirstName(firstname)} />
-        </Item>
-        <Item floatingLabel>
-          <Label>{I18n.t('interlocutor.activityAdd.lastName')}</Label>
-          <Input onChangeText={(lastname) => this.props.setLastName(lastname)} />
+          <Label>{I18n.t('interlocutor.activityAdd.name')}</Label>
+          <Input onChangeText={(name) => this.props.setName(name)} />
         </Item>
         <Item floatingLabel>
           <Label>{I18n.t('interlocutor.activityAdd.linkToMe')}</Label>
-          <Input onChangeText={(linktome) => this.props.setLinkToMe(linktome)} />
+          <Input onChangeText={(link_to_me) => this.props.setLinkToMe(link_to_me)} />
         </Item>
       </Form>
     );

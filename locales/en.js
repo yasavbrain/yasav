@@ -46,8 +46,7 @@ export default {
   },
   interlocutor: {
     activityAdd: {
-      firstName: "First name",
-      lastName: "Last name",
+      name: "Name",
       linkToMe: "Link to me"
     },
   },

@@ -32,6 +32,3 @@ export default class ActivityAddSpecificFieldsContainer extends React.Component 
     }
   }
 }
-
-//setMeetingWho={this.props.setMeetingWho}
-          //value={this.props.meetingWho}

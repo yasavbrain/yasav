@@ -13,9 +13,8 @@ class InterlocutorAddContainer extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      firstNameInterlocutor: "",
-      lastNameInterlocutor: "",
-      linkToMeInterlocutor: "",
+      name: "",
+      link_to_me: "",
       date: moment(),
       key: this.props.lastID + 1,
     }
@@ -29,9 +28,8 @@ class InterlocutorAddContainer extends React.Component {
   render() {
     return(
       <InterlocutorAddView
-      setFirstName={(firstNameInterlocutor) => this.setState({firstNameInterlocutor}, () => this.update())}
-      setLastName={(lastNameInterlocutor) => this.setState({lastNameInterlocutor}, () => this.update())}
-      setLinkToMe={(linkToMeInterlocutor) => this.setState({linkToMeInterlocutor}, () => this.update())}
+      setName={(name) => this.setState({name}, () => this.update())}
+      setLinkToMe={(link_to_me) => this.setState({link_to_me}, () => this.update())}
       />
     );
   }
