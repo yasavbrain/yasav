@@ -4,13 +4,6 @@ import { ListItem, Text } from 'native-base';
 
 import Style from 'yasav/src/styles/Shared'
 
-/**
- * Header Component with NativeBase design that contains an arrow to go back
- * one screen and a title.
- * Props :
- * - title : String
- * - goBack : Callback that must be navigation.goBack() from the Navigator
- */
 export class RadioBlock extends React.Component {
   render() {
     if(this.props.selected){
