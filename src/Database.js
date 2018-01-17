@@ -12,6 +12,7 @@ export const CREATE_DB_TABLES_REQUESTS = [
     type INT,
     activity_date DATE,
     visible BOOLEAN,
+    content_source TEXT,
     interlocutor_id INT,
     FOREIGN KEY (interlocutor_id) REFERENCES interlocutor(id)
   );`,

@@ -9,6 +9,9 @@ import I18n from 'yasav/locales/i18n';
 import Style from '../styles/style.js';
 import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
 
+
+import { ActivityTypeEnum } from 'yasav/src/const';
+
 export default class ActivityAddView extends React.Component {
 
   constructor(props){
@@ -42,21 +45,21 @@ export default class ActivityAddView extends React.Component {
                   <RadioBlock
                     title={I18n.t('activity.activityAdd.type.event')}
                     onPress={this.props.setTypeEvent}
-                    selected={this.props.type == "event"}
+                    selected={this.props.type == ActivityTypeEnum.EVENT}
                   />
                 </Col>
                 <Col style={{ height: 50 }}>
                   <RadioBlock
                       title={I18n.t('activity.activityAdd.type.content')}
                       onPress={this.props.setTypeContent}
-                      selected={this.props.type == "content"}
+                      selected={this.props.type == ActivityTypeEnum.CONTENT}
                     />
                 </Col>
                 <Col style={{ height: 50 }}>
                   <RadioBlock
                       title={I18n.t('activity.activityAdd.type.meeting')}
                       onPress={this.props.setTypeMeeting}
-                      selected={this.props.type == "meeting"}
+                      selected={this.props.type == ActivityTypeEnum.MEETING}
                     />
                 </Col>
               </Grid>
@@ -64,7 +67,6 @@ export default class ActivityAddView extends React.Component {
             <ActivityAddSpecificFieldsContainer
               type={this.props.type}
               setContentSource={this.props.setContentSource}
-              setEventWhat={this.props.setEventWhat}
               setMeetingWho={this.props.setMeetingWho}
               contentSource={this.props.contentSource}
               eventWhat={this.props.eventWhat}
@@ -97,14 +99,14 @@ export default class ActivityAddView extends React.Component {
               <Label>Tags</Label>
               <Input onChangeText={this.props.manageTag} value={this.props.tagInput}/>
             </Item>
-            <Button primary full onPress={this.props.addActivity}>
+            <Button primary full onPress={this.props.addActivity} disabled={!this.props.isFormValid}>
               <Text>{I18n.t('activity.activityAdd.addActivityButton')}</Text>
             </Button>
             <Content>
-              <Button primary full style={{ marginTop: 20 }} onPress={this.props.addTodoActivity}>
-                <Text>{I18n.t('activity.activityAdd.addTodoButton')}t</Text>
+              <Button primary full style={{ marginTop: 20 }} onPress={this.props.addTodoActivity} disabled={!this.props.isFormValid}>
+                <Text>{I18n.t('activity.activityAdd.addTodoButton')}</Text>
               </Button>
-            </Content>
+          </Content>
           </Form>
         </Content>
       </Container>

@@ -4,26 +4,24 @@ import ActivityAddSpecificFieldsEventView from '../views/ActivityAddSpecificFiel
 import ActivityAddSpecificFieldsMeetingView from '../views/ActivityAddSpecificFieldsMeetingView';
 import ActivityAddSpecificFieldsContentView from '../views/ActivityAddSpecificFieldsContentView';
 
-import { Text } from 'native-base';
+import { ActivityTypeEnum } from 'yasav/src/const';
+
 
 
 export default class ActivityAddSpecificFieldsContainer extends React.Component {
   render() {
-    if(this.props.type == "event"){
+    if(this.props.type == ActivityTypeEnum.EVENT){
       return (
-        <ActivityAddSpecificFieldsEventView 
-          setEventWhat={this.props.setEventWhat}
-          value={this.props.eventWhat}
-        />
+        <ActivityAddSpecificFieldsEventView />
       )
-    }else if(this.props.type == "meeting"){
+    }else if(this.props.type == ActivityTypeEnum.MEETING){
       return (
         <ActivityAddSpecificFieldsMeetingView 
           setMeetingWho={this.props.setMeetingWho}
           value={this.props.meetingWho}
         />
       )
-    }else if(this.props.type == "content"){
+    }else if(this.props.type == ActivityTypeEnum.CONTENT){
       return (
         <ActivityAddSpecificFieldsContentView 
           setContentSource={this.props.setContentSource}
