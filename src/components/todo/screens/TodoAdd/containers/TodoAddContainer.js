@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import TodoAddView from '../views/TodoAddView';
 import { addTodo } from '../actions/index';
 
+
 class TodoAddContainer extends React.Component {
 
   constructor(props){
@@ -17,26 +18,37 @@ class TodoAddContainer extends React.Component {
       this.screen_id = props.navParams.screen_id
     }
     this.state = {
-      title: "",
-      completed: false,
-      key: this.props.lastID + 1,
-      activity_id: activityId
+      isFormValid: false,
+      todo: {
+        title: "",
+        completed: false,
+        key: this.props.lastID + 1,
+        activityId: activityId
+      }
     }
+
     this.addTodo = this.addTodo.bind(this)
+    this.setTitle = this.setTitle.bind(this)
   }
 
   addTodo() {
-    this.props.addTodo(this.state)
+    console.log(this.state)
+    this.props.addTodo(this.state.todo)
     this.props.goBackToPreviousScreen(this.screen_id)
+  }
 
+  setTitle(title){
+    this.setState({...this.state, todo: {...this.state.todo, title: title}})
+    this.setState({isFormValid: title.length > 0})
   }
 
   render() {
     return (
       <TodoAddView
-        goBack={this.props.goBack}
+        goBack={this.props.goBackToPreviousScreen}
         addTodo={this.addTodo}
-        setTitle={(title) => this.setState({title})}
+        setTitle={this.setTitle}
+        isFormValid={this.state.isFormValid}
       />
     );
   }
