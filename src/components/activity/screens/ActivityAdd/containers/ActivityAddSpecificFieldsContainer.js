@@ -31,8 +31,6 @@ export default class ActivityAddSpecificFieldsContainer extends React.Component 
         />
       )
     }else{
-      console.log(this.props.type)
-      console.log("lol")
       return null
     }
   }
