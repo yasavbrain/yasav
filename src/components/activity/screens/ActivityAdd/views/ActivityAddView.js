@@ -31,6 +31,7 @@ export default class ActivityAddView extends React.Component {
   }
 
   render() {
+    console.log
     return(
       <Container>
         <GenericHeader
@@ -108,6 +109,11 @@ export default class ActivityAddView extends React.Component {
               <Button primary full style={{ marginTop: 20 }} onPress={this.props.addTodoActivity} disabled={!this.props.isFormValid}>
                 <Text>{I18n.t('activity.activityAdd.addTodoButton')}</Text>
               </Button>
+          </Content>
+          <Content>
+            <Button primary full style={{ marginTop: 20 }} onPress={this.props.addTodoActivity}>
+              <Text>{I18n.t('activity.activityAdd.addTodoButton')}t</Text>
+            </Button>
           </Content>
           </Form>
         </Content>

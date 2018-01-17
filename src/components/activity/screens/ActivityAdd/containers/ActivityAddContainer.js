@@ -109,6 +109,10 @@ class ActivityAddContainer extends React.Component {
       this.setState({...this.state,  tagInput: string})
     }
   }
+
+  addInterlocutor() {
+    this.props.addInterlocutor(this.state)
+  }
   validateForm(){
     isFormValid = true;
     if(this.state.activity.type == ActivityTypeEnum.CONTENT){
