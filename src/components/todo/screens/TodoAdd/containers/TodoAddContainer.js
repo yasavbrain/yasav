@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import TodoAddView from '../views/TodoAddView';
 import { addTodo } from '../actions/index';
+import { StatusEnum } from 'yasav/src/const';
 
 
 class TodoAddContainer extends React.Component {
@@ -21,12 +22,11 @@ class TodoAddContainer extends React.Component {
       isFormValid: false,
       todo: {
         title: "",
-        completed: false,
+        status: StatusEnum.TODO,
         key: this.props.lastID + 1,
         activityId: activityId
       }
     }
-
     this.addTodo = this.addTodo.bind(this)
     this.setTitle = this.setTitle.bind(this)
   }

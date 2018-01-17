@@ -53,3 +53,16 @@ export const CREATE_DB_TABLES_REQUESTS = [
     FOREIGN KEY (activity_two_id) REFERENCES activity(id)
   );`
 ];
+
+export function executeSql(request, params=null) {
+  return new Promise((resolve, reject) => {
+    db.transaction(tx => {
+      tx.executeSql(
+        request,
+        params,
+        (tx, res) => resolve(res),
+        (tx, err) => reject(err),
+      );
+    })
+  })
+};

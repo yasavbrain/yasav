@@ -3,8 +3,13 @@ import { connect } from 'react-redux';
 
 import TodoListView from '../views/TodoListView';
 import { toggleTodo } from '../../TodoAdd/actions/index';
+import { getTodoList } from '../actions';
 
 class TodoListContainer extends React.Component {
+
+  componentDidMount() {
+    this.props.getTodoList();
+  }
 
   render() {
     return (
@@ -25,8 +30,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    toggleTodo : (id) => dispatch(toggleTodo(id))
-
+    toggleTodo: (id) => dispatch(toggleTodo(id)),
+    getTodoList: () => dispatch(getTodoList())
   }
 }
 
