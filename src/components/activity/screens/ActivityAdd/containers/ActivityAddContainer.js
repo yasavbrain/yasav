@@ -140,7 +140,7 @@ class ActivityAddContainer extends React.Component {
         type={this.state.activity.type}
         tags={this.state.activity.tags}
         manageTag={this.manageTag}
-        tagInput={this.state.activity.tagInput}
+        tagInput={this.state.tagInput}
         removeTag={this.removeTag}
         isFormValid={this.state.isFormValid}
         getInterlocutorState = {this.getInterlocutorState}
