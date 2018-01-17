@@ -67,7 +67,6 @@ export default class ActivityAddView extends React.Component {
             <ActivityAddSpecificFieldsContainer
               type={this.props.type}
               setContentSource={this.props.setContentSource}
-              setEventWhat={this.props.setEventWhat}
               setMeetingWho={this.props.setMeetingWho}
               contentSource={this.props.contentSource}
               eventWhat={this.props.eventWhat}

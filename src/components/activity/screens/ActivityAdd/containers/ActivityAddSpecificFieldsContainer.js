@@ -12,10 +12,7 @@ export default class ActivityAddSpecificFieldsContainer extends React.Component 
   render() {
     if(this.props.type == ActivityTypeEnum.EVENT){
       return (
-        <ActivityAddSpecificFieldsEventView 
-          setEventWhat={this.props.setEventWhat}
-          value={this.props.eventWhat}
-        />
+        <ActivityAddSpecificFieldsEventView />
       )
     }else if(this.props.type == ActivityTypeEnum.MEETING){
       return (

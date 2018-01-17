@@ -22,7 +22,6 @@ class ActivityAddContainer extends React.Component {
         date: moment(),
         type: ActivityTypeEnum.CONTENT,
         contentSource: "",
-        eventWhat: "",
         meetingWho: "",
         tags: [],
         key: this.props.lastID + 1,
@@ -36,7 +35,6 @@ class ActivityAddContainer extends React.Component {
     this.setTypeContent = this.setTypeContent.bind(this)
     this.setTitle = this.setTitle.bind(this)
     this.setContentSource = this.setContentSource.bind(this)
-    this.setEventWhat = this.setEventWhat.bind(this)
     this.setMeetingWho = this.setMeetingWho.bind(this)
     this.setDescription = this.setDescription.bind(this)
     this.setTitle = this.setTitle.bind(this)
@@ -69,10 +67,6 @@ class ActivityAddContainer extends React.Component {
 
   setContentSource(source){
     this.setState({...this.state, activity: {...this.state.activity, contentSource: source}}, this.validateForm)
-  }
-
-  setEventWhat(what){
-    this.setState({...this.state, activity: {...this.state.activity, eventWhat: what}}, this.validateForm)
   }
 
   setMeetingWho(who){
@@ -135,10 +129,8 @@ class ActivityAddContainer extends React.Component {
         setDescription={this.setDescription}
         setContentSource={this.setContentSource}
         setMeetingWho={this.setMeetingWho}
-        setEventWhat={this.setEventWhat}
         contentSource={this.state.activity.contentSource}
         meetingWho={this.state.meetingWho}
-        eventWhat={this.state.activity.eventWhat}
         setTypeEvent={this.setTypeEvent}
         setTypeMeeting={this.setTypeMeeting}
         setTypeContent={this.setTypeContent}
@@ -162,8 +154,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addActivity: (activity) => dispatch(addActivity(activity)),
-    addInterlocutor: (interlocutor) => dispatch(addInterlocutor(interlocutor))
+    addActivity: (activity) => dispatch(addActivity(activity))
   };
 }
 
