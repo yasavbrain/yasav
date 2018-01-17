@@ -95,7 +95,6 @@ export default class ActivityAddView extends React.Component {
               style={{flex: 1, flexDirection: "row", marginLeft: 0}}
               contentContainerStyle={{ alignItems: "flex-start" }}  
             >
-            { this.renderTags() }
             </Item>
 
             <Item floatingLabel>

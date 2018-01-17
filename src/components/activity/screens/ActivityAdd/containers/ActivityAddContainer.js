@@ -110,9 +110,6 @@ class ActivityAddContainer extends React.Component {
     }
   }
 
-  addInterlocutor() {
-    this.props.addInterlocutor(this.state)
-  }
   validateForm(){
     isFormValid = true;
     if(this.state.activity.type == ActivityTypeEnum.CONTENT){
@@ -130,6 +127,7 @@ class ActivityAddContainer extends React.Component {
     getInterlocutorState(interlocutor){
       this.setState({...this.state, interlocutor: interlocutor})
     }
+
 
   render() {
     return(
