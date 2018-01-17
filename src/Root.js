@@ -9,7 +9,7 @@ import Colors from './styles/Colors'
 import Routes from './Routes';
 import db, { CREATE_DB_TABLES_REQUESTS } from './Database';
 import store from 'src/store/store';
-
+import { logTableList } from './utils/DBDebugHelpers';
 
 export default class Root extends React.Component {
 
@@ -25,9 +25,12 @@ export default class Root extends React.Component {
     this.setState({ fontLoaded: true });
 
     // TODO : add scripts to update the database scheme in newer versions
-    db.transaction(tx => {
-      CREATE_DB_TABLES_REQUESTS.forEach(req => tx.executeSql(req));
-    });
+      db.transaction(tx => {
+        CREATE_DB_TABLES_REQUESTS.forEach(req => tx.executeSql(req));
+      },
+      err => console.log(err),
+       () => logTableList()
+     );
   }
 
   render() {
