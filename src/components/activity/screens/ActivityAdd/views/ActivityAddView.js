@@ -1,5 +1,6 @@
 import React from 'react';
-import { Container, Content, Text, Form, Item, Input, Label, Textarea, Button, Radio, ListItem, Right } from 'native-base';
+import { Container, Content, Text, Form, Item, Input, Label, Textarea, Button, Radio, ListItem, Right, Badge } from 'native-base';
+import { View } from 'react-native'
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import {RadioBlock} from 'yasav/src/viewElements/shared/radioSelection/RadioBlock'
 import ActivityAddSpecificFieldsContainer from '../containers/ActivityAddSpecificFieldsContainer'
@@ -9,6 +10,22 @@ import Style from '../styles/style.js';
 import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
 
 export default class ActivityAddView extends React.Component {
+
+  constructor(props){
+    super(props)
+
+    this.renderTags = this.renderTags.bind(this)
+  }
+
+  renderTags(){
+    return this.props.tags.map( (tag, index) => 
+      (
+        <Badge primary key={ index }>
+          <Text onPress={ () => this.props.removeTag(tag) }>{tag}</Text>
+        </Badge>
+      )
+    )
+  }
 
   render() {
     return(
@@ -67,17 +84,27 @@ export default class ActivityAddView extends React.Component {
                 numberOfLines={5}
                 returnKeyType='none'
                 style={Style.textarea}
-
               />
+            </Item>
+            <Item 
+              style={{flex: 1, flexDirection: "row", marginLeft: 0}}
+              contentContainerStyle={{ alignItems: "flex-start" }}  
+            >
+            { this.renderTags() }
+            </Item>
+
+            <Item floatingLabel>
+              <Label>Tags</Label>
+              <Input onChangeText={this.props.manageTag} value={this.props.tagInput}/>
             </Item>
             <Button primary full onPress={this.props.addActivity}>
               <Text>{I18n.t('activity.activityAdd.addActivityButton')}</Text>
             </Button>
             <Content>
-            <Button primary full style={{ marginTop: 20 }} onPress={this.props.addTodoActivity}>
-              <Text>{I18n.t('activity.activityAdd.addTodoButton')}t</Text>
-            </Button>
-          </Content>
+              <Button primary full style={{ marginTop: 20 }} onPress={this.props.addTodoActivity}>
+                <Text>{I18n.t('activity.activityAdd.addTodoButton')}t</Text>
+              </Button>
+            </Content>
           </Form>
         </Content>
       </Container>
