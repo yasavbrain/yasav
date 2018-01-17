@@ -7,7 +7,9 @@ import { View } from 'react-native'
 import Style from './styles/Main';
 import Colors from './styles/Colors'
 import Routes from './Routes';
+import db, { CREATE_DB_TABLES_REQUESTS } from './Database';
 import store from 'src/store/store';
+
 
 export default class Root extends React.Component {
 
@@ -21,6 +23,11 @@ export default class Root extends React.Component {
       'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
     });
     this.setState({ fontLoaded: true });
+
+    // TODO : add scripts to update the database scheme in newer versions
+    db.transaction(tx => {
+      CREATE_DB_TABLES_REQUESTS.forEach(req => tx.executeSql(req));
+    });
   }
 
   render() {
