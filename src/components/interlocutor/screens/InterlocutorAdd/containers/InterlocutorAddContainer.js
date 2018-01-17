@@ -13,23 +13,44 @@ class InterlocutorAddContainer extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      name: "",
-      link_to_me: "",
-      date: moment(),
-      key: this.props.lastID + 1,
+      interlocutor: {
+        name: "",
+        link_to_me: "",
+        date: moment(),
+        key: this.props.lastID + 1,
+      },
+      isFormValid: false,
     }
     this.update = this.update.bind(this)
+    this.validateForm = this.validateForm.bind(this)
+    this.setName = this.setName.bind(this)
+    this.setLinkToMe = this.setLinkToMe.bind(this)
+  }
+
+  validateForm(){
+    isFormValid = true;
+    isFormValid = isFormValid && this.state.interlocutor.name.length > 0
+    isFormValid = isFormValid && this.state.interlocutor.link_to_me.length > 0
+    this.setState({isFormValid: isFormValid})
+    }
+  
+  setName(name){
+    this.setState({...this.state, interlocutor: {...this.state.interlocutor, name: name}}, () => {this.validateForm; this.update()})
+  }
+
+  setLinkToMe(link_to_me){
+    this.setState({...this.state, interlocutor: {...this.state.interlocutor, link_to_me: link_to_me}}, () => {this.validateForm; this.update()})
   }
 
   update() {
-    this.props.getInterlocutorState(this.state)
+    this.props.getInterlocutorState(this.state.interlocutor)
   }
 
   render() {
     return(
       <InterlocutorAddView
-      setName={(name) => this.setState({name}, () => this.update())}
-      setLinkToMe={(link_to_me) => this.setState({link_to_me}, () => this.update())}
+      setName={this.setName}
+      setLinkToMe={this.setLinkToMe}
       />
     );
   }

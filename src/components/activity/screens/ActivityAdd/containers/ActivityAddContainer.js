@@ -23,7 +23,6 @@ class ActivityAddContainer extends React.Component {
         date: moment(),
         type: ActivityTypeEnum.CONTENT,
         contentSource: "",
-        meetingWho: "",
         tags: [],
         key: this.props.lastID + 1,
         interlocutorKey: 0
@@ -36,7 +35,6 @@ class ActivityAddContainer extends React.Component {
     this.setTypeEvent = this.setTypeEvent.bind(this)
     this.setTypeMeeting = this.setTypeMeeting.bind(this)
     this.setTypeContent = this.setTypeContent.bind(this)
-    this.setTitle = this.setTitle.bind(this)
     this.setContentSource = this.setContentSource.bind(this)
     this.setDescription = this.setDescription.bind(this)
     this.setTitle = this.setTitle.bind(this)
@@ -47,7 +45,7 @@ class ActivityAddContainer extends React.Component {
   }
 
   addActivity() {
-    if (this.state.activity.type == "meeting") {
+    if (this.state.activity.type == ActivityTypeEnum.MEETING) {
       this.props.addInterlocutor(this.state.interlocutor)
     }
     this.props.addActivity(this.state.activity)
@@ -55,7 +53,7 @@ class ActivityAddContainer extends React.Component {
   }
 
   addTodoActivity() {
-    if (this.state.activity.type == "meeting") {
+    if (this.state.activity.type == ActivityTypeEnum.MEETING) {
       this.props.addInterlocutor(this.state.interlocutor)
     }
     this.props.addActivity(this.state.activity)
@@ -78,10 +76,6 @@ class ActivityAddContainer extends React.Component {
     this.setState({...this.state, activity: {...this.state.activity, contentSource: source}}, this.validateForm)
   }
 
-  setMeetingWho(who){
-    this.setState({...this.state, activity: {...this.state.activity, meetingWho: who}}, this.validateForm)
-  }
-
   setDescription(description){
     this.setState({...this.state, activity: {...this.state.activity, description: description}}, this.validateForm)
   }
@@ -94,7 +88,7 @@ class ActivityAddContainer extends React.Component {
     this.setState({...this.state, activity: {...this.state.activity, tags: this.state.activity.tags.filter((item) => item != tag)}})
   }
 
-  manageTag(string){ //Needs to fix : we can't add several tags
+  manageTag(string){
     if(string.indexOf(",") !== -1){
       newTagsRessource = string.split(",")
       newTags = []
@@ -119,10 +113,7 @@ class ActivityAddContainer extends React.Component {
     if(this.state.activity.type == ActivityTypeEnum.CONTENT){
       isFormValid = isFormValid && this.state.activity.contentSource.length > 0
     }
-    if(this.state.activity.type == ActivityTypeEnum.MEETING){
-      isFormValid = isFormValid && this.state.activity.meetingWho.length > 0
     isFormValid = isFormValid && this.state.activity.title.length > 0
-    }
 
     this.setState({isFormValid: isFormValid})
   }
@@ -142,9 +133,7 @@ class ActivityAddContainer extends React.Component {
         setTitle={this.setTitle}
         setDescription={this.setDescription}
         setContentSource={this.setContentSource}
-        setEventWhat={this.setEventWhat}
         contentSource={this.state.activity.contentSource}
-        eventWhat={this.state.activity.eventWhat}
         setTypeEvent={this.setTypeEvent}
         setTypeMeeting={this.setTypeMeeting}
         setTypeContent={this.setTypeContent}
