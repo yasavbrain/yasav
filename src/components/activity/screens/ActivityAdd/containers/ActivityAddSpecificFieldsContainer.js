@@ -17,8 +17,7 @@ export default class ActivityAddSpecificFieldsContainer extends React.Component 
     }else if(this.props.type == ActivityTypeEnum.MEETING){
       return (
         <ActivityAddSpecificFieldsMeetingView 
-          setMeetingWho={this.props.setMeetingWho}
-          value={this.props.meetingWho}
+          getInterlocutorState={this.props.getInterlocutorState}
         />
       )
     }else if(this.props.type == ActivityTypeEnum.CONTENT){
@@ -33,3 +32,6 @@ export default class ActivityAddSpecificFieldsContainer extends React.Component 
     }
   }
 }
+
+//setMeetingWho={this.props.setMeetingWho}
+          //value={this.props.meetingWho}

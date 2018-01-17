@@ -27,6 +27,7 @@ class ActivityAddContainer extends React.Component {
         tags: [],
         key: this.props.lastID + 1,
       },
+      interlocutor: {},
 
     }
     this.addActivity = this.addActivity.bind(this)
@@ -36,12 +37,12 @@ class ActivityAddContainer extends React.Component {
     this.setTypeContent = this.setTypeContent.bind(this)
     this.setTitle = this.setTitle.bind(this)
     this.setContentSource = this.setContentSource.bind(this)
-    this.setMeetingWho = this.setMeetingWho.bind(this)
     this.setDescription = this.setDescription.bind(this)
     this.setTitle = this.setTitle.bind(this)
     this.manageTag = this.manageTag.bind(this)
     this.removeTag = this.removeTag.bind(this)
     this.validateForm = this.validateForm.bind(this)
+    this.getInterlocutorState = this.getInterlocutorState.bind(this)
   }
 
   addActivity() {
@@ -106,10 +107,6 @@ class ActivityAddContainer extends React.Component {
     }
   }
 
-  addInterlocutor() {
-    this.props.addInterlocutor(this.state)
-  }
-
   validateForm(){
     isFormValid = true;
     if(this.state.activity.type == ActivityTypeEnum.CONTENT){
@@ -123,6 +120,10 @@ class ActivityAddContainer extends React.Component {
     this.setState({isFormValid: isFormValid})
   }
 
+  getInterlocutorState(interlocutor){
+    console.log(interlocutor);
+  }
+
 
   render() {
     return(
@@ -133,19 +134,21 @@ class ActivityAddContainer extends React.Component {
         setTitle={this.setTitle}
         setDescription={this.setDescription}
         setContentSource={this.setContentSource}
-        setMeetingWho={this.setMeetingWho}
+        //setMeetingWho={this.setMeetingWho}
+        setEventWhat={this.setEventWhat}
         contentSource={this.state.activity.contentSource}
-        meetingWho={this.state.meetingWho}
+        //meetingWho={this.state.meetingWho}
+        eventWhat={this.state.activity.eventWhat}
         setTypeEvent={this.setTypeEvent}
         setTypeMeeting={this.setTypeMeeting}
         setTypeContent={this.setTypeContent}
         type={this.state.activity.type}
         tags={this.state.activity.tags}
         manageTag={this.manageTag}
-        tagInput={this.state.tagInput}
+        tagInput={this.state.activity.tagInput}
         removeTag={this.removeTag}
         isFormValid={this.state.isFormValid}
-        addInterlocutor = {this.addInterlocutor}
+        getInterlocutorState = {this.getInterlocutorState}
       />
     );
   }
@@ -160,8 +163,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addActivity: (activity) => dispatch(addActivity(activity)),
-    addInterlocutor: (interlocutor) => dispatch(addInterlocutor(interlocutor))
+    addActivity: (activity) => dispatch(addActivity(activity))
   };
 }
 

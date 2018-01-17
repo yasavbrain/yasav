@@ -8,7 +8,7 @@ import InterlocutorAddView from '../views/InterlocutorAddView';
 import { addInterlocutor } from '../actions/index';
 
 
-class InterlocutorAddContainer extends React.Component {
+export default class InterlocutorAddContainer extends React.Component {
 
   constructor(props){
     super(props);
@@ -17,42 +17,22 @@ class InterlocutorAddContainer extends React.Component {
       lastNameInterlocutor: "",
       linkToMeInterlocutor: "",
       date: moment(),
-      //key: this.props.lastID + 1,
+      key: this.props.lastID + 1,
     }
-    //this.createInterlocutor = this.createInterlocutor.bind(this)
-    //this.update = this.update.bind(this)
+    this.update = this.update.bind(this)
   }
 
-  //createInterlocutor() {
-    //console.log("CreateInterlocutor")
-    //a = this.props.createInterlocutor(this.state)
-    //console.log(a)
-    //this.props.addInterlocutor(a)
-    //console.log('addinterlocutor')
-  //}
+  update() {
+    this.props.getInterlocutorState(this.state)
+  }
 
   render() {
     return(
       <InterlocutorAddView
-        setFirstName={(firstNameInterlocutor) => this.setState({firstNameInterlocutor})}
-        setLastName={(lastNameInterlocutor) => this.setState({lastNameInterlocutor})}
-        setLinkToMe={(linkToMeInterlocutor) => this.setState({linkToMeInterlocutor})}
+      setFirstName={(firstNameInterlocutor) => this.setState({firstNameInterlocutor}, () => this.update())}
+      setLastName={(lastNameInterlocutor) => this.setState({lastNameInterlocutor}, () => this.update())}
+      setLinkToMe={(linkToMeInterlocutor) => this.setState({linkToMeInterlocutor}, () => this.update())}
       />
     );
   }
 }
-
-
-//function mapStateToProps(state) {
-  //return {
-    //lastID: state.activity.lastID
-  //}
-//}
-
-//function mapDispatchToProps(dispatch) {
-  //return {
-    //addInterlocutor: (interlocutor) => dispatch(addInterlocutor(interlocutor))
-  //}
-//}
-
-//export default connect(null, mapDispatchToProps)(InterlocutorAddContainer)

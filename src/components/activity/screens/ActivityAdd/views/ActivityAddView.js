@@ -39,9 +39,6 @@ export default class ActivityAddView extends React.Component {
           title={I18n.t('activity.activityAdd.title')}
         />
         <Content>
-        <InterlocutorAddContainer
-        addInterlocutor = { this.props.addInterlocutor}
-        />
           <Form>
             <Content>
               <Grid>
@@ -71,10 +68,12 @@ export default class ActivityAddView extends React.Component {
             <ActivityAddSpecificFieldsContainer
               type={this.props.type}
               setContentSource={this.props.setContentSource}
-              setMeetingWho={this.props.setMeetingWho}
+              setEventWhat={this.props.setEventWhat}
+              //setMeetingWho={this.props.setMeetingWho}
               contentSource={this.props.contentSource}
               eventWhat={this.props.eventWhat}
-              meetingWho={this.props.meetingWho}
+              //meetingWho={this.props.meetingWho}
+              getInterlocutorState={this.props.getInterlocutorState}
 
             />
             <Item floatingLabel>
@@ -96,7 +95,6 @@ export default class ActivityAddView extends React.Component {
               style={{flex: 1, flexDirection: "row", marginLeft: 0}}
               contentContainerStyle={{ alignItems: "flex-start" }}  
             >
-            { this.renderTags() }
             </Item>
 
             <Item floatingLabel>
