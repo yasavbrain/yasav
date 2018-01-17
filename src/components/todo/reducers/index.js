@@ -1,4 +1,5 @@
 import { ADD_TODO, TOGGLE_TODO } from '../screens/TodoAdd/actions/types';
+import { GET_TODO_LIST } from '../screens/TodoList/actions/types';
 import { StatusEnum } from 'yasav/src/const';
 
 const initialState = {
@@ -28,6 +29,9 @@ export default function reducer(state = initialState, action) {
           return todo;
         })
       };
+
+    case GET_TODO_LIST:
+      return {...state, todoList: action.todoList}
 
     default:
       return state
