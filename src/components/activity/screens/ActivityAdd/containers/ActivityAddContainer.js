@@ -7,6 +7,7 @@ moment.locale('fr');
 import ActivityAddView from '../views/ActivityAddView';
 import { addActivity } from '../actions/index';
 import { ActivityTypeEnum } from 'yasav/src/const';
+import { addInterlocutor } from 'yasav/src/components/interlocutor/screens/InterlocutorAdd/containers/InterlocutorAddContainer'
 
 
 class ActivityAddContainer extends React.Component {
@@ -105,6 +106,10 @@ class ActivityAddContainer extends React.Component {
     }
   }
 
+  addInterlocutor() {
+    this.props.addInterlocutor(this.state)
+  }
+
   validateForm(){
     isFormValid = true;
     if(this.state.activity.type == ActivityTypeEnum.CONTENT){
@@ -140,6 +145,7 @@ class ActivityAddContainer extends React.Component {
         tagInput={this.state.tagInput}
         removeTag={this.removeTag}
         isFormValid={this.state.isFormValid}
+        addInterlocutor = {this.addInterlocutor}
       />
     );
   }
@@ -154,7 +160,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addActivity: (activity) => dispatch(addActivity(activity))
+    addActivity: (activity) => dispatch(addActivity(activity)),
+    addInterlocutor: (interlocutor) => dispatch(addInterlocutor(interlocutor))
   };
 }
 

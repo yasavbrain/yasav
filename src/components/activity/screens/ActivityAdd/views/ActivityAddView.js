@@ -9,8 +9,8 @@ import I18n from 'yasav/locales/i18n';
 import Style from '../styles/style.js';
 import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
 
-
 import { ActivityTypeEnum } from 'yasav/src/const';
+import InterlocutorAddContainer from 'yasav/src/components/interlocutor/screens/InterlocutorAdd/containers/InterlocutorAddContainer';
 
 export default class ActivityAddView extends React.Component {
 
@@ -31,6 +31,7 @@ export default class ActivityAddView extends React.Component {
   }
 
   render() {
+    console.log
     return(
       <Container>
         <GenericHeader
@@ -38,6 +39,9 @@ export default class ActivityAddView extends React.Component {
           title={I18n.t('activity.activityAdd.title')}
         />
         <Content>
+        <InterlocutorAddContainer
+        addInterlocutor = { this.props.addInterlocutor}
+        />
           <Form>
             <Content>
               <Grid>

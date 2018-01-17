@@ -44,4 +44,11 @@ export default {
       content: "En tant quutilisateur, je veux pouvoir voir toutes mes ToDo sous forme de liste"
     },
   },
+  interlocutor: {
+    activityAdd: {
+      firstName: "Prénom",
+      lastName: "Nom",
+      linkToMe: "Relation"
+    },
+  },
 }
