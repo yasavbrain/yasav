@@ -7,7 +7,7 @@ moment.locale('fr');
 import ActivityAddView from '../views/ActivityAddView';
 import { addActivity } from '../actions/index';
 import { ActivityTypeEnum } from 'yasav/src/const';
-import { addInterlocutor } from 'yasav/src/components/interlocutor/screens/InterlocutorAdd/containers/InterlocutorAddContainer'
+import { addInterlocutor } from 'yasav/src/components/interlocutor/screens/InterlocutorAdd/actions/index'
 
 
 class ActivityAddContainer extends React.Component {
@@ -26,6 +26,7 @@ class ActivityAddContainer extends React.Component {
         meetingWho: "",
         tags: [],
         key: this.props.lastID + 1,
+        interlocutorKey: 0
       },
       interlocutor: {},
 
@@ -46,11 +47,13 @@ class ActivityAddContainer extends React.Component {
   }
 
   addActivity() {
+    this.props.addInterlocutor(this.state.interlocutor)
     this.props.addActivity(this.state.activity)
     this.props.goBack()
   }
 
   addTodoActivity() {
+    this.props.addInterlocutor(this.state.interlocutor)
     this.props.addActivity(this.state.activity)
     this.props.navigateToTodoAddScreen(this.state.activity.key)
   }
@@ -87,7 +90,7 @@ class ActivityAddContainer extends React.Component {
     this.setState({...this.state, activity: {...this.state.activity, tags: this.state.activity.tags.filter((item) => item != tag)}})
   }
 
-  manageTag(string){
+  manageTag(string){ //Needs to fix : we can't add several tags
     if(string.indexOf(",") !== -1){
       newTagsRessource = string.split(",")
       newTags = []
@@ -106,7 +109,6 @@ class ActivityAddContainer extends React.Component {
       this.setState({...this.state,  tagInput: string})
     }
   }
-
   validateForm(){
     isFormValid = true;
     if(this.state.activity.type == ActivityTypeEnum.CONTENT){
@@ -114,16 +116,16 @@ class ActivityAddContainer extends React.Component {
     }
     if(this.state.activity.type == ActivityTypeEnum.MEETING){
       isFormValid = isFormValid && this.state.activity.meetingWho.length > 0
-    }
     isFormValid = isFormValid && this.state.activity.title.length > 0
+    }
 
     this.setState({isFormValid: isFormValid})
   }
+    
 
-  getInterlocutorState(interlocutor){
-    console.log(interlocutor);
-  }
-
+    getInterlocutorState(interlocutor){
+      this.setState({...this.state, interlocutor: interlocutor})
+    }
 
   render() {
     return(
@@ -163,7 +165,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addActivity: (activity) => dispatch(addActivity(activity))
+    addActivity: (activity) => dispatch(addActivity(activity)),
+    addInterlocutor: (interlocutor) => dispatch(addInterlocutor(interlocutor))
   };
 }
 

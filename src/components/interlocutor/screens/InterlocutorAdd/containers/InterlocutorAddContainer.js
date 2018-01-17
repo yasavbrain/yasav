@@ -8,7 +8,7 @@ import InterlocutorAddView from '../views/InterlocutorAddView';
 import { addInterlocutor } from '../actions/index';
 
 
-export default class InterlocutorAddContainer extends React.Component {
+class InterlocutorAddContainer extends React.Component {
 
   constructor(props){
     super(props);
@@ -36,3 +36,11 @@ export default class InterlocutorAddContainer extends React.Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    lastID: state.interlocutor.lastID
+  }
+}
+
+export default connect(mapStateToProps)(InterlocutorAddContainer)
