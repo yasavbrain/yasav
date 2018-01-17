@@ -47,13 +47,17 @@ class ActivityAddContainer extends React.Component {
   }
 
   addActivity() {
-    this.props.addInterlocutor(this.state.interlocutor)
+    if (this.state.activity.type == "meeting") {
+      this.props.addInterlocutor(this.state.interlocutor)
+    }
     this.props.addActivity(this.state.activity)
     this.props.goBack()
   }
 
   addTodoActivity() {
-    this.props.addInterlocutor(this.state.interlocutor)
+    if (this.state.activity.type == "meeting") {
+      this.props.addInterlocutor(this.state.interlocutor)
+    }
     this.props.addActivity(this.state.activity)
     this.props.navigateToTodoAddScreen(this.state.activity.key)
   }
@@ -125,7 +129,7 @@ class ActivityAddContainer extends React.Component {
     
 
     getInterlocutorState(interlocutor){
-      this.setState({...this.state, interlocutor: interlocutor})
+      this.setState({...this.state, interlocutor: interlocutor, activity: {...this.state.activity, interlocutorKey: interlocutor.key}})
     }
 
 
@@ -138,10 +142,8 @@ class ActivityAddContainer extends React.Component {
         setTitle={this.setTitle}
         setDescription={this.setDescription}
         setContentSource={this.setContentSource}
-        //setMeetingWho={this.setMeetingWho}
         setEventWhat={this.setEventWhat}
         contentSource={this.state.activity.contentSource}
-        //meetingWho={this.state.meetingWho}
         eventWhat={this.state.activity.eventWhat}
         setTypeEvent={this.setTypeEvent}
         setTypeMeeting={this.setTypeMeeting}

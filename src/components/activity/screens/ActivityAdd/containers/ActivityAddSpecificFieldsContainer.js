@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ActivityAddSpecificFieldsEventView from '../views/ActivityAddSpecificFieldsEventView';
-import ActivityAddSpecificFieldsMeetingView from '../views/ActivityAddSpecificFieldsMeetingView';
+import InterlocutorAddContainer from 'yasav/src/components/interlocutor/screens/InterlocutorAdd/containers/InterlocutorAddContainer';
 import ActivityAddSpecificFieldsContentView from '../views/ActivityAddSpecificFieldsContentView';
 
 import { ActivityTypeEnum } from 'yasav/src/const';
@@ -16,7 +16,7 @@ export default class ActivityAddSpecificFieldsContainer extends React.Component 
       )
     }else if(this.props.type == ActivityTypeEnum.MEETING){
       return (
-        <ActivityAddSpecificFieldsMeetingView 
+        <InterlocutorAddContainer 
           getInterlocutorState={this.props.getInterlocutorState}
         />
       )
