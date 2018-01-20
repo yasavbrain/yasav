@@ -1,9 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { getActivityList } from '../actions';
 
 import ActivityListView from '../views/ActivityListView';
 
 class ActivityListContainer extends React.Component {
+
+  componentDidMount() {
+    this.props.getActivityList();
+  }
 
   render() {
     return(
@@ -23,4 +28,10 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(ActivityListContainer)
+function mapDispatchToProps(dispatch) {
+  return {
+    getActivityList: () => dispatch(getActivityList())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ActivityListContainer)

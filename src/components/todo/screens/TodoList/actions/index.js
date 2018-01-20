@@ -1,5 +1,5 @@
 import { GET_TODO_LIST } from './types';
-import db, { executeSql } from 'yasav/src/Database';
+import { executeSql } from 'yasav/src/Database';
 import { StatusEnum } from 'yasav/src/const';
 
 
