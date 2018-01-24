@@ -9,6 +9,11 @@ export default class InterlocutorListView extends React.Component {
   constructor(props) {
     super(props);
     this.renderRow = this.renderRow.bind(this);
+    this.navigateToInterlocutorDisplayScreen = this.navigateToInterlocutorDisplayScreen.bind(this);
+  }
+
+  navigateToInterlocutorDisplayScreen(item) {
+    this.props.navigateToInterlocutorDisplayScreen(item); 
   }
   
   // TODO : Find a way to remove that arrow function in the render
@@ -16,6 +21,7 @@ export default class InterlocutorListView extends React.Component {
     return(
       <ListItem
         style={{height: 30, backgroundColor: 0}}
+        onPress={ () => this.navigateToInterlocutorDisplayScreen(item) }
       >
         <Text>{item.name}</Text>
       </ListItem>

@@ -8,6 +8,7 @@ class InterlocutorListContainer extends React.Component {
       <InterlocutorListView
       goBack={this.props.goBack}
       displayInterlocutorList={this.props.interlocutorList}
+      navigateToInterlocutorDisplayScreen={this.props.navigateToInterlocutorDisplayScreen}
       />
     );
   }

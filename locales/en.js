@@ -63,5 +63,8 @@ export default {
     interlocutorList: {
       title: 'Interlocutors List',
     },
+    interlocutorDisplay: {
+      title: "Interlocutor Display"
+    },
   },
 };
