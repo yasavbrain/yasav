@@ -44,4 +44,10 @@ export default {
       content: "As a user, I want to see all my todos as a list"
     },
   },
+  interlocutor: {
+    interlocutorAdd: {
+      name: "Name",
+      linkToMe: "Link to me"
+    },
+  },
 }

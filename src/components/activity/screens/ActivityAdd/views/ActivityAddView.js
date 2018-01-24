@@ -9,7 +9,6 @@ import I18n from 'yasav/locales/i18n';
 import Style from '../styles/style.js';
 import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
 
-
 import { ActivityTypeEnum } from 'yasav/src/const';
 
 export default class ActivityAddView extends React.Component {
@@ -67,10 +66,9 @@ export default class ActivityAddView extends React.Component {
             <ActivityAddSpecificFieldsContainer
               type={this.props.type}
               setContentSource={this.props.setContentSource}
-              setMeetingWho={this.props.setMeetingWho}
               contentSource={this.props.contentSource}
               eventWhat={this.props.eventWhat}
-              meetingWho={this.props.meetingWho}
+              getInterlocutorState={this.props.getInterlocutorState}
 
             />
             <Item floatingLabel>
