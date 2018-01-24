@@ -12,6 +12,12 @@ moment.locale('fr');
 class ActivityAddContainer extends React.Component {
   constructor(props) {
     super(props);
+
+    if (props.id) {
+      console.log('ID');
+      console.log(props.id);
+    }
+
     this.state = {
       isFormValid: false,
       tagInput: '',
@@ -134,7 +140,7 @@ class ActivityAddContainer extends React.Component {
       const concatenated = this.state.activity.tags.concat(newTags);
       const updatedState = concatenated.filter((item, pos) =>
         concatenated.indexOf(item) === pos);
-        
+
       this.setState({
         ...this.state,
         tagInput: '',
