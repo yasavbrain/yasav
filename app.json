@@ -1,10 +1,20 @@
 {
-  "expo": {
+   "expo": {
+    "name": "Yasav",
+    "icon": "",
+    "version": "0.1.0",
+    "slug": "yasav",
     "sdkVersion": "23.0.0",
     "androidStatusBarColor": "#ffffff",
     "androidStatusBar": {
       "barStyle": "light-content",
       "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "bundleIdentifier": "com.yasav.yasav"
+    },
+    "android": {
+      "package": "com.yasav.yasav"
     }
-  }
-}
+   }
+ }
