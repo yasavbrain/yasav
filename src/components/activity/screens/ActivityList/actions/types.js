@@ -1,0 +1,1 @@
+export const GET_ACTIVITY_LIST = 'GET_ACTIVITY_LIST';

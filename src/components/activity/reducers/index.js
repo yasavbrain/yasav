@@ -1,4 +1,5 @@
 import { ADD_ACTIVITY } from '../screens/ActivityAdd/actions/types';
+import { GET_ACTIVITY_LIST } from '../screens/ActivityList/actions/types';
 
 // To be deleted when activity add is working
 import moment from 'moment';
@@ -17,6 +18,9 @@ export default function reducer(state = initialState, action) {
     case ADD_ACTIVITY:
       let newID = state.lastID + 1;
       return {...state, activityList: state.activityList.concat(action.activity), lastID: newID};
+
+    case GET_ACTIVITY_LIST:
+      return {...state, activityList: action.activityList}
 
     default:
       return state;

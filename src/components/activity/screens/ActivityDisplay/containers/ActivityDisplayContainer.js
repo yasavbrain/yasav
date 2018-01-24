@@ -5,8 +5,6 @@ import ActivityDisplayError from '../views/ActivityDisplayError';
 export default class ActivityDisplayScreen extends React.Component {
 
   render() {
-
-    console.log(this.props.stateParams);
     if (this.props.stateParams){
       return(
         <ActivityDisplayView
