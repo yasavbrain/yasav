@@ -25,9 +25,8 @@ class ActivityAddContainer extends React.Component {
         contentSource: "",
         tags: [],
         key: this.props.lastID + 1,
-        interlocutorKey: null
       },
-      interlocutor: {},
+      interlocutor: null,
 
     }
     this.addActivity = this.addActivity.bind(this)
@@ -47,8 +46,12 @@ class ActivityAddContainer extends React.Component {
   addActivity() {
     if (this.state.activity.type == ActivityTypeEnum.MEETING) {
       this.props.addInterlocutor(this.state.interlocutor)
+      .then((interlocutorId) => {
+        this.props.addActivity(this.state.activity, interlocutorId)
+      })
+    } else {
+      this.props.addActivity(this.state.activity)
     }
-    this.props.addActivity(this.state.activity)
     this.props.goBack()
   }
 
@@ -117,10 +120,10 @@ class ActivityAddContainer extends React.Component {
 
     this.setState({isFormValid: isFormValid})
   }
-    
+
 
     getInterlocutorState(interlocutor){
-      this.setState({...this.state, interlocutor: interlocutor, activity: {...this.state.activity, interlocutorKey: interlocutor.key}})
+      this.setState({...this.state, interlocutor: interlocutor});
     }
 
 
