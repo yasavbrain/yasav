@@ -13,6 +13,7 @@ export default class HomeView extends React.Component {
     this.navigateToTodoList = this.navigateToTodoList.bind(this);
     this.navigateToActivityAdd = this.navigateToActivityAdd.bind(this);
     this.navigateToTodoAdd = this.navigateToTodoAdd.bind(this);
+    this.navigateToInterlocutorList = this.navigateToInterlocutorList.bind(this);
   }
 
   navigateToActivityList() {
@@ -29,6 +30,10 @@ export default class HomeView extends React.Component {
 
   navigateToTodoAdd() {
     this.props.navigateToTodoAdd();
+  }
+
+  navigateToInterlocutorList() {
+    this.props.navigateToInterlocutorList();
   }
 
   render() {
@@ -50,6 +55,10 @@ export default class HomeView extends React.Component {
 
           <Button full primary style={{marginTop: 10}} onPress={this.navigateToTodoAdd}>
             <Text>{I18n.t('home.todoAddButton')}</Text>
+          </Button>
+
+          <Button full primary style={{marginTop: 10}} onPress={this.navigateToInterlocutorList}>
+            <Text>{I18n.t('home.interlocutorListButton')}</Text>
           </Button>
         </Content>
       </Container>
