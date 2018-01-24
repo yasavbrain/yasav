@@ -32,7 +32,8 @@ export default {
     activityListButton: "Liste d'activités",
     todoListButton: "Liste de Todos",
     addActivityButton: "Ajouter une activité",
-    todoAddButton: "Ajouter une ToDo"
+    todoAddButton: "Ajouter une ToDo",
+    interlocutorListButton: "Liste de mes interlocuteurs"
   },
   todo: {
     todoAdd: {
@@ -48,6 +49,9 @@ export default {
     interlocutorAdd: {
       name: "Nom",
       linkToMe: "Relation"
+    },
+    interlocutorList: {
+      title: "Liste de mes interlocuteurs"
     },
   },
 }

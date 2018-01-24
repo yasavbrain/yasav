@@ -10,6 +10,7 @@ export default class HomeScreen extends React.Component {
     this.navigateToTodoList = this.navigateToTodoList.bind(this)
     this.navigateToActivityAdd = this.navigateToActivityAdd.bind(this)
     this.navigateToTodoAdd = this.navigateToTodoAdd.bind(this)
+    this.navigateToInterlocutorList = this.navigateToInterlocutorList.bind(this)
   }
 
   navigateToActivityList() {
@@ -28,6 +29,10 @@ export default class HomeScreen extends React.Component {
     this.props.navigation.navigate('TodoAddScreen');
   }
 
+  navigateToInterlocutorList() {
+    this.props.navigation.navigate('InterlocutorListScreen');
+  }
+
   render() {
 
     return(
@@ -36,6 +41,7 @@ export default class HomeScreen extends React.Component {
         navigateToTodoList={this.navigateToTodoList}
         navigateToActivityAdd={this.navigateToActivityAdd}
         navigateToTodoAdd={this.navigateToTodoAdd}
+        navigateToInterlocutorList={this.navigateToInterlocutorList}
       />
     );
   }
