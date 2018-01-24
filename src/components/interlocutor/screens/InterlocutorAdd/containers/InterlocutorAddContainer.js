@@ -5,7 +5,6 @@ import 'moment/locale/fr';
 moment.locale('fr');
 
 import InterlocutorAddView from '../views/InterlocutorAddView';
-import { addInterlocutor } from '../actions/index';
 
 
 class InterlocutorAddContainer extends React.Component {
@@ -15,7 +14,7 @@ class InterlocutorAddContainer extends React.Component {
     this.state = {
       interlocutor: {
         name: "",
-        link_to_me: "",
+        linkToMe: "",
         date: moment(),
         key: this.props.lastID + 1,
       },
@@ -30,7 +29,7 @@ class InterlocutorAddContainer extends React.Component {
   validateForm(){
     isFormValid = true;
     isFormValid = isFormValid && this.state.interlocutor.name.length > 0
-    isFormValid = isFormValid && this.state.interlocutor.link_to_me.length > 0
+    isFormValid = isFormValid && this.state.interlocutor.linkToMe.length > 0
     this.setState({isFormValid: isFormValid})
     }
   
@@ -38,8 +37,8 @@ class InterlocutorAddContainer extends React.Component {
     this.setState({...this.state, interlocutor: {...this.state.interlocutor, name: name}}, () => {this.validateForm; this.update()})
   }
 
-  setLinkToMe(link_to_me){
-    this.setState({...this.state, interlocutor: {...this.state.interlocutor, link_to_me: link_to_me}}, () => {this.validateForm; this.update()})
+  setLinkToMe(linkToMe){
+    this.setState({...this.state, interlocutor: {...this.state.interlocutor, linkToMe: linkToMe}}, () => {this.validateForm; this.update()})
   }
 
   update() {

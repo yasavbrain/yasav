@@ -25,7 +25,7 @@ class ActivityAddContainer extends React.Component {
         contentSource: "",
         tags: [],
         key: this.props.lastID + 1,
-        interlocutorKey: 0
+        interlocutorKey: null
       },
       interlocutor: {},
 
