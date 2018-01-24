@@ -7,6 +7,7 @@ moment.locale('fr');
 import ActivityAddView from '../views/ActivityAddView';
 import { addActivity } from '../actions/index';
 import { ActivityTypeEnum } from 'yasav/src/const';
+import { addInterlocutor } from 'yasav/src/components/interlocutor/screens/InterlocutorAdd/actions/index'
 
 
 class ActivityAddContainer extends React.Component {
@@ -22,10 +23,11 @@ class ActivityAddContainer extends React.Component {
         date: moment(),
         type: ActivityTypeEnum.CONTENT,
         contentSource: "",
-        meetingWho: "",
         tags: [],
         key: this.props.lastID + 1,
+        interlocutorKey: null
       },
+      interlocutor: {},
 
     }
     this.addActivity = this.addActivity.bind(this)
@@ -33,22 +35,27 @@ class ActivityAddContainer extends React.Component {
     this.setTypeEvent = this.setTypeEvent.bind(this)
     this.setTypeMeeting = this.setTypeMeeting.bind(this)
     this.setTypeContent = this.setTypeContent.bind(this)
-    this.setTitle = this.setTitle.bind(this)
     this.setContentSource = this.setContentSource.bind(this)
-    this.setMeetingWho = this.setMeetingWho.bind(this)
     this.setDescription = this.setDescription.bind(this)
     this.setTitle = this.setTitle.bind(this)
     this.manageTag = this.manageTag.bind(this)
     this.removeTag = this.removeTag.bind(this)
     this.validateForm = this.validateForm.bind(this)
+    this.getInterlocutorState = this.getInterlocutorState.bind(this)
   }
 
   addActivity() {
+    if (this.state.activity.type == ActivityTypeEnum.MEETING) {
+      this.props.addInterlocutor(this.state.interlocutor)
+    }
     this.props.addActivity(this.state.activity)
     this.props.goBack()
   }
 
   addTodoActivity() {
+    if (this.state.activity.type == ActivityTypeEnum.MEETING) {
+      this.props.addInterlocutor(this.state.interlocutor)
+    }
     this.props.addActivity(this.state.activity)
     this.props.navigateToTodoAddScreen(this.state.activity.key)
   }
@@ -67,10 +74,6 @@ class ActivityAddContainer extends React.Component {
 
   setContentSource(source){
     this.setState({...this.state, activity: {...this.state.activity, contentSource: source}}, this.validateForm)
-  }
-
-  setMeetingWho(who){
-    this.setState({...this.state, activity: {...this.state.activity, meetingWho: who}}, this.validateForm)
   }
 
   setDescription(description){
@@ -110,13 +113,15 @@ class ActivityAddContainer extends React.Component {
     if(this.state.activity.type == ActivityTypeEnum.CONTENT){
       isFormValid = isFormValid && this.state.activity.contentSource.length > 0
     }
-    if(this.state.activity.type == ActivityTypeEnum.MEETING){
-      isFormValid = isFormValid && this.state.activity.meetingWho.length > 0
-    }
     isFormValid = isFormValid && this.state.activity.title.length > 0
 
     this.setState({isFormValid: isFormValid})
   }
+    
+
+    getInterlocutorState(interlocutor){
+      this.setState({...this.state, interlocutor: interlocutor, activity: {...this.state.activity, interlocutorKey: interlocutor.key}})
+    }
 
 
   render() {
@@ -128,9 +133,7 @@ class ActivityAddContainer extends React.Component {
         setTitle={this.setTitle}
         setDescription={this.setDescription}
         setContentSource={this.setContentSource}
-        setMeetingWho={this.setMeetingWho}
         contentSource={this.state.activity.contentSource}
-        meetingWho={this.state.meetingWho}
         setTypeEvent={this.setTypeEvent}
         setTypeMeeting={this.setTypeMeeting}
         setTypeContent={this.setTypeContent}
@@ -140,6 +143,7 @@ class ActivityAddContainer extends React.Component {
         tagInput={this.state.tagInput}
         removeTag={this.removeTag}
         isFormValid={this.state.isFormValid}
+        getInterlocutorState = {this.getInterlocutorState}
       />
     );
   }
@@ -154,7 +158,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addActivity: (activity) => dispatch(addActivity(activity))
+    addActivity: (activity) => dispatch(addActivity(activity)),
+    addInterlocutor: (interlocutor) => dispatch(addInterlocutor(interlocutor))
   };
 }
 
