@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { StatusEnum } from 'yasav/src/const';
 import TodoListView from '../views/TodoListView';
-import { toggleTodo } from '../../TodoAdd/actions/index';
+import { toggleTodo, deleteTodo } from '../../TodoAdd/actions/index';
 import { getTodoList } from '../actions';
 
 class TodoListContainer extends React.Component {
@@ -11,11 +11,13 @@ class TodoListContainer extends React.Component {
     super(props);
     this.filterTodos = this.filterTodos.bind(this);
     this.toggleTodo = this.toggleTodo.bind(this);
+    this.deleteTodo = this.deleteTodo.bind(this);
     this.state = {
       visible: StatusEnum.TODO,
       displayedTodos: null,
     };
   }
+
   componentDidMount() {
     this.props.getTodoList()
       .then(() => this.filterTodos(StatusEnum.TODO));
@@ -42,6 +44,13 @@ class TodoListContainer extends React.Component {
       });
   }
 
+  deleteTodo(item) {
+    this.props.deleteTodo(item)
+      .then(() => {
+        this.filterTodos(this.state.visible);
+      });
+  }
+
   render() {
     return (
       <TodoListView
@@ -50,6 +59,7 @@ class TodoListContainer extends React.Component {
         goBack={this.props.goBack}
         filterTodos={this.filterTodos}
         toggleTodo={this.toggleTodo}
+        deleteTodo={this.deleteTodo}
       />
     );
   }
@@ -63,6 +73,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    deleteTodo: id => dispatch(deleteTodo(id)),
     toggleTodo: id => dispatch(toggleTodo(id)),
     getTodoList: () => dispatch(getTodoList()),
   };
