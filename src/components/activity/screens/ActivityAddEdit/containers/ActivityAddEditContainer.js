@@ -13,10 +13,7 @@ moment.locale('fr');
 class ActivityAddEditContainer extends React.Component {
   constructor(props) {
     super(props);
-<<<<<<< aec5fce69bd093dbc1d301b32a688ea7a0cc964f
-=======
 
->>>>>>> Deleting a todo => just longpress on it
     this.state = {
       isFormValid: false,
       tagInput: '',
@@ -30,6 +27,7 @@ class ActivityAddEditContainer extends React.Component {
       },
       interlocutor: null,
     };
+    
     this.addActivity = this.addActivity.bind(this);
     this.editActivity = this.editActivity.bind(this);
     this.addTodoActivity = this.addTodoActivity.bind(this);
