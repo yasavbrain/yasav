@@ -18,7 +18,7 @@ export default class ActivityListScreen extends React.Component {
   }
 
   render() {
-    return(
+    return (
       <ActivityListContainer
         goBack={this.props.navigation.goBack}
         navigateToActivityAddScreen={this.navigateToActivityAddScreen}

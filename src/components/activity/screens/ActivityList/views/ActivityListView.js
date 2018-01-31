@@ -18,18 +18,19 @@ export default class ActivityListView extends React.Component {
 
   // TODO : Find a way to remove that arrow function in the render
   renderRow(item) {
-    return(
+    console.log(item);
+    return (
       <ListItem
-        style={{height: 75, backgroundColor: 0}}
-        onPress={() => this.navigateToActivityDisplayScreen(item)}
+        style={{ height: 75, backgroundColor: 0 }}
+        onPress={() => this.navigateToActivityDisplayScreen(item.activity)}
       >
-        <Text style={{fontSize: 50}}>{item.title}</Text>
+        <Text style={{ fontSize: 50 }}>{item.activity.title}</Text>
       </ListItem>
     );
   }
 
   render() {
-    return(
+    return (
       <Container>
         <GenericHeader
           goBack={this.props.goBack}

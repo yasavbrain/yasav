@@ -1,17 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getActivityList } from '../actions';
-
 import ActivityListView from '../views/ActivityListView';
 
 class ActivityListContainer extends React.Component {
-
   componentDidMount() {
     this.props.getActivityList();
   }
 
   render() {
-    return(
+    return (
       <ActivityListView
         goBack={this.props.goBack}
         navigateToActivityAddScreen={this.props.navigateToActivityAddScreen}
@@ -24,14 +22,14 @@ class ActivityListContainer extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    activityList: state.activity.activityList
-  }
+    activityList: state.activity.activityList,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getActivityList: () => dispatch(getActivityList())
-  }
+    getActivityList: () => dispatch(getActivityList()),
+  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ActivityListContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(ActivityListContainer);

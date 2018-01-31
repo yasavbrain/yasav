@@ -38,6 +38,44 @@ export class GenericHeader extends React.Component {
 }
 
 /**
+ * Header Component with NativeBase design that contains an arrow to go back
+ * one screen, a title and a menu on the rigth
+ * Props :
+ * - title : String
+ * - goBack : Callback that must be navigation.goBack() from the Navigator
+ * - menu : Component that will be rendered on the right
+ */
+export class MenuHeader extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.goBack = this.goBack.bind(this);
+  }
+
+  goBack() {
+    this.props.goBack();
+  }
+
+  render() {
+    return (
+      <Header>
+        <Left>
+          <Button transparent onPress={this.goBack}>
+            <Icon name="arrow-back" />
+          </Button>
+        </Left>
+        <Body>
+          <Title>{this.props.title}</Title>
+        </Body>
+        <Right>
+          {this.props.menu}
+        </Right>
+      </Header>
+    );
+  }
+}
+
+/**
  * Header Component with NativeBase design that contains only a title.
  * Props :
  * - title : String
