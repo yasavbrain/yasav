@@ -1,21 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { getInterlocutorActivity } from '../actions/index'
 import InterlocutorDisplayView from '../views/InterlocutorDisplayView'
 
 class InterlocutorDisplayContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.getInterlocutorActivityList = this.getInterlocutorActivityList.bind(this);
-  }
-
-  getInterlocutorActivityList(interlocutor, activityList) {
-    const interlocutorActivityList = []
-    activityList.forEach((function (activity) { 
-      if (activity.interlocutorKey == interlocutor.key) {
-        interlocutorActivityList.push(activity)
-      }
-    }))
-    return interlocutorActivityList
+  
+  componentDidMount() {
+    this.props.getInterlocutorActivity(this.props.stateParams.id);
   }
   
   render() {
@@ -23,7 +14,7 @@ class InterlocutorDisplayContainer extends React.Component {
       <InterlocutorDisplayView
         interlocutor = {this.props.stateParams}
         goBack = {this.props.goBack}
-        interlocutorActivityList = {this.getInterlocutorActivityList(this.props.stateParams, this.props.activityList)}
+        interlocutorActivityList = {this.props.activityList}
       />
         
     );
@@ -32,8 +23,14 @@ class InterlocutorDisplayContainer extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    activityList: state.activity.activityList
+    activityList: state.interlocutor.activityList
   }
 }
 
-export default connect(mapStateToProps)(InterlocutorDisplayContainer)
+function mapDispatchToProps(dispatch) {
+  return {
+    getInterlocutorActivity: (interlocutor_id) => dispatch(getInterlocutorActivity(interlocutor_id))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(InterlocutorDisplayContainer)

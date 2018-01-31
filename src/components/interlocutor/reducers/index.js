@@ -1,5 +1,6 @@
 import { ADD_INTERLOCUTOR } from '../screens/InterlocutorAdd/actions/types';
 import { GET_INTERLOCUTOR_LIST } from '../screens/InterlocutorList/actions/types';
+import { GET_INTERLOCUTOR_ACTIVITY } from '../screens/InterlocutorDisplay/actions/types'
 
 // To be deleted when activity add is working
 import moment from 'moment';
@@ -7,6 +8,7 @@ import 'moment/locale/fr';
 moment.locale('fr');
 
 const initialState = {
+  activityList: [],
   interlocutorList: [],
   lastID: 0
 }
@@ -21,6 +23,10 @@ export default function reducer(state = initialState, action) {
     
     case GET_INTERLOCUTOR_LIST:
       return { ...state, interlocutorList: action.interlocutorList}
+    
+    case GET_INTERLOCUTOR_ACTIVITY:
+      //console.log(action.interlocutorActivityList)
+      return { ...state, activityList: action.interlocutorActivityList}
 
     default:
       return state;

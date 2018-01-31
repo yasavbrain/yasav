@@ -16,6 +16,7 @@ class InterlocutorAddContainer extends React.Component {
         name: "",
         linkToMe: "",
         date: moment(),
+        id: null
       },
       isFormValid: false,
     }
