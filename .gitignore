@@ -5,3 +5,4 @@ npm-debug.*
 .flowconfig
 .babelrc
 .watchmanconfig
+*.DS_Store

@@ -11,6 +11,7 @@ import ActivityEditScreen from './components/activity/screens/ActivityAddEdit/Ac
 import TodoListScreen from './components/todo/screens/TodoList/TodoListScreen';
 import TodoAddScreen from './components/todo/screens/TodoAdd/TodoAddScreen';
 import InterlocutorListScreen from './components/interlocutor/screens/InterlocutorList/InterlocutorListScreen';
+import InterlocutorDisplayScreen from './components/interlocutor/screens/InterlocutorDisplay/InterlocutorDisplayScreen';
 
 const Routes = StackNavigator({
   HomeScreen: { screen: HomeScreen },
@@ -20,7 +21,8 @@ const Routes = StackNavigator({
   ActivityEditScreen: { screen: ActivityEditScreen },
   TodoListScreen: { screen: TodoListScreen },
   TodoAddScreen: { screen: TodoAddScreen },
-  InterlocutorListScreen: { screen: InterlocutorListScreen }
+  InterlocutorListScreen: { screen: InterlocutorListScreen },
+  InterlocutorDisplayScreen: { screen: InterlocutorDisplayScreen }
 }, {
   headerMode: 'none',
   cardStyle: {

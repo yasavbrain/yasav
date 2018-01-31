@@ -13,6 +13,7 @@ moment.locale('fr');
 class ActivityAddEditContainer extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       isFormValid: false,
       tagInput: '',
@@ -26,6 +27,7 @@ class ActivityAddEditContainer extends React.Component {
       },
       interlocutor: null,
     };
+    
     this.addActivity = this.addActivity.bind(this);
     this.editActivity = this.editActivity.bind(this);
     this.addTodoActivity = this.addTodoActivity.bind(this);
@@ -217,8 +219,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addActivity: activity => dispatch(addActivity(activity)),
     editActivity: activity => dispatch(editActivity(activity)),
+    addActivity: (activity, interlocutorId) => dispatch(addActivity(activity, interlocutorId)),
     addInterlocutor: interlocutor => dispatch(addInterlocutor(interlocutor)),
     getActivityFromId: id => dispatch(getActivityFromId(id)),
   };

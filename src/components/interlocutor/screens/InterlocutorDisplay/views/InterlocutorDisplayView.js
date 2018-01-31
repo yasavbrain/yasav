@@ -1,17 +1,22 @@
 import React from 'react';
 import { Container, Content, Text, List, ListItem } from 'native-base';
 import I18n from 'yasav/locales/i18n';
+import moment from 'moment';
+import 'moment/locale/fr';
 import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
 
-export default class InterlocutorListView extends React.Component {
+moment.locale('fr');
+
+
+export default class InterlocutorDisplayView extends React.Component {
   constructor(props) {
     super(props);
     this.renderRow = this.renderRow.bind(this);
-    this.navigateToInterlocutorDisplayScreen = this.navigateToInterlocutorDisplayScreen.bind(this);
+    this.navigateToActivityDisplayScreen = this.navigateToActivityDisplayScreen.bind(this);
   }
 
-  navigateToInterlocutorDisplayScreen(item) {
-    this.props.navigateToInterlocutorDisplayScreen(item);
+  navigateToActivityDisplayScreen(id) {
+    this.props.navigateToActivityDisplayScreen(id);
   }
 
   // TODO : Find a way to remove that arrow function in the render
@@ -19,23 +24,25 @@ export default class InterlocutorListView extends React.Component {
     return (
       <ListItem
         style={{ height: 30, backgroundColor: 0 }}
-        onPress={() => this.navigateToInterlocutorDisplayScreen(item)}
+        onPress={() => this.navigateToActivityDisplayScreen(item.id)}
       >
-        <Text>{item.name}</Text>
+        <Text>{item.title}</Text>
       </ListItem>
     );
   }
+
   render() {
     return (
       <Container>
         <GenericHeader
           goBack={this.props.goBack}
-          title={I18n.t('interlocutor.interlocutorList.title')}
+          title={I18n.t('activity.activityDisplay.title')}
         />
         <Content>
+          <Text>{this.props.interlocutor.name}</Text>
+          <Text>{this.props.interlocutor.linkToMe}</Text>
           <List
-            dataArray={this.props.displayInterlocutorList}
-            keyExtractor={item => item.id}
+            dataArray={this.props.interlocutorActivityList}
             renderRow={this.renderRow}
           />
         </Content>

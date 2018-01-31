@@ -1,54 +1,100 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import moment from 'moment';
+import { connect } from 'react-redux';
 import 'moment/locale/fr';
-moment.locale('fr');
-
+import { getInterlocutorList } from 'yasav/src/components/interlocutor/screens/InterlocutorList/actions';
 import InterlocutorAddView from '../views/InterlocutorAddView';
+
+moment.locale('fr');
 
 
 class InterlocutorAddContainer extends React.Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       interlocutor: {
-        name: "",
-        linkToMe: "",
+        name: '',
+        linkToMe: '',
         date: moment(),
+        id: null,
       },
       isFormValid: false,
-    }
-    this.update = this.update.bind(this)
-    this.validateForm = this.validateForm.bind(this)
-    this.setName = this.setName.bind(this)
-    this.setLinkToMe = this.setLinkToMe.bind(this)
+      interlocutorList: [],
+    };
+    this.update = this.update.bind(this);
+    this.validateForm = this.validateForm.bind(this);
+    this.setName = this.setName.bind(this);
+    this.setLinkToMe = this.setLinkToMe.bind(this);
+    this.selectInterlocutor = this.selectInterlocutor.bind(this);
   }
 
-  validateForm(){
-    isFormValid = true;
-    isFormValid = isFormValid && this.state.interlocutor.name.length > 0
-    isFormValid = isFormValid && this.state.interlocutor.linkToMe.length > 0
-    this.setState({isFormValid: isFormValid})
-    }
-
-  setName(name){
-    this.setState({...this.state, interlocutor: {...this.state.interlocutor, name: name}}, () => {this.validateForm; this.update()})
+  componentDidMount() {
+    this.props.getInterlocutorList();
   }
 
-  setLinkToMe(linkToMe){
-    this.setState({...this.state, interlocutor: {...this.state.interlocutor, linkToMe: linkToMe}}, () => {this.validateForm; this.update()})
+  setName(name) {
+    this.setState(
+      {
+        ...this.state,
+        interlocutor: { ...this.state.interlocutor, name },
+        interlocutorList: this.props.interlocutorList.filter(item => item.name.startsWith(name)),
+      },
+      () => {
+        this.validateForm();
+        this.update();
+      },
+    );
+  }
+
+  setLinkToMe(linkToMe) {
+    this.setState(
+      { ...this.state, interlocutor: { ...this.state.interlocutor, linkToMe } },
+      () => {
+        this.validateForm();
+        this.update();
+      },
+    );
+  }
+
+  selectInterlocutor(interlocutor) {
+    this.setState(
+      {
+        ...this.state,
+        interlocutor: {
+          ...this.state.interlocutor,
+          name: interlocutor.name,
+          linkToMe: interlocutor.linkToMe || '',
+          id: interlocutor.id,
+        },
+      },
+      () => {
+        this.validateForm();
+        this.update();
+      },
+    );
   }
 
   update() {
-    this.props.getInterlocutorState(this.state.interlocutor)
+    this.props.getInterlocutorState(this.state.interlocutor);
+  }
+
+  // TODO : this function is useless for now, need to ensure this form
+  // validation
+  validateForm() {
+    let isFormValid = true;
+    isFormValid = isFormValid && this.state.interlocutor.name.length > 0;
+    isFormValid = isFormValid && this.state.interlocutor.linkToMe.length > 0;
+    this.setState({ isFormValid });
   }
 
   render() {
-    return(
+    return (
       <InterlocutorAddView
-      setName={this.setName}
-      setLinkToMe={this.setLinkToMe}
+        setName={this.setName}
+        name={this.state.interlocutor.name}
+        setLinkToMe={this.setLinkToMe}
+        interlocutorList={this.state.interlocutorList}
+        selectInterlocutor={this.selectInterlocutor}
       />
     );
   }
@@ -56,8 +102,14 @@ class InterlocutorAddContainer extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    lastID: state.interlocutor.lastID
-  }
+    interlocutorList: state.interlocutor.interlocutorList,
+  };
 }
 
-export default connect(mapStateToProps)(InterlocutorAddContainer)
+function mapDispatchToProps(dispatch) {
+  return {
+    getInterlocutorList: () => dispatch(getInterlocutorList()),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(InterlocutorAddContainer);

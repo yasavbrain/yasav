@@ -15,7 +15,10 @@ class TodoAddContainer extends React.Component {
     if(props.navParams && props.navParams.activity_id){
       activityId = props.navParams.activity_id;
     }
+
+    // check if need 2 conditions
     if(props.navParams && props.navParams.screen_id){
+      // screen_id from /fg/erfg ; int ....
       this.screen_id = props.navParams.screen_id
     }
     this.state = {
@@ -38,6 +41,7 @@ class TodoAddContainer extends React.Component {
 
   setTitle(title){
     this.setState({...this.state, todo: {...this.state.todo, title: title}})
+    // Check empty chars (white space, ..)
     this.setState({isFormValid: title.length > 0})
   }
 

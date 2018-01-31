@@ -12,17 +12,17 @@ export function addActivity(activity, interlocutorId) {
       case ActivityTypeEnum.CONTENT:
         request =
         `INSERT INTO
-        activity(title, description, type, activity_date, visible, content_source, interlocutor_id)
-        VALUES (?, ?, ${ActivityTypeEnum.CONTENT}, ?, 1, ?, ?);`;
-        params = [activity.title, activity.description, activity.date, activity.contentSource, interlocutorId];
+        activity(title, description, type, activity_date, visible, content_source)
+        VALUES (?, ?, ${ActivityTypeEnum.CONTENT}, ?, 1, ?);`;
+        params = [activity.title, activity.description, activity.date, activity.contentSource];
         break;
 
       case ActivityTypeEnum.MEETING:
         request =
         `INSERT INTO
-        activity(title, description, type, activity_date, visible)
-        VALUES (?, ?, ${ActivityTypeEnum.MEETING}, ?, 1);`;
-        params = [activity.title, activity.description, activity.date];
+        activity(title, description, type, activity_date, visible, interlocutor_id)
+        VALUES (?, ?, ${ActivityTypeEnum.MEETING}, ?, 1, ?);`;
+        params = [activity.title, activity.description, activity.date, interlocutorId];
         break;
 
       case ActivityTypeEnum.EVENT:
