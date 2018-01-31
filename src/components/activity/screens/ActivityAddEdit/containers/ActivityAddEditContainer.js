@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import 'moment/locale/fr';
 import { ActivityTypeEnum } from 'yasav/src/const';
-import { addInterlocutor } from 'yasav/src/components/interlocutor/screens/InterlocutorAdd/actions/index'
+import { addInterlocutor } from 'yasav/src/components/interlocutor/screens/InterlocutorAdd/actions/index';
 import ActivityAddEditView from '../views/ActivityAddEditView';
-import { addActivity } from '../actions/index';
+import { addActivity, editActivity, getActivityFromId } from '../actions/index';
 
 moment.locale('fr');
 
@@ -13,9 +13,8 @@ class ActivityAddEditContainer extends React.Component {
   constructor(props) {
     super(props);
 
-    if (props.id) {
-      console.log('ID');
-      console.log(props.id);
+    if (props.id !== -1) {
+      console.log('EDIT !');
     }
 
     this.state = {
@@ -32,6 +31,7 @@ class ActivityAddEditContainer extends React.Component {
       interlocutor: null,
     };
     this.addActivity = this.addActivity.bind(this);
+    this.editActivity = this.editActivity.bind(this);
     this.addTodoActivity = this.addTodoActivity.bind(this);
     this.setTypeEvent = this.setTypeEvent.bind(this);
     this.setTypeMeeting = this.setTypeMeeting.bind(this);
@@ -43,6 +43,21 @@ class ActivityAddEditContainer extends React.Component {
     this.removeTag = this.removeTag.bind(this);
     this.validateForm = this.validateForm.bind(this);
     this.getInterlocutorState = this.getInterlocutorState.bind(this);
+  }
+
+  componentDidMount() {
+    if (this.props.id !== -1) {
+      this.props.getActivityFromId(this.props.id)
+        .then(() => {
+          console.log(this.props.activityDisplay);
+          // Temporary: because tags are not persisted in DB.
+          // When it'll be done: this.setState(this.props.activityDisplay)
+          this.setState(
+            { ...this.props.activityDisplay, activity: { ...this.props.activityDisplay.activity, tags: [] } },
+            () => this.validateForm(),
+          );
+        });
+    }
   }
 
   getInterlocutorState(interlocutor) {
@@ -95,10 +110,26 @@ class ActivityAddEditContainer extends React.Component {
     if (this.state.activity.type === ActivityTypeEnum.MEETING) {
       this.props.addInterlocutor(this.state.interlocutor)
         .then((interlocutorId) => {
-          this.props.addActivity(this.state.activity, interlocutorId)
+          this.props.addActivity(this.state.activity, interlocutorId);
         });
     } else {
       this.props.addActivity(this.state.activity);
+    }
+    this.props.goBack();
+  }
+
+  editActivity() {
+    // TODOODODODOO
+    if (this.state.activity.type === ActivityTypeEnum.MEETING) {
+      // EDIT INTERLOCUTOR ASSOCIATED !! TODO
+      this.props.addInterlocutor(this.state.interlocutor)
+        .then((interlocutorId) => {
+          this.props.editActivity(this.state.activity, interlocutorId);
+        });
+    } else {
+      console.log("DEBUG");
+      console.log(this.state.activity);
+      this.props.editActivity(this.state.activity);
     }
     this.props.goBack();
   }
@@ -107,7 +138,7 @@ class ActivityAddEditContainer extends React.Component {
     if (this.state.activity.type === ActivityTypeEnum.MEETING) {
       this.props.addInterlocutor(this.state.interlocutor)
         .then((interlocutorId) => {
-          this.props.addActivity(this.state.activity, interlocutorId)
+          this.props.addActivity(this.state.activity, interlocutorId);
         });
     } else {
       this.props.addActivity(this.state.activity);
@@ -152,7 +183,7 @@ class ActivityAddEditContainer extends React.Component {
   validateForm() {
     let isFormValid = true;
     if (this.state.activity.type === ActivityTypeEnum.CONTENT) {
-      isFormValid = isFormValid && this.state.activity.contentSource.length > 0;
+      isFormValid = isFormValid && this.state.activity.contentSource && this.state.activity.contentSource.length > 0;
     }
     isFormValid = isFormValid && this.state.activity.title.length > 0;
 
@@ -165,37 +196,38 @@ class ActivityAddEditContainer extends React.Component {
       <ActivityAddEditView
         goBack={this.props.goBack}
         addActivity={this.addActivity}
+        editActivity={this.editActivity}
         addTodoActivity={this.addTodoActivity}
         setTitle={this.setTitle}
         setDescription={this.setDescription}
         setContentSource={this.setContentSource}
-        contentSource={this.state.activity.contentSource}
         setTypeEvent={this.setTypeEvent}
         setTypeMeeting={this.setTypeMeeting}
         setTypeContent={this.setTypeContent}
-        type={this.state.activity.type}
-        tags={this.state.activity.tags}
+        activity={this.state.activity}
         manageTag={this.manageTag}
         tagInput={this.state.tagInput}
         removeTag={this.removeTag}
         isFormValid={this.state.isFormValid}
         getInterlocutorState={this.getInterlocutorState}
+        isEdit={this.props.id !== -1}
       />
     );
   }
 }
 
-
 function mapStateToProps(state) {
   return {
-    lastID: state.activity.lastID,
-  }
+    activityDisplay: state.activity.activityDisplay,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     addActivity: activity => dispatch(addActivity(activity)),
+    editActivity: activity => dispatch(editActivity(activity)),
     addInterlocutor: interlocutor => dispatch(addInterlocutor(interlocutor)),
+    getActivityFromId: id => dispatch(getActivityFromId(id)),
   };
 }
 

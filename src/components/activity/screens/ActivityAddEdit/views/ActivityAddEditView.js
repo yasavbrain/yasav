@@ -1,8 +1,8 @@
 import React from 'react';
 import { Container, Content, Text, Form, Item, Input, Label, Button, Badge } from 'native-base';
 import { Col, Grid } from 'react-native-easy-grid';
-import { RadioBlock } from 'yasav/src/viewElements/shared/radioSelection/RadioBlock'
-import ActivityAddEditSpecificFieldsContainer from '../containers/ActivityAddEditSpecificFieldsContainer'
+import { RadioBlock } from 'yasav/src/viewElements/shared/radioSelection/RadioBlock';
+import ActivityAddEditSpecificFieldsContainer from '../containers/ActivityAddEditSpecificFieldsContainer';
 
 import I18n from 'yasav/locales/i18n';
 import Style from '../styles/style.js';
@@ -11,7 +11,6 @@ import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
 import { ActivityTypeEnum } from 'yasav/src/const';
 
 export default class ActivityAddView extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -19,11 +18,31 @@ export default class ActivityAddView extends React.Component {
   }
 
   renderTags() {
-    return this.props.tags.map((tag, index) => (
+    return this.props.activity.tags.map((tag, index) => (
       <Badge primary key={index}>
         <Text onPress={() => this.props.removeTag(tag)}>{tag}</Text>
       </Badge>
     ));
+  }
+
+  renderValidationButtons() {
+    if (this.props.isEdit) {
+      return (
+        <Button primary full onPress={this.props.editActivity} disabled={!this.props.isFormValid}>
+          <Text>{I18n.t('activity.activityAddEdit.edit.button')}</Text>
+        </Button>
+      );
+    }
+    return (
+      <Content>
+        <Button primary full onPress={this.props.addActivity} disabled={!this.props.isFormValid}>
+          <Text>{I18n.t('activity.activityAddEdit.add.button')}</Text>
+        </Button>
+        <Button primary full style={{ marginTop: 20 }} onPress={this.props.addTodoActivity} disabled={!this.props.isFormValid}>
+          <Text>{I18n.t('activity.activityAddEdit.addTodoButton')}</Text>
+        </Button>
+      </Content>
+    );
   }
 
   render() {
@@ -31,7 +50,7 @@ export default class ActivityAddView extends React.Component {
       <Container>
         <GenericHeader
           goBack={this.props.goBack}
-          title={I18n.t('activity.activityAdd.title')}
+          title={this.props.isEdit ? I18n.t('activity.activityAddEdit.edit.title') : I18n.t('activity.activityAddEdit.add.title')}
         />
         <Content>
           <Form>
@@ -39,53 +58,54 @@ export default class ActivityAddView extends React.Component {
               <Grid>
                 <Col style={{ height: 50 }}>
                   <RadioBlock
-                    title={I18n.t('activity.activityAdd.type.event')}
+                    title={I18n.t('activity.activityAddEdit.type.event')}
                     onPress={this.props.setTypeEvent}
-                    selected={this.props.type === ActivityTypeEnum.EVENT}
+                    selected={this.props.activity.type === ActivityTypeEnum.EVENT}
                   />
                 </Col>
                 <Col style={{ height: 50 }}>
                   <RadioBlock
-                    title={I18n.t('activity.activityAdd.type.content')}
+                    title={I18n.t('activity.activityAddEdit.type.content')}
                     onPress={this.props.setTypeContent}
-                    selected={this.props.type === ActivityTypeEnum.CONTENT}
+                    selected={this.props.activity.type === ActivityTypeEnum.CONTENT}
                   />
                 </Col>
                 <Col style={{ height: 50 }}>
                   <RadioBlock
-                    title={I18n.t('activity.activityAdd.type.meeting')}
+                    title={I18n.t('activity.activityAddEdit.type.meeting')}
                     onPress={this.props.setTypeMeeting}
-                    selected={this.props.type === ActivityTypeEnum.MEETING}
+                    selected={this.props.activity.type === ActivityTypeEnum.MEETING}
                   />
                 </Col>
               </Grid>
             </Content>
             <ActivityAddEditSpecificFieldsContainer
-              type={this.props.type}
+              type={this.props.activity.type}
               setContentSource={this.props.setContentSource}
-              contentSource={this.props.contentSource}
-              eventWhat={this.props.eventWhat}
+              contentSource={this.props.activity.contentSource}
+              eventWhat={this.props.activity.eventWhat}
               getInterlocutorState={this.props.getInterlocutorState}
 
             />
             <Item floatingLabel>
-              <Label>{I18n.t('activity.activityAdd.activityTitle')}</Label>
-              <Input onChangeText={this.props.setTitle} />
+              <Label>{I18n.t('activity.activityAddEdit.activityTitle')}</Label>
+              <Input onChangeText={this.props.setTitle} value={this.props.activity.title} />
             </Item>
             <Item floatingLabel>
-              <Label>{I18n.t('activity.activityAdd.content')}</Label>
+              <Label>{I18n.t('activity.activityAddEdit.content')}</Label>
               <Input
                 onChangeText={this.props.setDescription}
                 multiline
                 blurOnSubmit={false}
                 numberOfLines={5}
-                returnKeyType='none'
+                returnKeyType="none"
                 style={Style.textarea}
+                value={this.props.activity.description}
               />
             </Item>
             <Item
               style={{ flex: 1, flexDirection: 'row', marginLeft: 0 }}
-              contentContainerStyle={{ alignItems: 'flex-start' }}  
+              contentContainerStyle={{ alignItems: 'flex-start' }}
             >
               {this.renderTags()}
             </Item>
@@ -94,14 +114,7 @@ export default class ActivityAddView extends React.Component {
               <Label>Tags</Label>
               <Input onChangeText={this.props.manageTag} value={this.props.tagInput} />
             </Item>
-            <Button primary full onPress={this.props.addActivity} disabled={!this.props.isFormValid}>
-              <Text>{I18n.t('activity.activityAdd.addActivityButton')}</Text>
-            </Button>
-            <Content>
-              <Button primary full style={{ marginTop: 20 }} onPress={this.props.addTodoActivity} disabled={!this.props.isFormValid}>
-                <Text>{I18n.t('activity.activityAdd.addTodoButton')}</Text>
-              </Button>
-            </Content>
+            {this.renderValidationButtons()}
           </Form>
         </Content>
       </Container>

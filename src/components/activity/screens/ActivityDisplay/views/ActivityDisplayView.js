@@ -15,8 +15,7 @@ export default class ActivityDisplayView extends React.Component {
   }
 
   navigateToEditActivity() {
-    console.log(this.props.activity);
-    this.props.navigateToEditActivity(this.props.activity.key);
+    this.props.navigateToEditActivity(this.props.activity.id);
   }
 
   render() {

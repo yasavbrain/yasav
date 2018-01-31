@@ -1,1 +1,3 @@
 export const ADD_ACTIVITY = 'ADD_ACTIVITY';
+export const EDIT_ACTIVITY = 'EDIT_ACTIVITY';
+export const GET_ACTIVITY_BY_ID = 'GET_ACTIVITY_BY_ID';

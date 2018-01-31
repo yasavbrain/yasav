@@ -9,7 +9,7 @@ export default class ActivityAddSpecificFieldsContentView extends React.Componen
   render() {
     return(
       <Item floatingLabel>
-        <Label>{I18n.t('activity.activityAdd.contentSource')}</Label>
+        <Label>{I18n.t('activity.activityAddEdit.contentSource')}</Label>
         <Input onChangeText={this.props.setContentSource} value={this.props.value} />
       </Item>
     );
