@@ -1,16 +1,15 @@
 import React from 'react';
-import I18n from 'yasav/locales/i18n'
-import HomeContainer from './containers/HomeContainer'
+import I18n from 'yasav/locales/i18n';
+import HomeContainer from './containers/HomeContainer';
 
 export default class HomeScreen extends React.Component {
-
   constructor(props) {
     super(props);
-    this.navigateToActivityList = this.navigateToActivityList.bind(this)
-    this.navigateToTodoList = this.navigateToTodoList.bind(this)
-    this.navigateToActivityAdd = this.navigateToActivityAdd.bind(this)
-    this.navigateToTodoAdd = this.navigateToTodoAdd.bind(this)
-    this.navigateToInterlocutorList = this.navigateToInterlocutorList.bind(this)
+    this.navigateToActivityList = this.navigateToActivityList.bind(this);
+    this.navigateToTodoList = this.navigateToTodoList.bind(this);
+    this.navigateToActivityAdd = this.navigateToActivityAdd.bind(this);
+    this.navigateToTodoAdd = this.navigateToTodoAdd.bind(this);
+    this.navigateToInterlocutorList = this.navigateToInterlocutorList.bind(this);
   }
 
   navigateToActivityList() {
@@ -34,8 +33,7 @@ export default class HomeScreen extends React.Component {
   }
 
   render() {
-
-    return(
+    return (
       <HomeContainer
         navigateToActivityList={this.navigateToActivityList}
         navigateToTodoList={this.navigateToTodoList}

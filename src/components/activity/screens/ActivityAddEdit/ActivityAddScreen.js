@@ -1,5 +1,5 @@
 import React from 'react';
-import ActivityAddContainer from './containers/ActivityAddContainer';
+import ActivityAddEditContainer from './containers/ActivityAddEditContainer';
 
 export default class ActivityAddScreen extends React.Component {
 
@@ -9,14 +9,15 @@ export default class ActivityAddScreen extends React.Component {
   }
 
   navigateToTodoAddScreen(activityId) {
-    this.props.navigation.navigate('TodoAddScreen', {activity_id: activityId, screen_id: this.props.navigation.state.key});
+    this.props.navigation.navigate('TodoAddScreen', { activity_id: activityId, screen_id: this.props.navigation.state.key });
   }
 
   render() {
-    return(
-      <ActivityAddContainer
+    return (
+      <ActivityAddEditContainer
         goBack={this.props.navigation.goBack}
         navigateToTodoAddScreen={this.navigateToTodoAddScreen}
+        id={-1}
       />
     );
   }

@@ -1,4 +1,4 @@
-import { ADD_ACTIVITY } from '../screens/ActivityAdd/actions/types';
+import { ADD_ACTIVITY } from '../screens/ActivityAddEdit/actions/types';
 import { GET_ACTIVITY_LIST } from '../screens/ActivityList/actions/types';
 
 // To be deleted when activity add is working
