@@ -7,8 +7,8 @@ export default class InterlocutorDisplayScreen extends React.Component {
     this.navigateToActivityDisplayScreen = this.navigateToActivityDisplayScreen.bind(this);
   }
 
-  navigateToActivityDisplayScreen(activity) {
-    this.props.navigation.navigate('ActivityDisplayScreen', activity);
+  navigateToActivityDisplayScreen(id) {
+    this.props.navigation.navigate('ActivityDisplayScreen', id);
   }
 
   render() {
