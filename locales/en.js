@@ -44,6 +44,9 @@ export default {
     todoList: {
       title: 'Todo List',
       content: 'As a user, I want to see all my todos as a list',
+      filterAll: 'All Tasks',
+      filterDone: 'Done Tasks',
+      filterTodo: 'Todo Tasks',
     },
   },
   interlocutor: {
