@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import 'moment/locale/fr';
-import { getInterlocutorList } from 'yasav/src/components/interlocutor/interlocutorList/actions';
+import { getInterlocutorList } from 'yasav/src/components/interlocutor/screens/InterlocutorList/actions';
 import InterlocutorAddView from '../views/InterlocutorAddView';
 
 moment.locale('fr');
@@ -63,7 +63,8 @@ class InterlocutorAddContainer extends React.Component {
         interlocutor: {
           ...this.state.interlocutor,
           name: interlocutor.name,
-          linkToMe: interlocutor.linkToMe,
+          linkToMe: interlocutor.linkToMe || '',
+          id: interlocutor.id,
         },
       },
       () => {

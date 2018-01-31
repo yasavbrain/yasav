@@ -24,7 +24,8 @@ export default class Root extends React.Component {
     });
     this.setState({ fontLoaded: true });
 
-    //dropAllTables(); To uncomment to update the database (quickfix)
+    // To uncomment to update the database (quickfix)
+    // dropAllTables();
     // TODO : add scripts to update the database scheme in newer versions
       db.transaction(tx => {
         CREATE_DB_TABLES_REQUESTS.forEach(req => tx.executeSql(req));

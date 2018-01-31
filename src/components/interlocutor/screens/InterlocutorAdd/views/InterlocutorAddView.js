@@ -11,7 +11,7 @@ export default class InterlocutorAddView extends React.Component {
     this.renderLinkToMe = this.renderLinkToMe.bind(this);
   }
 
-  renderItem(item) {
+  renderItem({ item }) {
     return (
       <ListItem
         style={{ height: 30, backgroundColor: 0 }}
@@ -25,7 +25,7 @@ export default class InterlocutorAddView extends React.Component {
   renderLinkToMe() {
     // display this only if we do not know the interlocutor and then we need to
     // create another one
-    if (this.props.interlocutors && this.props.interlocutors.length === 0) {
+    if (this.props.interlocutorList && this.props.interlocutorList.length === 0) {
       return (
         <Item floatingLabel>
           <Label>{I18n.t('interlocutor.interlocutorAdd.linkToMe')}</Label>
@@ -47,7 +47,7 @@ export default class InterlocutorAddView extends React.Component {
           />
         </Item>
         <FlatList
-          data={this.props.interlocutors}
+          data={this.props.interlocutorList}
           renderItem={this.renderItem}
         />
         {this.renderLinkToMe()}
