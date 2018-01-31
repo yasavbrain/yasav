@@ -57,5 +57,8 @@ export default {
     interlocutorList: {
       title: 'Liste de mes interlocuteurs',
     },
+    interlocutorDisplay: {
+      title: "Interlocutor Display"
+    },
   },
 };

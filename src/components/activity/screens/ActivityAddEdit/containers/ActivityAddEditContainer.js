@@ -217,8 +217,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addActivity: activity => dispatch(addActivity(activity)),
     editActivity: activity => dispatch(editActivity(activity)),
+    addActivity: (activity, interlocutorId) => dispatch(addActivity(activity, interlocutorId)),
     addInterlocutor: interlocutor => dispatch(addInterlocutor(interlocutor)),
     getActivityFromId: id => dispatch(getActivityFromId(id)),
   };
