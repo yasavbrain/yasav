@@ -22,9 +22,9 @@ export default class ActivityListView extends React.Component {
     return (
       <ListItem
         style={{ height: 75, backgroundColor: 0 }}
-        onPress={() => this.navigateToActivityDisplayScreen(item)}
+        onPress={() => this.navigateToActivityDisplayScreen(item.activity)}
       >
-        <Text style={{ fontSize: 50 }}>{item.title}</Text>
+        <Text style={{ fontSize: 50 }}>{item.activity.title}</Text>
       </ListItem>
     );
   }

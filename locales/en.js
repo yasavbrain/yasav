@@ -34,6 +34,7 @@ export default {
     todoListButton: 'Todo List',
     addActivityButton: 'Add activity',
     todoAddButton: 'Add ToDo',
+    interlocutorListButton: 'Interlocutors List',
   },
   todo: {
     todoAdd: {

@@ -28,7 +28,6 @@ class ActivityAddEditContainer extends React.Component {
         type: ActivityTypeEnum.CONTENT,
         contentSource: '',
         tags: [],
-        key: this.props.lastID + 1,
       },
       interlocutor: null,
     };
