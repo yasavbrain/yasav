@@ -13,14 +13,12 @@ moment.locale('fr');
 const initialState = {
   activityList: [],
   interlocutorList: [],
-  lastID: 0,
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case ADD_INTERLOCUTOR:
-      const newID = state.lastID + 1;
-      return { ...state, interlocutorList: state.interlocutorList.concat(action.interlocutor), lastID: newID };
+      return { ...state, interlocutorList: state.interlocutorList.concat(action.interlocutor) };
 
     case GET_INTERLOCUTOR_LIST:
       return { ...state, interlocutorList: action.interlocutorList };

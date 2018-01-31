@@ -35,6 +35,7 @@ export default class InterlocutorListView extends React.Component {
         <Content>
           <List
             dataArray={this.props.displayInterlocutorList}
+            keyExtractor={item => item.id}
             renderRow={this.renderRow}
           />
         </Content>
