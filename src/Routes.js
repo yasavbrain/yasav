@@ -25,9 +25,6 @@ const Routes = StackNavigator({
   InterlocutorDisplayScreen: { screen: InterlocutorDisplayScreen }
 }, {
   headerMode: 'none',
-  cardStyle: {
-      paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
-    }
 
 });
 

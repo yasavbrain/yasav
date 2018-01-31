@@ -32,6 +32,7 @@ export default class TodoListView extends React.Component {
       <ListItem
         style={{ backgroundColor: 0 }}
         onPress={() => this.props.toggleTodo(item)}
+        onLongPress={ () => this.props.deleteTodo(item.key)}
       >
         <CheckBox
           checked={item.status === StatusEnum.DONE}

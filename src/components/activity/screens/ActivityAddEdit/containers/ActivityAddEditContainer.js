@@ -13,6 +13,7 @@ moment.locale('fr');
 class ActivityAddEditContainer extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       isFormValid: false,
       tagInput: '',
@@ -26,6 +27,7 @@ class ActivityAddEditContainer extends React.Component {
       },
       interlocutor: null,
     };
+    
     this.addActivity = this.addActivity.bind(this);
     this.editActivity = this.editActivity.bind(this);
     this.addTodoActivity = this.addTodoActivity.bind(this);
