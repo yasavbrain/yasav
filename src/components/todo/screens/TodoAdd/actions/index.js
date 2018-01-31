@@ -6,7 +6,7 @@ import { StatusEnum } from 'yasav/src/const';
 export function toggleTodo(todo) {
   return (dispatch, getState) => {
     let newTodoStatus = todo.status === StatusEnum.TODO ? StatusEnum.DONE : StatusEnum.TODO;
-    executeSql(
+    return executeSql(
       'UPDATE todo SET status=? WHERE id=?',
       [newTodoStatus, todo.key]
     )
