@@ -37,8 +37,9 @@ export function addActivity(activity, interlocutorId) {
         params = null;
     }
     executeSql(request, params)
-      .then(() => {
-        dispatch({ type: ADD_ACTIVITY, activity });
+      .then(({ insertId }) => {
+        const activityWithId = { ...activity, id: insertId };
+        dispatch({ type: ADD_ACTIVITY, activity: activityWithId });
       });
   };
 }
