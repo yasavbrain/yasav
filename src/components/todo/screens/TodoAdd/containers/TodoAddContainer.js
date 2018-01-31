@@ -32,7 +32,6 @@ class TodoAddContainer extends React.Component {
   }
 
   addTodo() {
-    console.log(this.state)
     this.props.addTodo(this.state.todo)
     this.props.goBackToPreviousScreen(this.screen_id)
   }

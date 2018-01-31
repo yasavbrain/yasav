@@ -5,18 +5,14 @@ import 'moment/locale/fr';
 import { ActivityTypeEnum } from 'yasav/src/const';
 import { addInterlocutor } from 'yasav/src/components/interlocutor/screens/InterlocutorAdd/actions/index';
 import ActivityAddEditView from '../views/ActivityAddEditView';
-import { addActivity, editActivity, getActivityFromId } from '../actions/index';
+import { addActivity, editActivity } from '../actions/index';
+import { getActivityFromId } from '../../ActivityDisplay/actions/index';
 
 moment.locale('fr');
 
 class ActivityAddEditContainer extends React.Component {
   constructor(props) {
     super(props);
-
-    if (props.id !== -1) {
-      console.log('EDIT !');
-    }
-
     this.state = {
       isFormValid: false,
       tagInput: '',
@@ -49,7 +45,6 @@ class ActivityAddEditContainer extends React.Component {
     if (this.props.id !== -1) {
       this.props.getActivityFromId(this.props.id)
         .then(() => {
-          console.log(this.props.activityDisplay);
           // Temporary: because tags are not persisted in DB.
           // When it'll be done: this.setState(this.props.activityDisplay)
           this.setState(
@@ -127,8 +122,6 @@ class ActivityAddEditContainer extends React.Component {
           this.props.editActivity(this.state.activity, interlocutorId);
         });
     } else {
-      console.log("DEBUG");
-      console.log(this.state.activity);
       this.props.editActivity(this.state.activity);
     }
     this.props.goBack();

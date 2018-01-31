@@ -15,7 +15,7 @@ export default class ActivityDisplayView extends React.Component {
   }
 
   navigateToEditActivity() {
-    this.props.navigateToEditActivity(this.props.activity.id);
+    this.props.navigateToEditActivity(this.props.activityAndInterlocutor.activity.id);
   }
 
   render() {
@@ -26,9 +26,9 @@ export default class ActivityDisplayView extends React.Component {
           title={I18n.t('activity.activityDisplay.title')}
         />
         <Content>
-          <Text>{this.props.activity.title}</Text>
-          <Text>{this.props.activity.description}</Text>
-          <Text>{this.props.activity.date.format('DD/MM/YYYY HH:mm') }</Text>
+          <Text>{this.props.activityAndInterlocutor.activity.title}</Text>
+          <Text>{this.props.activityAndInterlocutor.activity.description}</Text>
+          <Text>{this.props.activityAndInterlocutor.activity.date.format('DD/MM/YYYY HH:mm') }</Text>
           <Button
             full
             primary
