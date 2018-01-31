@@ -50,5 +50,8 @@ export default {
       name: 'Name',
       linkToMe: 'Link to me',
     },
+    interlocutorList: {
+      title: 'Interlocutors List',
+    },
   },
 };

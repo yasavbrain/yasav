@@ -16,7 +16,6 @@ class InterlocutorAddContainer extends React.Component {
         name: "",
         linkToMe: "",
         date: moment(),
-        key: this.props.lastID + 1,
       },
       isFormValid: false,
     }
@@ -32,7 +31,7 @@ class InterlocutorAddContainer extends React.Component {
     isFormValid = isFormValid && this.state.interlocutor.linkToMe.length > 0
     this.setState({isFormValid: isFormValid})
     }
-  
+
   setName(name){
     this.setState({...this.state, interlocutor: {...this.state.interlocutor, name: name}}, () => {this.validateForm; this.update()})
   }

@@ -29,11 +29,9 @@ class ActivityAddEditContainer extends React.Component {
         contentSource: '',
         tags: [],
         key: this.props.lastID + 1,
-        interlocutorKey: null,
       },
-      interlocutor: {},
-
-    }
+      interlocutor: null,
+    };
     this.addActivity = this.addActivity.bind(this);
     this.addTodoActivity = this.addTodoActivity.bind(this);
     this.setTypeEvent = this.setTypeEvent.bind(this);
@@ -49,14 +47,7 @@ class ActivityAddEditContainer extends React.Component {
   }
 
   getInterlocutorState(interlocutor) {
-    this.setState({
-      ...this.state,
-      interlocutor,
-      activity: {
-        ...this.state.activity,
-        interlocutorKey: interlocutor.key,
-      },
-    });
+    this.setState({ ...this.state, interlocutor });
   }
 
   setTitle(title) {
@@ -103,17 +94,25 @@ class ActivityAddEditContainer extends React.Component {
 
   addActivity() {
     if (this.state.activity.type === ActivityTypeEnum.MEETING) {
-      this.props.addInterlocutor(this.state.interlocutor);
+      this.props.addInterlocutor(this.state.interlocutor)
+        .then((interlocutorId) => {
+          this.props.addActivity(this.state.activity, interlocutorId)
+        });
+    } else {
+      this.props.addActivity(this.state.activity);
     }
-    this.props.addActivity(this.state.activity);
     this.props.goBack();
   }
 
   addTodoActivity() {
     if (this.state.activity.type === ActivityTypeEnum.MEETING) {
-      this.props.addInterlocutor(this.state.interlocutor);
+      this.props.addInterlocutor(this.state.interlocutor)
+        .then((interlocutorId) => {
+          this.props.addActivity(this.state.activity, interlocutorId)
+        });
+    } else {
+      this.props.addActivity(this.state.activity);
     }
-    this.props.addActivity(this.state.activity);
     this.props.navigateToTodoAddScreen(this.state.activity.key);
   }
 

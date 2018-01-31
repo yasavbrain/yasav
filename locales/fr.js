@@ -13,7 +13,7 @@ export default {
         meeting: 'Rencontre',
         event: 'Evenement',
         content: 'Contenu',
-      }
+      },
     },
     activityDisplayError: {
       title: 'Erreur Activité',
@@ -50,5 +50,8 @@ export default {
       name: 'Nom',
       linkToMe: 'Relation',
     },
+    interlocutorList: {
+      title: 'Liste de mes interlocuteurs',
+    },
   },
-}
+};
