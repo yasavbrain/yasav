@@ -4,12 +4,12 @@ import moment from 'moment';
 import 'moment/locale/fr';
 import { ActivityTypeEnum } from 'yasav/src/const';
 import { addInterlocutor } from 'yasav/src/components/interlocutor/screens/InterlocutorAdd/actions/index'
-import ActivityAddView from '../views/ActivityAddView';
+import ActivityAddEditView from '../views/ActivityAddEditView';
 import { addActivity } from '../actions/index';
 
 moment.locale('fr');
 
-class ActivityAddContainer extends React.Component {
+class ActivityAddEditContainer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -164,7 +164,7 @@ class ActivityAddContainer extends React.Component {
 
   render() {
     return (
-      <ActivityAddView
+      <ActivityAddEditView
         goBack={this.props.goBack}
         addActivity={this.addActivity}
         addTodoActivity={this.addTodoActivity}
@@ -201,4 +201,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ActivityAddContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ActivityAddEditContainer);

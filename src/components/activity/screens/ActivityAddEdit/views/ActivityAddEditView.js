@@ -1,9 +1,8 @@
 import React from 'react';
-import { Container, Content, Text, Form, Item, Input, Label, Textarea, Button, Radio, ListItem, Right, Badge } from 'native-base';
-import { View } from 'react-native'
-import { Col, Row, Grid } from 'react-native-easy-grid';
-import {RadioBlock} from 'yasav/src/viewElements/shared/radioSelection/RadioBlock'
-import ActivityAddSpecificFieldsContainer from '../containers/ActivityAddSpecificFieldsContainer'
+import { Container, Content, Text, Form, Item, Input, Label, Button, Badge } from 'native-base';
+import { Col, Grid } from 'react-native-easy-grid';
+import { RadioBlock } from 'yasav/src/viewElements/shared/radioSelection/RadioBlock'
+import ActivityAddEditSpecificFieldsContainer from '../containers/ActivityAddEditSpecificFieldsContainer'
 
 import I18n from 'yasav/locales/i18n';
 import Style from '../styles/style.js';
@@ -13,24 +12,22 @@ import { ActivityTypeEnum } from 'yasav/src/const';
 
 export default class ActivityAddView extends React.Component {
 
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
 
-    this.renderTags = this.renderTags.bind(this)
+    this.renderTags = this.renderTags.bind(this);
   }
 
-  renderTags(){
-    return this.props.tags.map( (tag, index) => 
-      (
-        <Badge primary key={ index }>
-          <Text onPress={ () => this.props.removeTag(tag) }>{tag}</Text>
-        </Badge>
-      )
-    )
+  renderTags() {
+    return this.props.tags.map((tag, index) => (
+      <Badge primary key={index}>
+        <Text onPress={() => this.props.removeTag(tag)}>{tag}</Text>
+      </Badge>
+    ));
   }
 
   render() {
-    return(
+    return (
       <Container>
         <GenericHeader
           goBack={this.props.goBack}
@@ -44,26 +41,26 @@ export default class ActivityAddView extends React.Component {
                   <RadioBlock
                     title={I18n.t('activity.activityAdd.type.event')}
                     onPress={this.props.setTypeEvent}
-                    selected={this.props.type == ActivityTypeEnum.EVENT}
+                    selected={this.props.type === ActivityTypeEnum.EVENT}
                   />
                 </Col>
                 <Col style={{ height: 50 }}>
                   <RadioBlock
-                      title={I18n.t('activity.activityAdd.type.content')}
-                      onPress={this.props.setTypeContent}
-                      selected={this.props.type == ActivityTypeEnum.CONTENT}
-                    />
+                    title={I18n.t('activity.activityAdd.type.content')}
+                    onPress={this.props.setTypeContent}
+                    selected={this.props.type === ActivityTypeEnum.CONTENT}
+                  />
                 </Col>
                 <Col style={{ height: 50 }}>
                   <RadioBlock
-                      title={I18n.t('activity.activityAdd.type.meeting')}
-                      onPress={this.props.setTypeMeeting}
-                      selected={this.props.type == ActivityTypeEnum.MEETING}
-                    />
+                    title={I18n.t('activity.activityAdd.type.meeting')}
+                    onPress={this.props.setTypeMeeting}
+                    selected={this.props.type === ActivityTypeEnum.MEETING}
+                  />
                 </Col>
               </Grid>
             </Content>
-            <ActivityAddSpecificFieldsContainer
+            <ActivityAddEditSpecificFieldsContainer
               type={this.props.type}
               setContentSource={this.props.setContentSource}
               contentSource={this.props.contentSource}
@@ -86,16 +83,16 @@ export default class ActivityAddView extends React.Component {
                 style={Style.textarea}
               />
             </Item>
-            <Item 
-              style={{flex: 1, flexDirection: "row", marginLeft: 0}}
-              contentContainerStyle={{ alignItems: "flex-start" }}  
+            <Item
+              style={{ flex: 1, flexDirection: 'row', marginLeft: 0 }}
+              contentContainerStyle={{ alignItems: 'flex-start' }}  
             >
-            { this.renderTags() }
+              {this.renderTags()}
             </Item>
 
             <Item floatingLabel>
               <Label>Tags</Label>
-              <Input onChangeText={this.props.manageTag} value={this.props.tagInput}/>
+              <Input onChangeText={this.props.manageTag} value={this.props.tagInput} />
             </Item>
             <Button primary full onPress={this.props.addActivity} disabled={!this.props.isFormValid}>
               <Text>{I18n.t('activity.activityAdd.addActivityButton')}</Text>
@@ -104,7 +101,7 @@ export default class ActivityAddView extends React.Component {
               <Button primary full style={{ marginTop: 20 }} onPress={this.props.addTodoActivity} disabled={!this.props.isFormValid}>
                 <Text>{I18n.t('activity.activityAdd.addTodoButton')}</Text>
               </Button>
-          </Content>
+            </Content>
           </Form>
         </Content>
       </Container>

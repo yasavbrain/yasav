@@ -1,10 +1,10 @@
 import React from 'react';
-import ActivityAddContainer from './containers/ActivityAddContainer';
+import ActivityAddEditContainer from './containers/ActivityAddEditContainer';
 
 export default class ActivityEditScreen extends React.Component {
   render() {
     return (
-      <ActivityAddContainer
+      <ActivityAddEditContainer
         goBack={this.props.navigation.goBack}
         id={this.props.navigation.state}
       />

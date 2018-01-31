@@ -28,8 +28,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getActivityList: () => dispatch(getActivityList())
+    getActivityList: () => dispatch(getActivityList()),
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ActivityListContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(ActivityListContainer);
