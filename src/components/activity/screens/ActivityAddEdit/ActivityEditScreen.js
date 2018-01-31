@@ -6,7 +6,7 @@ export default class ActivityEditScreen extends React.Component {
     return (
       <ActivityAddEditContainer
         goBack={this.props.navigation.goBack}
-        id={this.props.navigation.state}
+        id={this.props.navigation.state.params}
       />
     );
   }

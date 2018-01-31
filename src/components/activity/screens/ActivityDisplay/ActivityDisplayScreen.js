@@ -17,7 +17,7 @@ export default class ActivityDisplayScreen extends React.Component {
     return (
       <ActivityDisplayContainer
         goBack={goBack}
-        stateParams={state.params}
+        id={state.params}
         navigateToEditActivity={this.navigateToEditActivity}
       />
     );

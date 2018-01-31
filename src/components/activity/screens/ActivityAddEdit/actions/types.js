@@ -1,1 +1,2 @@
 export const ADD_ACTIVITY = 'ADD_ACTIVITY';
+export const EDIT_ACTIVITY = 'EDIT_ACTIVITY';

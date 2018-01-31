@@ -20,7 +20,6 @@ export function getActivityList() {
           description: row.description,
           date: moment(row.activity_date),
           contentSource: row.content_source,
-          interlocutorKey: row.interlocutor_id,
         },
         interlocutor: {
           id: row.interlocutor_id,

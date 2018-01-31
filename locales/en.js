@@ -1,10 +1,16 @@
 export default {
   activity: {
-    activityAdd: {
-      title: 'Add activity',
+    activityAddEdit: {
+      add: {
+        title: 'Add activity',
+        button: 'Add activity',
+      },
+      edit: {
+        title: 'Edit activity',
+        button: 'Edit activity',
+      },
       content: 'Content',
       activityTitle: 'Title',
-      addActivityButton: 'Add Activity',
       addTodoButton: 'Add a corresponding todo',
       hintText: 'As a user, I want to create a generic activity that contains a content and a title',
       eventWhat: 'What was it ?',
