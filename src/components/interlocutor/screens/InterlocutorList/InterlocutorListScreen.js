@@ -10,12 +10,12 @@ export default class InterlocutorListScreen extends React.Component {
   navigateToInterlocutorDisplayScreen(interlocutor) {
     this.props.navigation.navigate('InterlocutorDisplayScreen', interlocutor);
   }
-  
+
   render() {
     return (
       <InterlocutorListContainer
-      goBack = {this.props.navigation.goBack}
-      navigateToInterlocutorDisplayScreen = {this.navigateToInterlocutorDisplayScreen}
+        goBack={this.props.navigation.goBack}
+        navigateToInterlocutorDisplayScreen={this.navigateToInterlocutorDisplayScreen}
       />
     );
   }

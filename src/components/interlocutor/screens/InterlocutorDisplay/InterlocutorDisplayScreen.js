@@ -4,11 +4,11 @@ import InterlocutorDisplayContainer from './containers/InterlocutorDisplayContai
 export default class InterlocutorDisplayScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.navigateToActivityDisplayScreen = this.navigateToActivityDisplayScreen.bind(this)
+    this.navigateToActivityDisplayScreen = this.navigateToActivityDisplayScreen.bind(this);
   }
 
   navigateToActivityDisplayScreen(activity) {
-    this.props.navigation.navigate("ActivityDisplayScreen", activity)
+    this.props.navigation.navigate('ActivityDisplayScreen', activity);
   }
 
   render() {
@@ -19,6 +19,6 @@ export default class InterlocutorDisplayScreen extends React.Component {
         stateParams={state.params}
         navigateToActivityDisplayScreen={this.navigateToActivityDisplayScreen}
       />
-    )
+    );
   }
 }

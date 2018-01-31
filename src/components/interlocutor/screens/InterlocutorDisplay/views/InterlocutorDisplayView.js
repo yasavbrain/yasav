@@ -1,29 +1,30 @@
 import React from 'react';
 import { Container, Content, Text, List, ListItem } from 'native-base';
-import I18n from 'yasav/locales/i18n'
+import I18n from 'yasav/locales/i18n';
 import moment from 'moment';
 import 'moment/locale/fr';
+import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
+
 moment.locale('fr');
 
-import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
 
 export default class InterlocutorDisplayView extends React.Component {
   constructor(props) {
     super(props);
     this.renderRow = this.renderRow.bind(this);
-    this.navigateToActivityDisplayScreen = this.navigateToActivityDisplayScreen.bind(this)
+    this.navigateToActivityDisplayScreen = this.navigateToActivityDisplayScreen.bind(this);
   }
 
   navigateToActivityDisplayScreen(item) {
-    this.props.navigateToActivityDisplayScreen(item)
+    this.props.navigateToActivityDisplayScreen(item);
   }
 
   // TODO : Find a way to remove that arrow function in the render
   renderRow(item) {
-    return(
+    return (
       <ListItem
-        style={{height: 30, backgroundColor: 0}}
-        onPress={ () => this.navigateToActivityDisplayScreen(item) }
+        style={{ height: 30, backgroundColor: 0 }}
+        onPress={() => this.navigateToActivityDisplayScreen(item)}
       >
         <Text>{item.title}</Text>
       </ListItem>
@@ -46,6 +47,6 @@ export default class InterlocutorDisplayView extends React.Component {
           />
         </Content>
       </Container>
-    )
+    );
   }
 }

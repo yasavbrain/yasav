@@ -1,11 +1,9 @@
 import React from 'react';
-import { Container, Content, Button, Text, List, ListItem } from 'native-base';
-import { FlatList } from 'react-native';
-import I18n from 'yasav/locales/i18n'
+import { Container, Content, Text, List, ListItem } from 'native-base';
+import I18n from 'yasav/locales/i18n';
 import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
 
 export default class InterlocutorListView extends React.Component {
-
   constructor(props) {
     super(props);
     this.renderRow = this.renderRow.bind(this);
@@ -13,22 +11,22 @@ export default class InterlocutorListView extends React.Component {
   }
 
   navigateToInterlocutorDisplayScreen(item) {
-    this.props.navigateToInterlocutorDisplayScreen(item); 
+    this.props.navigateToInterlocutorDisplayScreen(item);
   }
-  
+
   // TODO : Find a way to remove that arrow function in the render
   renderRow(item) {
-    return(
+    return (
       <ListItem
-        style={{height: 30, backgroundColor: 0}}
-        onPress={ () => this.navigateToInterlocutorDisplayScreen(item) }
+        style={{ height: 30, backgroundColor: 0 }}
+        onPress={() => this.navigateToInterlocutorDisplayScreen(item)}
       >
         <Text>{item.name}</Text>
       </ListItem>
     );
   }
   render() {
-    return(
+    return (
       <Container>
         <GenericHeader
           goBack={this.props.goBack}
