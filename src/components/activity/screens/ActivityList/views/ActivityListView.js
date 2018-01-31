@@ -18,7 +18,6 @@ export default class ActivityListView extends React.Component {
 
   // TODO : Find a way to remove that arrow function in the render
   renderRow(item) {
-    console.log(item);
     return (
       <ListItem
         style={{ height: 75, backgroundColor: 0 }}
