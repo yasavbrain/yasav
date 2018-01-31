@@ -6,6 +6,7 @@
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
       "react/prop-types": "off",
       "import/prefer-default-export": "off",
-      "no-underscore-dangle": "off"
+      "no-underscore-dangle": "off",
+      "class-methods-use-this": "off"
     }
 }
