@@ -1,6 +1,8 @@
 import React from 'react';
 import { StackNavigator } from 'react-navigation';
 
+import { Platform, StatusBar } from 'react-native';
+
 import HomeScreen from './components/Home/HomeScreen';
 import ActivityListScreen from './components/activity/screens/ActivityList/ActivityListScreen';
 import ActivityDisplayScreen from './components/activity/screens/ActivityDisplay/ActivityDisplayScreen';
@@ -21,6 +23,10 @@ const Routes = StackNavigator({
   InterlocutorListScreen: { screen: InterlocutorListScreen }
 }, {
   headerMode: 'none',
+  cardStyle: {
+      paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
+    }
+
 });
 
 export default Routes
