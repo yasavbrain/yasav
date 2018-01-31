@@ -28,6 +28,7 @@ export default {
     activityDisplay: {
       title: 'See activity',
       edit: 'Edit activity',
+      delete: 'Delete activity',
     },
     activityList: {
       title: 'My Memory',

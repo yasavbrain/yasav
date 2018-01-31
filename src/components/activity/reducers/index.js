@@ -1,5 +1,5 @@
 import { ADD_ACTIVITY, EDIT_ACTIVITY } from '../screens/ActivityAddEdit/actions/types';
-import { GET_ACTIVITY_BY_ID } from '../screens/ActivityDisplay/actions/types';
+import { GET_ACTIVITY_BY_ID, DELETE_ACTIVITY } from '../screens/ActivityDisplay/actions/types';
 import { GET_ACTIVITY_LIST } from '../screens/ActivityList/actions/types';
 
 // To be deleted when activity add is working
@@ -28,6 +28,12 @@ export default function reducer(state = initialState, action) {
           return row;
         }),
         activityDisplay: { activity: action.activity, interlocutor: null },
+      };
+
+    case DELETE_ACTIVITY:
+      return {
+        ...state,
+        activityList: state.activityList.filter(activityAndInterlocutor => action.activityId !== activityAndInterlocutor.activity.id),
       };
 
     case GET_ACTIVITY_LIST:

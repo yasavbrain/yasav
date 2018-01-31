@@ -37,6 +37,14 @@ export default class ActivityDisplayView extends React.Component {
           >
             <Text>{I18n.t('activity.activityDisplay.edit')}</Text>
           </Button>
+          <Button
+            full
+            danger
+            style={{ marginTop: 10 }}
+            onPress={this.props.deleteActivity}
+          >
+            <Text>{I18n.t('activity.activityDisplay.delete')}</Text>
+          </Button>
         </Content>
       </Container>
     )

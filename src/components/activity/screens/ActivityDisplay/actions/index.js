@@ -1,8 +1,7 @@
 import moment from 'moment';
 
-import { GET_ACTIVITY_BY_ID } from './types';
+import { GET_ACTIVITY_BY_ID, DELETE_ACTIVITY } from './types';
 import { executeSql } from 'yasav/src/Database';
-import { ActivityTypeEnum } from 'yasav/src/const';
 
 export function getActivityFromId(id) {
   return dispatch => executeSql(`
@@ -29,4 +28,14 @@ export function getActivityFromId(id) {
     }))[0];
     dispatch({ type: GET_ACTIVITY_BY_ID, activity });
   });
+}
+
+export function deleteActivity(activityId) {
+  return dispatch => executeSql(
+    'DELETE FROM activity WHERE id = ?',
+    [activityId],
+  )
+    .then(() => {
+      dispatch({ type: DELETE_ACTIVITY, activityId });
+    });
 }

@@ -35,7 +35,7 @@ export function deleteTodo(todoId) {
       [todoId],
     )
       .then(() => {
-        dispatch({ type: DELETE_TODO, todoId: todoId });
+        dispatch({ type: DELETE_TODO, todoId });
       });
   };
 }
