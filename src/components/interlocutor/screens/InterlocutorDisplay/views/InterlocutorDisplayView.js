@@ -11,6 +11,11 @@ export default class InterlocutorDisplayView extends React.Component {
   constructor(props) {
     super(props);
     this.renderRow = this.renderRow.bind(this);
+    this.navigateToActivityDisplayScreen = this.navigateToActivityDisplayScreen.bind(this)
+  }
+
+  navigateToActivityDisplayScreen(item) {
+    this.props.navigateToActivityDisplayScreen(item)
   }
 
   // TODO : Find a way to remove that arrow function in the render
@@ -18,6 +23,7 @@ export default class InterlocutorDisplayView extends React.Component {
     return(
       <ListItem
         style={{height: 30, backgroundColor: 0}}
+        onPress={ () => this.navigateToActivityDisplayScreen(item) }
       >
         <Text>{item.title}</Text>
       </ListItem>

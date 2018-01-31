@@ -15,6 +15,7 @@ class InterlocutorDisplayContainer extends React.Component {
         interlocutor = {this.props.stateParams}
         goBack = {this.props.goBack}
         interlocutorActivityList = {this.props.activityList}
+        navigateToActivityDisplayScreen = { this.props.navigateToActivityDisplayScreen }
       />
         
     );
