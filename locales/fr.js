@@ -22,6 +22,7 @@ export default {
     activityDisplay: {
       title: 'Voir l\'activité',
       edit: 'Modifier l\'activité',
+      delete: 'Supprimer l\'activité',
     },
     activityList: {
       title: 'Ma Mémoire',

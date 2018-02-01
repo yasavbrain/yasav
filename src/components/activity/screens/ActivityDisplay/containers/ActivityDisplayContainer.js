@@ -2,13 +2,25 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ActivityDisplayView from '../views/ActivityDisplayView';
 import ActivityDisplayError from '../views/ActivityDisplayError';
-import { getActivityFromId } from '../actions/index';
+import { getActivityFromId, deleteActivity } from '../actions/index';
 
 class ActivityDisplayScreen extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.deleteActivity = this.deleteActivity.bind(this);
+  }
+
   componentDidMount() {
     if (this.props.id !== -1) {
       this.props.getActivityFromId(this.props.id);
     }
+  }
+
+  deleteActivity() {
+    this.props.deleteActivity(this.props.id).then(() => {
+      this.props.goBack();
+    });
   }
 
   render() {
@@ -18,6 +30,7 @@ class ActivityDisplayScreen extends React.Component {
           goBack={this.props.goBack}
           activityAndInterlocutor={this.props.activityDisplay}
           navigateToEditActivity={this.props.navigateToEditActivity}
+          deleteActivity={this.deleteActivity}
         />
       );
     }
@@ -39,6 +52,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     getActivityFromId: id => dispatch(getActivityFromId(id)),
+    deleteActivity: id => dispatch(deleteActivity(id)),
   };
 }
 

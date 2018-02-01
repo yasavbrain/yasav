@@ -1,1 +1,2 @@
 export const GET_ACTIVITY_BY_ID = 'GET_ACTIVITY_BY_ID';
+export const DELETE_ACTIVITY = 'DELETE_ACTIVITY';
