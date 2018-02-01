@@ -49,7 +49,6 @@ export default class ActivityAddView extends React.Component {
   render() {
     return (
       <KeyboardAvoidingView
-        behavior="padding"
         style={{ flex: 1 }}
       >
         <Container>
