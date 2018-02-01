@@ -26,7 +26,7 @@ const Routes = StackNavigator({
 }, {
   headerMode: 'none',
   cardStyle: {
-      paddingTop: Platform.OS === 'ios'  ||  Platform.Version > 20 ? 0 : StatusBar.currentHeight
+      marginTop: Platform.OS === 'ios'  ||  Platform.Version > 20 ? 0 : StatusBar.currentHeight
     }
 
 });

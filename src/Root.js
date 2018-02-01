@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Provider } from 'react-redux';
 import { Spinner } from 'native-base';
-import { View } from 'react-native'
+import { View, StatusBar } from 'react-native'
 
 import Style from './styles/Main';
 import Colors from './styles/Colors'
@@ -36,10 +36,23 @@ export default class Root extends React.Component {
   }
 
   render() {
+    StatusBar.setHidden(true);
     if (this.state.fontLoaded) {
       return (
         <Provider store={store}>
-          <Routes />
+          <View 
+            style={{
+              flex: 1,
+              backgroundColor: 'black' 
+            }}
+          >
+            <StatusBar 
+              hidden={false}
+              translucent={false}
+              backgroundColor="green"
+            />
+            <Routes />
+          </View>
         </Provider>
       );
     } else {
