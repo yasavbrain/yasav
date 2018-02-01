@@ -9,7 +9,7 @@ export default class ActivityAddScreen extends React.Component {
   }
 
   navigateToTodoAddScreen(activityId) {
-    this.props.navigation.navigate('TodoAddScreen', { activity_id: activityId, screen_id: this.props.navigation.state.key });
+    this.props.navigation.navigate('TodoAddScreen', { activityId, screenId: this.props.navigation.state.key });
   }
 
   render() {

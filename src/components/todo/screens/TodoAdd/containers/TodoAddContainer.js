@@ -10,15 +10,15 @@ class TodoAddContainer extends React.Component {
   constructor(props) {
     super(props);
     let activityId = 0;
-    this.screen_id = null;
-    if (props.navParams && props.navParams.activity_id) {
-      activityId = props.navParams.activity_id;
+    this.screenId = null;
+    if (props.navParams && props.navParams.activityId) {
+      activityId = props.navParams.activityId;
     }
 
     // check if need 2 conditions
-    if (props.navParams && props.navParams.screen_id) {
+    if (props.navParams && props.navParams.screenId) {
       // screen_id from /fg/erfg ; int ....
-      this.screen_id = props.navParams.screen_id;
+      this.screenId = props.navParams.screenId;
     }
     this.state = {
       isFormValid: false,
@@ -40,7 +40,7 @@ class TodoAddContainer extends React.Component {
 
   addTodo() {
     this.props.addTodo(this.state.todo)
-      .then(() => this.props.goBackToPreviousScreen(this.screen_id));
+      .then(() => this.props.goBackToPreviousScreen(this.screenId));
   }
 
   render() {
