@@ -28,6 +28,7 @@ export default class TodoListView extends React.Component {
   }
 
   renderItem({ item }) {
+    console.log(item.id);
     return (
       <ListItem
         style={{ backgroundColor: 0 }}
@@ -57,6 +58,7 @@ export default class TodoListView extends React.Component {
           <FlatList
             data={this.props.todoList}
             renderItem={this.renderItem}
+            keyExtractor={item => item.id}
           />
         </Content>
       </Container>

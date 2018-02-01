@@ -13,7 +13,7 @@ export function getTodoList() {
         status: todo.status,
         activityId: todo.activity_id,
         dueDate: todo.due_date,
-        key: todo.id,
+        id: todo.id,
       }));
       dispatch({ type: GET_TODO_LIST, todoList });
     });

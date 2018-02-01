@@ -4,13 +4,12 @@ import { GET_TODO_LIST } from '../screens/TodoList/actions/types';
 
 const initialState = {
   todoList: [],
-  lastID: 0,
 };
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case ADD_TODO:
-      return { ...state, todoList: state.todoList.concat(action.todo), lastID: state.lastID + 1 };
+      return { ...state, todoList: state.todoList.concat(action.todo) };
 
     case DELETE_TODO:
       return {
@@ -22,7 +21,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         todoList: state.todoList.map((todo) => {
-          if (todo.key === action.todo.key) {
+          if (todo.id === action.todo.id) {
             if (action.todo.status === StatusEnum.TODO) {
               return { ...todo, status: StatusEnum.DONE };
             }

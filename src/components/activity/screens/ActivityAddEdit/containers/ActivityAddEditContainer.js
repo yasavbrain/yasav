@@ -138,7 +138,7 @@ class ActivityAddEditContainer extends React.Component {
     } else {
       this.props.addActivity(this.state.activity);
     }
-    this.props.navigateToTodoAddScreen(this.state.activity.key);
+    this.props.navigateToTodoAddScreen(this.state.activity.id);
   }
 
   removeTag(tag) {
