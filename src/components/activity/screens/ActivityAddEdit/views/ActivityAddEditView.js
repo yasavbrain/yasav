@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Content, Text, Form, Item, Input, Label, Button, Badge } from 'native-base';
-import { KeyboardAvoidingView, Platform } from 'react-native';
+import { KeyboardAvoidingView, Platform, StatusBar } from 'react-native';
 import { Col, Grid } from 'react-native-easy-grid';
 import { RadioBlock } from 'yasav/src/viewElements/shared/radioSelection/RadioBlock';
 import ActivityAddEditSpecificFieldsContainer from '../containers/ActivityAddEditSpecificFieldsContainer';
@@ -51,6 +51,7 @@ export default class ActivityAddView extends React.Component {
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior=  { Platform.OS === 'ios'  ||  Platform.Version < 21 ? 'padding' : 'undefined'}
+        keyboardVerticalOffset= { Platform.OS === 'ios'  ||  Platform.Version > 20 ? 0 : StatusBar.currentHeight }
       >
         <Container>
           <GenericHeader
