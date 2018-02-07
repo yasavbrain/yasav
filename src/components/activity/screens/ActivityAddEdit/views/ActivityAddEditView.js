@@ -50,7 +50,7 @@ export default class ActivityAddView extends React.Component {
     return (
       <KeyboardAvoidingView
         style={{ flex: 1 }}
-        behavior=  { Platform.OS === 'ios'  ||  Platform.Version < 21 ? 'padding' : 'undefined'}
+        behavior=  { Platform.OS === 'ios'  ||  Platform.Version < 21 ? 'padding' : undefined }
         keyboardVerticalOffset= { Platform.OS === 'ios'  ||  Platform.Version > 20 ? 0 : StatusBar.currentHeight }
       >
         <Container>
