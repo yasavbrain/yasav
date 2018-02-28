@@ -13,6 +13,8 @@ import TodoAddScreen from './components/todo/screens/TodoAdd/TodoAddScreen';
 import InterlocutorListScreen from './components/interlocutor/screens/InterlocutorList/InterlocutorListScreen';
 import InterlocutorDisplayScreen from './components/interlocutor/screens/InterlocutorDisplay/InterlocutorDisplayScreen';
 
+import Colors from 'yasav/src/styles/Colors';
+
 const OldRoutes = StackNavigator({
   HomeScreen: { screen: HomeScreen },
   ActivityListScreen: { screen: ActivityListScreen },
@@ -56,17 +58,43 @@ const ActivityStack = StackNavigator({
 });
 
 const Routes = TabNavigator(
-{
-  TodosTab: { screen: TodoStack },
-  HomeTab: { screen: HomeStack },
-  ActivityTab: { screen: ActivityStack },
-},
-{
-  headerMode: 'none',
-  cardStyle: {
-    paddingTop: Platform.OS === 'ios' || Platform.Version > 20 ? 0 : StatusBar.currentHeight,
+  {
+    TodosTab: {
+      screen: TodoStack,
+      navigationOptions: {
+        tabBarLabel: 'Todos',
+      },
+    },
+    HomeTab: {
+      screen: HomeStack,
+      navigationOptions: {
+        tabBarLabel: 'Quick Add',
+      },
+    },
+    ActivityTab: {
+      screen: ActivityStack,
+      navigationOptions: {
+        tabBarLabel: 'Activities',
+      },
+    },
   },
-},
+  {
+    tabBarOptions: {
+      activeTintColor: Colors.header.active,
+      inactiveTintColor: Colors.header.inactive,
+      style: {
+        backgroundColor: Colors.header.background,
+      },
+      indicatorStyle: {
+        backgroundColor: Colors.header.active,
+      },
+    },
+    tabBarPosition: 'top',
+    initialRouteName: 'HomeTab',
+    cardStyle: {
+      paddingTop: Platform.OS === 'ios' || Platform.Version > 20 ? 0 : StatusBar.currentHeight,
+    },
+  },
 );
 
 export default Routes;

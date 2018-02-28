@@ -1,6 +1,8 @@
 export default {
   header: {
     background: '#44546A',
+    active: '#FFFFFF',
+    inactive: '#DDDDDD',
   },
   home: {
     meetButton: '#78A5A3',

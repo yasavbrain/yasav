@@ -31,10 +31,6 @@ export default class ActivityListView extends React.Component {
   render() {
     return (
       <Container>
-        <GenericHeader
-          goBack={this.props.goBack}
-          title={I18n.t('activity.activityList.title')}
-        />
         <Content>
           <List
             dataArray={this.props.displayActivityList}
