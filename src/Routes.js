@@ -1,5 +1,5 @@
 import React from 'react';
-import { StackNavigator } from 'react-navigation';
+import { StackNavigator, TabNavigator } from 'react-navigation';
 
 import { Platform, StatusBar } from 'react-native';
 
@@ -13,7 +13,7 @@ import TodoAddScreen from './components/todo/screens/TodoAdd/TodoAddScreen';
 import InterlocutorListScreen from './components/interlocutor/screens/InterlocutorList/InterlocutorListScreen';
 import InterlocutorDisplayScreen from './components/interlocutor/screens/InterlocutorDisplay/InterlocutorDisplayScreen';
 
-const Routes = StackNavigator({
+const OldRoutes = StackNavigator({
   HomeScreen: { screen: HomeScreen },
   ActivityListScreen: { screen: ActivityListScreen },
   ActivityDisplayScreen: { screen: ActivityDisplayScreen },
@@ -22,13 +22,52 @@ const Routes = StackNavigator({
   TodoListScreen: { screen: TodoListScreen },
   TodoAddScreen: { screen: TodoAddScreen },
   InterlocutorListScreen: { screen: InterlocutorListScreen },
-  InterlocutorDisplayScreen: { screen: InterlocutorDisplayScreen }
+  InterlocutorDisplayScreen: { screen: InterlocutorDisplayScreen },
 }, {
   headerMode: 'none',
   cardStyle: {
-      paddingTop: Platform.OS === 'ios'  ||  Platform.Version > 20 ? 0 : StatusBar.currentHeight
-    }
+    paddingTop: Platform.OS === 'ios' || Platform.Version > 20 ? 0 : StatusBar.currentHeight,
+  },
 
 });
 
-export default Routes
+const TodoStack = StackNavigator({
+  TodoListScreen: { screen: TodoListScreen },
+  TodoAddScreen: { screen: TodoAddScreen },
+}, {
+  headerMode: 'none',
+});
+
+const HomeStack = StackNavigator({
+  HomeScreen: { screen: HomeScreen },
+  ActivityAddScreen: { screen: ActivityAddScreen },
+  ActivityEditScreen: { screen: ActivityEditScreen },
+}, {
+  headerMode: 'none',
+});
+
+const ActivityStack = StackNavigator({
+  ActivityListScreen: { screen: ActivityListScreen },
+  ActivityDisplayScreen: { screen: ActivityDisplayScreen },
+  InterlocutorListScreen: { screen: InterlocutorListScreen },
+  InterlocutorDisplayScreen: { screen: InterlocutorDisplayScreen },
+}, {
+  headerMode: 'none',
+});
+
+const Routes = TabNavigator(
+{
+  TodosTab: { screen: TodoStack },
+  HomeTab: { screen: HomeStack },
+  ActivityTab: { screen: ActivityStack },
+},
+{
+  headerMode: 'none',
+  cardStyle: {
+    paddingTop: Platform.OS === 'ios' || Platform.Version > 20 ? 0 : StatusBar.currentHeight,
+  },
+},
+);
+
+export default Routes;
+
