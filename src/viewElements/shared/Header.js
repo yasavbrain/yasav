@@ -99,24 +99,3 @@ export class SimpleHeader extends React.Component {
     );
   }
 }
-
-/**
- * Header Component with NativeBase design that contains a search bar
- */
-export class SearchHeader extends React.Component {
-  
-    render() {
-      return (
-        <Header searchBar rounded>
-          <Item>
-            <Icon name="ios-search" />
-            <Input placeholder="Search" />
-            <Icon name="ios-people" />
-          </Item>
-          <Button transparent>
-            <Text>Search</Text>
-          </Button>
-        </Header>
-      );
-    }
-  }
