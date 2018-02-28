@@ -1,7 +1,11 @@
 import React from 'react';
 
+<<<<<<< HEAD
 import { Header, Button, Right, Left, Icon, Body, Title } from 'native-base';
 import Style from 'yasav/src/styles/Header';
+=======
+import { Header, Button, Right, Left, Icon, Body, Title, Item, Input, Text, Content } from 'native-base';
+>>>>>>> Added the display of search bar input
 
 /**
  * Header Component with NativeBase design that contains an arrow to go back
@@ -23,17 +27,17 @@ export class GenericHeader extends React.Component {
 
   render() {
     return (
-      <Header>
-        <Left>
-          <Button transparent onPress={this.goBack}>
-            <Icon name="arrow-back" />
-          </Button>
-        </Left>
-        <Body>
-          <Title>{this.props.title}</Title>
-        </Body>
-        <Right />
-      </Header>
+        <Header>
+          <Left>
+            <Button transparent onPress={this.goBack}>
+              <Icon name="arrow-back" />
+            </Button>
+          </Left>
+          <Body>
+            <Title>{this.props.title}</Title>
+          </Body>
+          <Right />
+        </Header>
     );
   }
 }
@@ -95,3 +99,24 @@ export class SimpleHeader extends React.Component {
     );
   }
 }
+
+/**
+ * Header Component with NativeBase design that contains a search bar
+ */
+export class SearchHeader extends React.Component {
+  
+    render() {
+      return (
+        <Header searchBar rounded>
+          <Item>
+            <Icon name="ios-search" />
+            <Input placeholder="Search" />
+            <Icon name="ios-people" />
+          </Item>
+          <Button transparent>
+            <Text>Search</Text>
+          </Button>
+        </Header>
+      );
+    }
+  }

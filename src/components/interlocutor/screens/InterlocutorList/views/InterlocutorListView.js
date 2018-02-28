@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Content, Text, List, ListItem } from 'native-base';
 import I18n from 'yasav/locales/i18n';
-import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
+import { GenericHeader, SearchHeader } from 'yasav/src/viewElements/shared/Header';
 
 export default class InterlocutorListView extends React.Component {
   constructor(props) {
@@ -32,6 +32,7 @@ export default class InterlocutorListView extends React.Component {
           goBack={this.props.goBack}
           title={I18n.t('interlocutor.interlocutorList.title')}
         />
+        <SearchHeader />
         <Content>
           <List
             dataArray={this.props.displayInterlocutorList}
