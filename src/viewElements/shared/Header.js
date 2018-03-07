@@ -88,7 +88,7 @@ export class SimpleHeader extends React.Component {
       <Header style={Style.simpleHeader} >
         <Left />
         <Body>
-          <Title>{this.props.title}</Title>
+          <Title style={Style.simpleHeaderTitle}>{this.props.title}</Title>
         </Body>
         <Right />
       </Header>

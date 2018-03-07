@@ -1,5 +1,5 @@
 import React from 'react';
-import { StackNavigator, TabNavigator } from 'react-navigation';
+import { StackNavigator, TabNavigator, TabBarTop } from 'react-navigation';
 
 import { Platform, StatusBar } from 'react-native';
 
@@ -75,7 +75,9 @@ const TabNav = TabNavigator(
         backgroundColor: Colors.header.active,
       },
     },
+    swipeEnabled: true,
     tabBarPosition: 'top',
+    tabBarComponent: TabBarTop,
     initialRouteName: 'HomeTab',
   },
 );
@@ -85,7 +87,6 @@ const Routes = StackNavigator({
     screen: TabNav,
     navigationOptions: {
       header: <SimpleHeader title={I18n.t('home.title')} />,
-      headerStyle: Styles.simpleHeader,
     },
   },
   ActivityAddScreen: {

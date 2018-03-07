@@ -6,6 +6,9 @@ export default StyleSheet.create({
     backgroundColor: Colors.header.background,
     borderBottomWidth: 0,
   },
+  simpleHeaderTitle: {
+    color: Colors.header.active,
+  },
   hiddenHeader: {
     height: 0,
   },
