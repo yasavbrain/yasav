@@ -1,4 +1,9 @@
 export default {
+  navigation: {
+    todoTab: 'Todos',
+    quickAddTab: 'Quick Add',
+    activitiesTab: 'Activities',
+  },
   activity: {
     activityAddEdit: {
       add: {
@@ -36,7 +41,7 @@ export default {
     },
   },
   home: {
-    title: 'Yasav',
+    title: 'YAsAv',
     activityListButton: 'Activity List',
     todoListButton: 'Todo List',
     addActivityButton: 'Add activity',

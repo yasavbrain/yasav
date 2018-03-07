@@ -1,5 +1,10 @@
 export default {
   activity: {
+    navigation: {
+      todoTab: 'Todos',
+      quickAddTab: 'Ajout rapide',
+      activitiesTab: 'Activités',
+    },
     activityAdd: {
       title: 'Ajouter une activité',
       content: 'Contenu',

@@ -14,6 +14,9 @@ import InterlocutorListScreen from './components/interlocutor/screens/Interlocut
 import InterlocutorDisplayScreen from './components/interlocutor/screens/InterlocutorDisplay/InterlocutorDisplayScreen';
 
 import Colors from 'yasav/src/styles/Colors';
+import Styles from 'yasav/src/styles/Header'
+import I18n from 'yasav/locales/i18n';
+import { SimpleHeader } from 'yasav/src/viewElements/shared/Header';
 
 const OldRoutes = StackNavigator({
   HomeScreen: { screen: HomeScreen },
@@ -40,41 +43,24 @@ const TodoStack = StackNavigator({
   headerMode: 'none',
 });
 
-const HomeStack = StackNavigator({
-  HomeScreen: { screen: HomeScreen },
-  ActivityAddScreen: { screen: ActivityAddScreen },
-  ActivityEditScreen: { screen: ActivityEditScreen },
-}, {
-  headerMode: 'none',
-});
-
-const ActivityStack = StackNavigator({
-  ActivityListScreen: { screen: ActivityListScreen },
-  ActivityDisplayScreen: { screen: ActivityDisplayScreen },
-  InterlocutorListScreen: { screen: InterlocutorListScreen },
-  InterlocutorDisplayScreen: { screen: InterlocutorDisplayScreen },
-}, {
-  headerMode: 'none',
-});
-
-const Routes = TabNavigator(
+const TabNav = TabNavigator(
   {
     TodosTab: {
       screen: TodoStack,
       navigationOptions: {
-        tabBarLabel: 'Todos',
+        tabBarLabel: I18n.t('navigation.todoTab'),
       },
     },
     HomeTab: {
-      screen: HomeStack,
+      screen: HomeScreen,
       navigationOptions: {
-        tabBarLabel: 'Quick Add',
+        tabBarLabel: I18n.t('navigation.quickAddTab'),
       },
     },
     ActivityTab: {
-      screen: ActivityStack,
+      screen: ActivityListScreen,
       navigationOptions: {
-        tabBarLabel: 'Activities',
+        tabBarLabel: I18n.t('navigation.activitiesTab'),
       },
     },
   },
@@ -91,11 +77,58 @@ const Routes = TabNavigator(
     },
     tabBarPosition: 'top',
     initialRouteName: 'HomeTab',
-    cardStyle: {
-      paddingTop: Platform.OS === 'ios' || Platform.Version > 20 ? 0 : StatusBar.currentHeight,
-    },
   },
 );
+
+const Routes = StackNavigator({
+  Home: {
+    screen: TabNav,
+    navigationOptions: {
+      header: <SimpleHeader title={I18n.t('home.title')} />,
+      headerStyle: Styles.simpleHeader,
+    },
+  },
+  ActivityAddScreen: {
+    screen: ActivityAddScreen,
+    navigationOptions: {
+      header: null,
+      headerStyle: Styles.hiddenHeader,
+    },
+  },
+  ActivityEditScreen: {
+    screen: ActivityEditScreen,
+    navigationOptions: {
+      header: null,
+      headerStyle: Styles.hiddenHeader,
+    },
+  },
+  ActivityDisplayScreen: {
+    screen: ActivityDisplayScreen,
+    navigationOptions: {
+      header: null,
+      headerStyle: Styles.hiddenHeader,
+    },
+  },
+  InterlocutorListScreen: {
+    screen: InterlocutorListScreen,
+    navigationOptions: {
+      header: null,
+      headerStyle: Styles.hiddenHeader,
+    },
+  },
+  InterlocutorDisplayScreen: {
+    screen: InterlocutorDisplayScreen,
+    navigationOptions: {
+      header: null,
+      headerStyle: Styles.hiddenHeader,
+    },
+  },
+}, {
+  headerMode: 'screen',
+  cardStyle: {
+    paddingTop: Platform.OS === 'ios' || Platform.Version > 20 ? 0 : StatusBar.currentHeight,
+  },
+});
 
 export default Routes;
 

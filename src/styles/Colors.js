@@ -13,7 +13,7 @@ export default {
   title: '#FF0000',
   subtitle: '#DD0000',
 
-  primary: '#286090',
+  primary: '#44546A',
 
   error: '#C9302C',
   warning: '#EC971F',
