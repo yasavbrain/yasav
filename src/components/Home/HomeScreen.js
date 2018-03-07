@@ -13,7 +13,6 @@ export default class HomeScreen extends React.Component {
     this.navigateToActivityAddContent = this.navigateToActivityAddContent.bind(this);
     this.navigateToTodoAdd = this.navigateToTodoAdd.bind(this);
     this.navigateToInterlocutorList = this.navigateToInterlocutorList.bind(this);
-    this.navigateToGraphTagDisplay = this.navigateToGraphTagDisplay.bind(this);
   }
 
   navigateToActivityList() {
@@ -44,10 +43,6 @@ export default class HomeScreen extends React.Component {
     this.props.navigation.navigate('InterlocutorListScreen');
   }
 
-  navigateToGraphTagDisplay() {
-    this.props.navigation.navigate('GraphTagDisplayScreen')
-  }
-
   render() {
     return (
       <HomeContainer
@@ -58,7 +53,6 @@ export default class HomeScreen extends React.Component {
         navigateToActivityAddContent={this.navigateToActivityAddContent}
         navigateToTodoAdd={this.navigateToTodoAdd}
         navigateToInterlocutorList={this.navigateToInterlocutorList}
-        navigateToGraphTagDisplay={this.navigateToGraphTagDisplay}
       />
     );
   }
