@@ -48,11 +48,6 @@ export default class TodoListView extends React.Component {
     // header menu
     return (
       <Container>
-        <MenuHeader
-          goBack={this.props.goBack}
-          title={I18n.t('todo.todoList.title')}
-          menu={this.renderMenu()}
-        />
         <Content>
           {this.renderMenu()}
           <FlatList

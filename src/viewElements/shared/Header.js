@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Header, Button, Right, Left, Icon, Body, Title } from 'native-base';
+import Style from 'yasav/src/styles/Header';
 
 /**
  * Header Component with NativeBase design that contains an arrow to go back
@@ -84,10 +85,10 @@ export class SimpleHeader extends React.Component {
 
   render() {
     return (
-      <Header>
+      <Header style={Style.simpleHeader} >
         <Left />
         <Body>
-          <Title>{this.props.title}</Title>
+          <Title style={Style.simpleHeaderTitle}>{this.props.title}</Title>
         </Body>
         <Right />
       </Header>

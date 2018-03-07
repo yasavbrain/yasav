@@ -1,18 +1,30 @@
 export default {
-  title: "#FF0000",
-  subtitle: "#DD0000",
+  header: {
+    background: '#44546A',
+    active: '#FFFFFF',
+    inactive: '#DDDDDD',
+  },
+  home: {
+    meetButton: '#78A5A3',
+    eventButton: '#E1B16A',
+    contentButton: '#CE5A57',
+  },
 
-  primary: "#286090",
+  title: '#FF0000',
+  subtitle: '#DD0000',
 
-  error: "#C9302C",
-  warning: "#EC971F",
-  success: "#449D44",
-  info: "#31B0D5",
+  primary: '#44546A',
 
-  text: "#111111",
+  error: '#C9302C',
+  warning: '#EC971F',
+  success: '#449D44',
+  info: '#31B0D5',
 
-  selected: "#C14555",
-  unselected: "#5545C1",
+  text: '#111111',
 
-  background: "#FFFFFF"
-}
+  selected: '#7ACEED',
+  unselected: '#3B7AC4',
+
+
+  background: '#FFFFFF',
+};

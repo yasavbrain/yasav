@@ -3,6 +3,7 @@ import { Container, Content, Button, Text, List, ListItem } from 'native-base';
 import { FlatList } from 'react-native';
 import I18n from 'yasav/locales/i18n'
 import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
+import Styles from 'yasav/src/styles/Main'
 
 export default class ActivityListView extends React.Component {
 
@@ -31,16 +32,17 @@ export default class ActivityListView extends React.Component {
   render() {
     return (
       <Container>
-        <GenericHeader
-          goBack={this.props.goBack}
-          title={I18n.t('activity.activityList.title')}
-        />
+
         <Content>
           <List
             dataArray={this.props.displayActivityList}
             renderRow={this.renderRow}
           />
-          <Button full primary onPress={this.props.navigateToActivityAddScreen}>
+          <Button
+            full
+            onPress={this.props.navigateToActivityAddScreen}
+            style={Styles.global.addButtons}
+          >
             <Text>{I18n.t('activity.activityList.addActivityButton')}</Text>
           </Button>
         </Content>

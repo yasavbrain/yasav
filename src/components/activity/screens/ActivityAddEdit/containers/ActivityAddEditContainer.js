@@ -13,7 +13,10 @@ moment.locale('fr');
 class ActivityAddEditContainer extends React.Component {
   constructor(props) {
     super(props);
-
+    let type = ActivityTypeEnum.CONTENT;
+    if (props.type >= 0) {
+      type = props.type;
+    }
     this.state = {
       isFormValid: false,
       tagInput: '',
@@ -21,13 +24,13 @@ class ActivityAddEditContainer extends React.Component {
         title: '',
         description: '',
         date: moment(),
-        type: ActivityTypeEnum.CONTENT,
+        type,
         contentSource: '',
         tags: [],
       },
       interlocutor: null,
     };
-    
+
     this.addActivity = this.addActivity.bind(this);
     this.editActivity = this.editActivity.bind(this);
     this.addTodoActivity = this.addTodoActivity.bind(this);

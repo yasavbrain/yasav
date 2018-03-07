@@ -7,7 +7,9 @@ export default class HomeContainer extends React.Component {
       <HomeView
         navigateToActivityList={this.props.navigateToActivityList}
         navigateToTodoList={this.props.navigateToTodoList}
-        navigateToActivityAdd={this.props.navigateToActivityAdd}
+        navigateToActivityAddMeeting={this.props.navigateToActivityAddMeeting}
+        navigateToActivityAddEvent={this.props.navigateToActivityAddEvent}
+        navigateToActivityAddContent={this.props.navigateToActivityAddContent}
         navigateToTodoAdd={this.props.navigateToTodoAdd}
         navigateToInterlocutorList={this.props.navigateToInterlocutorList}
       />
