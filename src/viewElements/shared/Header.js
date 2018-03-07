@@ -1,11 +1,6 @@
 import React from 'react';
 
-<<<<<<< HEAD
-import { Header, Button, Right, Left, Icon, Body, Title } from 'native-base';
-import Style from 'yasav/src/styles/Header';
-=======
 import { Header, Button, Right, Left, Icon, Body, Title, Item, Input, Text, Content } from 'native-base';
->>>>>>> Added the display of search bar input
 
 /**
  * Header Component with NativeBase design that contains an arrow to go back
