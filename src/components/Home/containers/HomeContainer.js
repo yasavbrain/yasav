@@ -12,6 +12,7 @@ export default class HomeContainer extends React.Component {
         navigateToActivityAddContent={this.props.navigateToActivityAddContent}
         navigateToTodoAdd={this.props.navigateToTodoAdd}
         navigateToInterlocutorList={this.props.navigateToInterlocutorList}
+        navigateToGraphTagDisplay={this.props.navigateToGraphTagDisplay}
       />
     );
   }

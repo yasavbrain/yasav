@@ -18,6 +18,7 @@ export default class HomeView extends React.Component {
     this.navigateToActivityAddEvent = this.navigateToActivityAddEvent.bind(this);
     this.navigateToTodoAdd = this.navigateToTodoAdd.bind(this);
     this.navigateToInterlocutorList = this.navigateToInterlocutorList.bind(this);
+    this.navigateToGraphTagDisplay = this.navigateToGraphTagDisplay.bind(this);
   }
 
   navigateToActivityList() {
@@ -44,6 +45,10 @@ export default class HomeView extends React.Component {
 
   navigateToInterlocutorList() {
     this.props.navigateToInterlocutorList();
+  }
+
+  navigateToGraphTagDisplay() {
+    this.props.navigateToGraphTagDisplay();
   }
 
   render() {
@@ -74,14 +79,15 @@ export default class HomeView extends React.Component {
 
           <TouchableOpacity
             style={Style.home.activityContentButton}
-            onPress={this.navigateToActivityAddContent}
+            onPress={this.navigateToGraphTagDisplay}
             activeOpacity={0.8}
           >
             <View style={Style.home.activityButtonWrapper}>
-              <Icon name="book" style={Style.home.icon} color="white" />
-              <Text style={Style.home.text}>Something I heard or read about</Text>
+              <Icon name="grid" style={Style.home.icon} color="white" />
+              <Text style={Style.home.text}>MAP</Text>
             </View>
           </TouchableOpacity>
+
 
         </View>
       </Container>

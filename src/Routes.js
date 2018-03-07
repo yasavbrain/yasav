@@ -12,6 +12,7 @@ import TodoListScreen from './components/todo/screens/TodoList/TodoListScreen';
 import TodoAddScreen from './components/todo/screens/TodoAdd/TodoAddScreen';
 import InterlocutorListScreen from './components/interlocutor/screens/InterlocutorList/InterlocutorListScreen';
 import InterlocutorDisplayScreen from './components/interlocutor/screens/InterlocutorDisplay/InterlocutorDisplayScreen';
+import GraphTagDisplayScreen from './components/graph/screens/GraphTagDisplay/GraphTagDisplayScreen';
 
 import Colors from 'yasav/src/styles/Colors';
 import Styles from 'yasav/src/styles/Header'
@@ -124,6 +125,13 @@ const Routes = StackNavigator({
       headerStyle: Styles.hiddenHeader,
     },
   },
+  GraphTagDisplayScreen: {
+    screen: GraphTagDisplayScreen,
+    navigationOptions: {
+      header: null,
+      headerStyle: Styles.hiddenHeader,
+    },
+  },
 }, {
   headerMode: 'screen',
   cardStyle: {
@@ -132,4 +140,3 @@ const Routes = StackNavigator({
 });
 
 export default Routes;
-
