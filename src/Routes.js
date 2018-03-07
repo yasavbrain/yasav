@@ -3,6 +3,11 @@ import { StackNavigator, TabNavigator, TabBarTop } from 'react-navigation';
 
 import { Platform, StatusBar } from 'react-native';
 
+import Colors from 'yasav/src/styles/Colors';
+import Styles from 'yasav/src/styles/Header'
+import I18n from 'yasav/locales/i18n';
+import { HomeHeader } from 'yasav/src/viewElements/shared/Header';
+
 import HomeScreen from './components/Home/HomeScreen';
 import ActivityListScreen from './components/activity/screens/ActivityList/ActivityListScreen';
 import ActivityDisplayScreen from './components/activity/screens/ActivityDisplay/ActivityDisplayScreen';
@@ -14,28 +19,24 @@ import InterlocutorListScreen from './components/interlocutor/screens/Interlocut
 import InterlocutorDisplayScreen from './components/interlocutor/screens/InterlocutorDisplay/InterlocutorDisplayScreen';
 import GraphTagDisplayScreen from './components/graph/screens/GraphTagDisplay/GraphTagDisplayScreen';
 
-import Colors from 'yasav/src/styles/Colors';
-import Styles from 'yasav/src/styles/Header'
-import I18n from 'yasav/locales/i18n';
-import { SimpleHeader } from 'yasav/src/viewElements/shared/Header';
 
-const OldRoutes = StackNavigator({
-  HomeScreen: { screen: HomeScreen },
-  ActivityListScreen: { screen: ActivityListScreen },
-  ActivityDisplayScreen: { screen: ActivityDisplayScreen },
-  ActivityAddScreen: { screen: ActivityAddScreen },
-  ActivityEditScreen: { screen: ActivityEditScreen },
-  TodoListScreen: { screen: TodoListScreen },
-  TodoAddScreen: { screen: TodoAddScreen },
-  InterlocutorListScreen: { screen: InterlocutorListScreen },
-  InterlocutorDisplayScreen: { screen: InterlocutorDisplayScreen },
-}, {
-  headerMode: 'none',
-  cardStyle: {
-    paddingTop: Platform.OS === 'ios' || Platform.Version > 20 ? 0 : StatusBar.currentHeight,
-  },
-
-});
+// const OldRoutes = StackNavigator({
+//   HomeScreen: { screen: HomeScreen },
+//   ActivityListScreen: { screen: ActivityListScreen },
+//   ActivityDisplayScreen: { screen: ActivityDisplayScreen },
+//   ActivityAddScreen: { screen: ActivityAddScreen },
+//   ActivityEditScreen: { screen: ActivityEditScreen },
+//   TodoListScreen: { screen: TodoListScreen },
+//   TodoAddScreen: { screen: TodoAddScreen },
+//   InterlocutorListScreen: { screen: InterlocutorListScreen },
+//   InterlocutorDisplayScreen: { screen: InterlocutorDisplayScreen },
+// }, {
+//   headerMode: 'none',
+//   cardStyle: {
+//     paddingTop: Platform.OS === 'ios' || Platform.Version > 20 ? 0 : StatusBar.currentHeight,
+//   },
+//
+// });
 
 const TodoStack = StackNavigator({
   TodoListScreen: { screen: TodoListScreen },
@@ -86,9 +87,15 @@ const TabNav = TabNavigator(
 const Routes = StackNavigator({
   Home: {
     screen: TabNav,
-    navigationOptions: {
-      header: <SimpleHeader title={I18n.t('home.title')} />,
-    },
+    navigationOptions: ({ navigation }) => ({
+      header: <HomeHeader
+        title={I18n.t('home.title')}
+        navigateToGraphTagDisplay={() => {
+            navigation.navigate('GraphTagDisplayScreen');
+          }
+        }
+      />,
+    }),
   },
   ActivityAddScreen: {
     screen: ActivityAddScreen,
