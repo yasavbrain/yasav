@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Header, Button, Right, Left, Icon, Body, Title, Item, Input, Text, Content } from 'native-base';
+import Style from 'yasav/src/styles/Header';
 
 /**
  * Header Component with NativeBase design that contains an arrow to go back
