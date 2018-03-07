@@ -2,7 +2,8 @@ import React from 'react';
 import { Container, Content, Text, List, ListItem } from 'native-base';
 import I18n from 'yasav/locales/i18n';
 import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
-import SearchInputScreen from 'yasav/src/components/search/screens/SearchInput/SearchInputScreen'
+import SearchInputContainer from 'yasav/src/components/search/screens/SearchInput/containers/SearchInputContainer'
+import { SearchType } from 'yasav/src/const';
 
 export default class InterlocutorListView extends React.Component {
   constructor(props) {
@@ -33,8 +34,9 @@ export default class InterlocutorListView extends React.Component {
           goBack={this.props.goBack}
           title={I18n.t('interlocutor.interlocutorList.title')}
         />
-        <SearchInputScreen
-          requestType="interlocutor"
+        <SearchInputContainer
+          requestType={SearchType.INTERLOCUTOR}
+          updateInterlocutorListView={this.props.updateInterlocutorListView}
         />
         <Content>
           <List

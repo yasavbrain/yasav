@@ -13,6 +13,7 @@ moment.locale('fr');
 const initialState = {
   activityList: [],
   interlocutorList: [],
+  interlocutorListFromRequest: [],
 };
 
 export default function reducer(state = initialState, action) {

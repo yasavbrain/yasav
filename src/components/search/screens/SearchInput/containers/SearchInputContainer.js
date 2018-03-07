@@ -1,18 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getInterlocutorFromRequest } from '../actions';
+import { getInterlocutorListFromRequest } from 'yasav/src/components/interlocutor/screens/InterlocutorList/actions/index';
 import SearchInputView from '../views/SearchInputView';
+import { SearchType } from 'yasav/src/const';
 
 export class SearchInputContainer extends React.Component {
   constructor(props) {
     super(props);
     this.doSearch = this.doSearch.bind(this);
   }
-  
+
   doSearch(request) {
-    if (this.props.requestType == "interlocutor") {
-      this.props.getInterlocutorFromRequest(request)
-      //console.log(this.props.interlocutorFromRequest)
+    if (this.props.requestType == SearchType.INTERLOCUTOR) {
+      this.props.getInterlocutorListFromRequest(request)
+      this.props.updateInterlocutorListView()
     }
   }
   
@@ -25,16 +26,10 @@ export class SearchInputContainer extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    interlocutorFromRequest: state.search.interlocutorFromRequest,
-  };
-}
-
 function mapDispatchToProps(dispatch) {
   return {
-    getInterlocutorFromRequest: request => dispatch(getInterlocutorFromRequest(request)),
+    getInterlocutorListFromRequest: (request)  => dispatch(getInterlocutorListFromRequest(request)),
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchInputContainer);
+export default connect(null,mapDispatchToProps)(SearchInputContainer);

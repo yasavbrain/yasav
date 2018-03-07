@@ -9,5 +9,5 @@ export default combineReducers({
   activity,
   todo,
   interlocutor,
-  search
+  search,
 });

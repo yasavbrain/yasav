@@ -19,14 +19,10 @@ export default class SearchInputView extends React.Component {
         <Item>
           <Icon name="ios-search" />
           <Input
-            placeholder="Search"
+            placeholder={I18n.t('search.searchBar')}
             onChangeText={request => this.doSearch(request)} 
           />
-          <Icon name="ios-people" />
         </Item>
-        <Button transparent>
-          <Text>Search</Text>
-        </Button>
       </Header>
     );
   }
