@@ -22,17 +22,17 @@ export class GenericHeader extends React.Component {
 
   render() {
     return (
-        <Header>
-          <Left>
-            <Button transparent onPress={this.goBack}>
-              <Icon name="arrow-back" />
-            </Button>
-          </Left>
-          <Body>
-            <Title>{this.props.title}</Title>
-          </Body>
-          <Right />
-        </Header>
+      <Header style={Style.genericHeader} >
+        <Left>
+          <Button transparent onPress={this.goBack}>
+            <Icon name="arrow-back" />
+          </Button>
+        </Left>
+        <Body>
+          <Title style={Style.headerTitle}>{this.props.title}</Title>
+        </Body>
+        <Right />
+      </Header>
     );
   }
 }
@@ -57,16 +57,16 @@ export class MenuHeader extends React.Component {
 
   render() {
     return (
-      <Header>
+      <Header style={Style.menuHeader} >
         <Left>
           <Button transparent onPress={this.goBack}>
             <Icon name="arrow-back" />
           </Button>
         </Left>
         <Body>
-          <Title>{this.props.title}</Title>
+          <Title style={Style.headerTitle}>{this.props.title}</Title>
         </Body>
-        <Right>
+        <Right style={Style.menuHeaderRight} >
           {this.props.menu}
         </Right>
       </Header>
@@ -118,7 +118,7 @@ export class SimpleHeader extends React.Component {
       <Header style={Style.simpleHeader} >
         <Left />
         <Body>
-          <Title style={Style.simpleHeaderTitle}>{this.props.title}</Title>
+          <Title style={Style.headerTitle}>{this.props.title}</Title>
         </Body>
         <Right />
       </Header>

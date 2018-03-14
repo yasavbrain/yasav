@@ -6,25 +6,18 @@ export default {
   },
   activity: {
     activityAddEdit: {
-      add: {
-        title: 'Add activity',
-        button: 'Add activity',
-      },
-      edit: {
-        title: 'Edit activity',
-        button: 'Edit activity',
-      },
-      content: 'Content',
-      activityTitle: 'Title',
-      addTodoButton: 'Add a corresponding todo',
-      hintText: 'As a user, I want to create a generic activity that contains a content and a title',
-      eventWhat: 'What was it ?',
-      contentSource: 'Source',
-      type: {
-        meeting: 'Meeting',
-        event: 'Event',
+      add: 'Add',
+      edit: 'Edit',
+      event: 'an event',
+      meeting: 'a meeting',
+      content: 'a content',
+      form: {
+        title: 'Title',
         content: 'Content',
+        eventWhat: 'What was it ?',
+        contentSource: 'Source',
       },
+      addTodoButton: 'Add a corresponding todo',
     },
     activityDisplayError: {
       title: 'Activity Error',

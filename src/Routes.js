@@ -101,35 +101,30 @@ const Routes = StackNavigator({
     screen: ActivityAddScreen,
     navigationOptions: {
       header: null,
-      headerStyle: Styles.hiddenHeader,
     },
   },
   ActivityEditScreen: {
     screen: ActivityEditScreen,
     navigationOptions: {
       header: null,
-      headerStyle: Styles.hiddenHeader,
     },
   },
   ActivityDisplayScreen: {
     screen: ActivityDisplayScreen,
     navigationOptions: {
       header: null,
-      headerStyle: Styles.hiddenHeader,
     },
   },
   InterlocutorListScreen: {
     screen: InterlocutorListScreen,
     navigationOptions: {
       header: null,
-      headerStyle: Styles.hiddenHeader,
     },
   },
   InterlocutorDisplayScreen: {
     screen: InterlocutorDisplayScreen,
     navigationOptions: {
       header: null,
-      headerStyle: Styles.hiddenHeader,
     },
   },
   GraphTagDisplayScreen: {
