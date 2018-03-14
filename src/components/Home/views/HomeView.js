@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Header, Content, Text, Button, Icon } from 'native-base';
+import { Container, Text, Icon } from 'native-base';
 import { TouchableOpacity, View } from 'react-native';
 
 import I18n from 'yasav/locales/i18n';

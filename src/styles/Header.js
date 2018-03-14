@@ -6,10 +6,26 @@ export default StyleSheet.create({
     backgroundColor: Colors.header.background,
     borderBottomWidth: 0,
   },
-  simpleHeaderTitle: {
+  headerTitle: {
     color: Colors.header.active,
   },
-  hiddenHeader: {
-    height: 0,
+  genericHeader: {
+    backgroundColor: Colors.header.background,
+  },
+  menuHeader: {
+    backgroundColor: Colors.header.background,
+  },
+  menuHeaderRight: {
+    flex: 1,
+  },
+  saveButtonRight: {
+    alignSelf: 'flex-end',
+    backgroundColor: 'transparent',
+  },
+  saveButtonRightValid: {
+    color: Colors.enabled,
+  },
+  saveButtonRightInvalid: {
+    color: Colors.disabled,
   },
 });

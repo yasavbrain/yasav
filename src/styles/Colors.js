@@ -22,9 +22,12 @@ export default {
 
   text: '#111111',
 
+  focused: '#888888',
+  disabled: '#888888',
+  enabled: '#FFFFFF',
+
   selected: '#7ACEED',
   unselected: '#3B7AC4',
-
 
   background: '#FFFFFF',
 };

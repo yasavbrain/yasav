@@ -5,20 +5,19 @@ export default {
       quickAddTab: 'Ajout rapide',
       activitiesTab: 'Activités',
     },
-    activityAdd: {
-      title: 'Ajouter une activité',
-      content: 'Contenu',
-      activityTitle: 'Nom de l\'activité',
-      addActivityButton: 'Ajouter l\'activité',
-      addTodoButton: 'Ajouter le todo corespondant',
-      hintText: 'En tant quutilisateur, je veux créer une activité générique qui contient un contenu et un titre',
-      eventWhat: 'C\'était quoi ?',
-      contentSource: 'Source',
-      type: {
-        meeting: 'Rencontre',
-        event: 'Evenement',
+    activityAddEdit: {
+      add: 'Ajouter',
+      edit: 'Modifier',
+      event: 'un événement',
+      meeting: 'une rencontre',
+      content: 'un contenu',
+      form: {
+        title: 'Nom de l\'activité',
         content: 'Contenu',
+        eventWhat: 'C\'était quoi ?',
+        contentSource: 'Source',
       },
+      addTodoButton: 'Ajouter un todo corespondant',
     },
     activityDisplayError: {
       title: 'Erreur Activité',
