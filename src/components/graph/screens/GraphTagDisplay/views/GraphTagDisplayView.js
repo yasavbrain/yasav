@@ -6,6 +6,8 @@ import { ART } from 'react-native';
 
 export default class GraphTagDisplayView extends React.Component {
   render() {
+    const x = 150 / 2;
+    const y = 150 / 2;
     return (
       <Container>
         <GenericHeader
@@ -14,12 +16,17 @@ export default class GraphTagDisplayView extends React.Component {
         />
         <Content>
           <ART.Surface width={1000} height={600}>
-            <ART.Group>
-              <ART.Shape
-                d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80"
-                stroke="#000"
-                strokeWidth={1}
-              />
+            <ART.Group x={x} y={y}>
+              {
+                this.props.paths.map((item, index) => (
+                  <ART.Shape
+                    key={'circle_' + index}
+                    d={item.path}
+                    stroke="#2ca02c"
+                    strokeWidth={3}
+                  />
+                ))
+              }
             </ART.Group>
           </ART.Surface>
         </Content>
