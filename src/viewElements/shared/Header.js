@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Header, Button, Right, Left, Icon, Body, Title, Item, Input, Text, Content } from 'native-base';
 import Style from 'yasav/src/styles/Header';
+import { SearchType } from 'yasav/src/const';
 
 /**
  * Header Component with NativeBase design that contains an arrow to go back
@@ -84,22 +85,31 @@ export class HomeHeader extends React.Component {
   constructor(props) {
     super(props);
     this.navigateToGraphTagDisplay = this.navigateToGraphTagDisplay.bind(this);
+    this.navigateToSearchScreen = this.navigateToSearchScreen.bind(this);
   }
 
   navigateToGraphTagDisplay() {
     this.props.navigateToGraphTagDisplay();
   }
 
+  navigateToSearchScreen() {
+    this.props.navigateToSearchScreen(SearchType.INTERLOCUTOR_ACTIVITY);
+  }
+
   render() {
     return (
       <Header style={Style.simpleHeader}>
-        <Left />
+        <Left>
+        <Button onPress={this.navigateToGraphTagDisplay} transparent>
+            <Icon name="git-network" />
+          </Button>
+        </Left> 
         <Body>
           <Title style={Style.simpleHeaderTitle}>{this.props.title}</Title>
         </Body>
         <Right>
-          <Button onPress={this.navigateToGraphTagDisplay} transparent>
-            <Icon name="git-network" />
+          <Button onPress={this.navigateToSearchScreen} transparent>
+            <Icon name="search" />
           </Button>
         </Right>
       </Header>

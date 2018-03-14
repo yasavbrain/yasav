@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getInterlocutorListFromRequest } from 'yasav/src/components/interlocutor/screens/InterlocutorList/actions/index';
 import { getActivityListFromRequest } from 'yasav/src/components/activity/screens/ActivityList/actions/index';
-import SearchInputView from '../views/SearchInputView';
+import SearchInputCommonView from '../views/SearchInputCommonView';
+import SearchInputHomeView from '../views/SearchInputHomeView';
 import { SearchType } from 'yasav/src/const';
 
 export class SearchInputContainer extends React.Component {
@@ -23,11 +24,20 @@ export class SearchInputContainer extends React.Component {
   }
   
   render() {
-    return (
-      <SearchInputView
-        doSearch={this.doSearch}
-      />
-    );
+    if (this.props.requestType == SearchType.INTERLOCUTOR_ACTIVITY) {
+      return (
+        <SearchInputHomeView
+          goBack={this.props.goBack}
+        />
+      );
+    }
+    else {
+      return (
+        <SearchInputCommonView
+          doSearch={this.doSearch}
+        />
+      )
+    }
   }
 }
 

@@ -18,4 +18,5 @@ export const StatusEnum = {
 export const SearchType = {
   INTERLOCUTOR: 0,
   ACTIVITY: 1,
+  INTERLOCUTOR_ACTIVITY: 2,
 }

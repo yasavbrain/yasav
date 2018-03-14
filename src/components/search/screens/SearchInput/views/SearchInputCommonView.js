@@ -4,7 +4,7 @@ import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
 import I18n from 'yasav/locales/i18n';
 import Style from '../styles/style';
 
-export default class SearchInputView extends React.Component {
+export default class SearchInputCommonView extends React.Component {
   constructor(props) {
     super(props);
     this.doSearch = this.doSearch.bind(this);
