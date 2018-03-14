@@ -29,7 +29,9 @@ class ActivityListContainer extends React.Component {
     return (
       <ActivityListView
         goBack={this.props.goBack}
-        navigateToActivityAddScreen={this.props.navigateToActivityAddScreen}
+        navigateToActivityAddMeeting={this.props.navigateToActivityAddMeeting}
+        navigateToActivityAddEvent={this.props.navigateToActivityAddEvent}
+        navigateToActivityAddContent={this.props.navigateToActivityAddContent}
         navigateToActivityDisplayScreen={this.props.navigateToActivityDisplayScreen}
         displayActivityList={activityList}
         enableSearchActivity={this.enableSearchActivity}

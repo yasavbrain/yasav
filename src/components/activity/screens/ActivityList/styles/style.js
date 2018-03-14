@@ -35,6 +35,18 @@ export default StyleSheet.create({
     fontSize: 12,
     paddingLeft: 10,
     paddingTop: 10,
-  }
+  },
+  addButton: {
+    backgroundColor: Colors.primary,
+  },
+  addEventButton: {
+    backgroundColor: Colors.event,
+  },
+  addMeetingButton: {
+    backgroundColor: Colors.meet,
+  },
+  addContentButton: {
+    backgroundColor: Colors.content,
+  },
 });
 
