@@ -26,6 +26,9 @@ export default class TodoListView extends React.Component {
 
   render() {
     console.log(this.props.todoList)
+    // Todo : 
+    // Debug render row
+    // Add connection
     return (
       <Container style={Style.container}>
         <Content style={Style.content}>

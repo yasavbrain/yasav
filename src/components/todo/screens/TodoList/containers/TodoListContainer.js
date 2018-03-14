@@ -28,6 +28,7 @@ class TodoListContainer extends React.Component {
       this.setState({
         visible: newSelectedFilter,
         displayedTodos: this.props.todoList.sort((a, b) => (a.status - b.status === 0)? b.id - a.id : a.status - b.status),
+        //displayedTodos: this.props.todoList,
       });
     } else {
       this.setState({
@@ -52,9 +53,15 @@ class TodoListContainer extends React.Component {
   }
 
   render() {
+    // TOFIX. Without this strange statement, it's not working for some dark reasons
+    if(this.state.displayedTodos === null){
+      todos = this.props.todoList
+    }else{
+      todos = this.state.displayedTodos
+    }
     return (
       <TodoListView
-        todoList={this.state.displayedTodos}
+        todoList={todos}
         visible={this.state.visible}
         goBack={this.props.goBack}
         toggleTodo={this.toggleTodo}
