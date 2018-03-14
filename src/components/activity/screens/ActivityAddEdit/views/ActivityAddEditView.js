@@ -65,7 +65,7 @@ export default class ActivityAddView extends React.Component {
       </Button>
     );
   }
-
+  /*
   renderTags() {
     return this.props.activity.tags.map((tag, index) => (
       <Badge primary key={index}>
@@ -73,6 +73,7 @@ export default class ActivityAddView extends React.Component {
       </Badge>
     ));
   }
+  */
 
   renderSpecificFields() {
     if (this.props.activity.type === ActivityTypeEnum.CONTENT) {
