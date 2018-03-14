@@ -4,6 +4,8 @@ import { FlatList } from 'react-native';
 import I18n from 'yasav/locales/i18n'
 import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
 import Styles from 'yasav/src/styles/Main'
+import SearchInputContainer from 'yasav/src/components/search/screens/SearchInput/containers/SearchInputContainer'
+import { SearchType } from 'yasav/src/const';
 
 export default class ActivityListView extends React.Component {
 
@@ -24,7 +26,7 @@ export default class ActivityListView extends React.Component {
         style={{ height: 75, backgroundColor: 0 }}
         onPress={() => this.navigateToActivityDisplayScreen(item.activity)}
       >
-        <Text style={{ fontSize: 50 }}>{item.activity.title}</Text>
+        <Text style={{ fontSize: 20 }}>{item.activity.title}</Text>
       </ListItem>
     );
   }
@@ -32,7 +34,10 @@ export default class ActivityListView extends React.Component {
   render() {
     return (
       <Container>
-
+        <SearchInputContainer
+          requestType={SearchType.ACTIVITY}
+          enableSearchActivity={this.props.enableSearchActivity}
+        />
         <Content>
           <List
             dataArray={this.props.displayActivityList}
