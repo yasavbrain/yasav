@@ -6,4 +6,3 @@ npm-debug.*
 .babelrc
 .watchmanconfig
 *.DS_Store
-src/package-lock.json
