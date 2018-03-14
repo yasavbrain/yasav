@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Content, Button, Text, List, ListItem } from 'native-base';
+import { Container, Content, Button, Text, List, ListItem, SwipeRow, Icon } from 'native-base';
 import { FlatList } from 'react-native';
 import I18n from 'yasav/locales/i18n'
 import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
@@ -12,6 +12,7 @@ export default class ActivityListView extends React.Component {
   constructor(props) {
     super(props);
     this.navigateToActivityDisplayScreen = this.navigateToActivityDisplayScreen.bind(this);
+    this.navigateToActivityDisplayScreen = this.navigateToActivityDisplayScreen.bind(this);
     this.renderRow = this.renderRow.bind(this);
   }
 
@@ -19,15 +20,38 @@ export default class ActivityListView extends React.Component {
     this.props.navigateToActivityDisplayScreen(item);
   }
 
+  navigateToActivityDisplayScreen(item) {
+
+  }
+
   // TODO : Find a way to remove that arrow function in the render
   renderRow(item) {
     return (
+      <SwipeRow
+        onPress={() => this.navigateToActivityDisplayScreen(item.activity)}
+        rightOpenValue={-75}
+        body={
+          <Text style={{ fontSize: 20 }}>{item.activity.title}</Text>
+        }
+        right={
+          <Button danger onPress={() => this.props.deleteActivity(item.activity.id)}>
+            <Icon active name="trash" />
+          </Button>
+        }
+      />
+
+/*
       <ListItem
         style={{ height: 75, backgroundColor: 0 }}
         onPress={() => this.navigateToActivityDisplayScreen(item.activity)}
       >
+<<<<<<< 270c0ff5badde4ef2f34cb1a4b3628344e75dd7f
         <Text style={{ fontSize: 20 }}>{item.activity.title}</Text>
       </ListItem>
+=======
+        <Text style={{ fontSize: 50 }}>{item.activity.title}</Text>
+      </ListItem>*/
+>>>>>>> Implementing Delete Button - need to fix swipable tab
     );
   }
 
@@ -43,13 +67,6 @@ export default class ActivityListView extends React.Component {
             dataArray={this.props.displayActivityList}
             renderRow={this.renderRow}
           />
-          <Button
-            full
-            onPress={this.props.navigateToActivityAddScreen}
-            style={Styles.global.addButtons}
-          >
-            <Text>{I18n.t('activity.activityList.addActivityButton')}</Text>
-          </Button>
         </Content>
       </Container>
     );
