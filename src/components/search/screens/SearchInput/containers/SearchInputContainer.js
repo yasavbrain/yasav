@@ -21,13 +21,24 @@ export class SearchInputContainer extends React.Component {
       this.props.getActivityListFromRequest(request)
       this.props.enableSearchActivity()
     }
+    if (this.props.requestType == SearchType.INTERLOCUTOR_ACTIVITY) {
+      this.props.getActivityListFromRequest(request)
+      this.props.getInterlocutorListFromRequest(request)
+    }
   }
   
   render() {
     if (this.props.requestType == SearchType.INTERLOCUTOR_ACTIVITY) {
+      console.log('interlocutor')
+      console.log(this.props.interlocutorListFromRequest)
+      console.log('activity')
+      console.log(this.props.activityListFromRequest)
       return (
         <SearchInputHomeView
           goBack={this.props.goBack}
+          doSearch={this.doSearch}
+          interlocutorListFromRequest={this.props.interlocutorListFromRequest}
+          activityListFromRequest={this.props.activityListFromRequest}
         />
       );
     }
@@ -41,6 +52,13 @@ export class SearchInputContainer extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    interlocutorListFromRequest: state.search.interlocutorListFromRequest,
+    activityListFromRequest: state.search.activityListFromRequest,
+  }
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     getInterlocutorListFromRequest: (request)  => dispatch(getInterlocutorListFromRequest(request)),
@@ -48,4 +66,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null,mapDispatchToProps)(SearchInputContainer);
+export default connect(mapStateToProps,mapDispatchToProps)(SearchInputContainer);

@@ -5,16 +5,7 @@ import I18n from 'yasav/locales/i18n';
 import Style from '../styles/style';
 import SearchInputCommonView from './SearchInputCommonView'
 
-export default class SearchInputHomeView extends React.Component {
-  constructor(props) {
-    super(props);
-    this.doSearch = this.doSearch.bind(this);
-  }
-  
-  doSearch(request) {
-    this.props.doSearch(request)
-  }
-  
+export default class SearchInputHomeView extends React.Component {  
   render() {
     return (
       <Container>
@@ -22,7 +13,9 @@ export default class SearchInputHomeView extends React.Component {
           goBack={this.props.goBack}
           title="Search"
         />
-        <SearchInputCommonView />
+        <SearchInputCommonView
+          doSearch={this.props.doSearch}
+        />
       </Container>
     );
   }
