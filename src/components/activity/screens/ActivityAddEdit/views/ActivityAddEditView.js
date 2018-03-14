@@ -65,6 +65,21 @@ export default class ActivityAddView extends React.Component {
       </Button>
     );
   }
+
+  renderSaveButton() {
+    if (this.props.isEdit) {
+      return (
+        <Button transparent onPress={this.props.editActivity} disabled={!this.props.isFormValid}>
+          <Text>Save</Text>
+        </Button>
+      );
+    }
+    return (
+      <Button transparent onPress={this.props.addActivity} disabled={!this.props.isFormValid} style={HeaderStyle.saveButtonRight}>
+        <Icon name="md-checkmark" style={this.props.isFormValid ? HeaderStyle.saveButtonRightValid : HeaderStyle.saveButtonRightInvalid} />
+      </Button>
+    );
+  }
   /*
   renderTags() {
     return this.props.activity.tags.map((tag, index) => (
