@@ -1,8 +1,8 @@
 import React from 'react';
-import { Container, Content, Text, Button, Footer, FooterTab, Picker, Item } from 'native-base';
+import { Container, Content, Text, Button, Footer, FooterTab } from 'native-base';
 import I18n from 'yasav/locales/i18n'
 import moment from 'moment';
-import { GenericHeader, MenuHeader } from 'yasav/src/viewElements/shared/Header';
+import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
 import 'moment/locale/fr';
 import Style from '../styles/style.js';
 
@@ -22,18 +22,9 @@ export default class ActivityDisplayView extends React.Component {
   render() {
     return (
       <Container>
-        <MenuHeader
+        <GenericHeader
           goBack={this.props.goBack}
           title={I18n.t('activity.activityDisplay.title')}
-          menu={
-            <Picker
-              mode="dropdown"
-              placeholder="Select One"
-            >
-              <Item label="Wallet" value="key0" onPress={() => alert("lol")} />
-              <Item label="ATM Card" value="key1" onPress={() => alert("lal")} />
-            </Picker>
-          }
         />
         <Content style={Style.container}>
           <Text style={Style.date}>{this.props.activityAndInterlocutor.activity.date.format('DD/MM/YYYY') }</Text>

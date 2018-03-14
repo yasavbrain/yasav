@@ -18,7 +18,7 @@ export default class ActivityListView extends React.Component {
 
   i = 0
 
-  componentDidMount(){
+  componentWillUpdate(){
     this.i = 0
   }
 
@@ -40,6 +40,7 @@ export default class ActivityListView extends React.Component {
 
   // TODO : Find a way to remove that arrow function in the render
   renderRow(item) {
+
     this.i = this.i + 1
     return (
       <ListItem
