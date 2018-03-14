@@ -9,12 +9,14 @@ export default StyleSheet.create({
     marginBottom: 10,
   },
   title: {
-    fontSize: 17,
+    fontSize: 22,
     marginBottom: 10,
+    marginRight: 60,
   },
   description: {
-    fontSize: 12,
+    fontSize: 17,
     marginBottom: 20,
+    textAlign: 'justify',
   },
   date: {
     marginTop: 10,
