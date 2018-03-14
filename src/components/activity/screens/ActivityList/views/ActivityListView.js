@@ -29,7 +29,11 @@ export default class ActivityListView extends React.Component {
     return (
       <SwipeRow
         onPress={() => this.navigateToActivityDisplayScreen(item.activity)}
-        rightOpenValue={-75}
+        onLongPress={() => alert("lol")}
+        disableRightSwipe={true}
+        disableLeftSwipe={true}
+        rightOpenValue={-50}
+        stopRightSwipe={-50}
         body={
           <Text style={{ fontSize: 20 }}>{item.activity.title}</Text>
         }
