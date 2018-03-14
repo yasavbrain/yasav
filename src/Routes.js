@@ -131,7 +131,6 @@ const Routes = StackNavigator({
     screen: GraphTagDisplayScreen,
     navigationOptions: {
       header: null,
-      headerStyle: Styles.hiddenHeader,
     },
   },
 }, {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getActivityList } from '../actions';
+import { deleteActivity } from '../../ActivityDisplay/actions/index';
 import ActivityListView from '../views/ActivityListView';
 
 class ActivityListContainer extends React.Component {
@@ -47,6 +48,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     getActivityList: () => dispatch(getActivityList()),
+    deleteActivity: id => dispatch(deleteActivity(id)),
   };
 }
 
