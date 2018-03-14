@@ -13,7 +13,7 @@ export class SearchInputContainer extends React.Component {
   doSearch(request) {
     if (this.props.requestType == SearchType.INTERLOCUTOR) {
       this.props.getInterlocutorListFromRequest(request)
-      this.props.updateInterlocutorListView()
+      this.props.enableSearch()
     }
   }
   
