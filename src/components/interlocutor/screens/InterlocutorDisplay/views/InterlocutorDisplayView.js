@@ -40,7 +40,7 @@ export default class InterlocutorDisplayView extends React.Component {
         />
         <Content>
           <Text>{this.props.interlocutor.name}</Text>
-          <Text>{this.props.interlocutor.linkToMe}</Text>
+          <Text>{this.props.interlocutor.link_to_me}</Text>
           <List
             dataArray={this.props.interlocutorActivityList}
             renderRow={this.renderRow}

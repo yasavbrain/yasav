@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Header, Button, Right, Left, Icon, Body, Title } from 'native-base';
+import { Header, Button, Right, Left, Icon, Body, Title, Item, Input, Text, Content } from 'native-base';
 import Style from 'yasav/src/styles/Header';
 
 /**
@@ -22,17 +22,17 @@ export class GenericHeader extends React.Component {
 
   render() {
     return (
-      <Header>
-        <Left>
-          <Button transparent onPress={this.goBack}>
-            <Icon name="arrow-back" />
-          </Button>
-        </Left>
-        <Body>
-          <Title>{this.props.title}</Title>
-        </Body>
-        <Right />
-      </Header>
+        <Header>
+          <Left>
+            <Button transparent onPress={this.goBack}>
+              <Icon name="arrow-back" />
+            </Button>
+          </Left>
+          <Body>
+            <Title>{this.props.title}</Title>
+          </Body>
+          <Right />
+        </Header>
     );
   }
 }

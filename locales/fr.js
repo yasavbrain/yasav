@@ -64,7 +64,10 @@ export default {
       title: 'Liste de mes interlocuteurs',
     },
     interlocutorDisplay: {
-      title: "Interlocutor Display"
+      title: 'Interlocutor Display'
     },
+  },
+  search: {
+    searchBar: 'Search'
   },
 };

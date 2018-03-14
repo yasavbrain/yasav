@@ -14,3 +14,8 @@ export const StatusEnum = {
   TODO: 0,
   DONE: 1,
 };
+
+export const SearchType = {
+  INTERLOCUTOR: 0,
+  ACTIVITY: 1,
+}
