@@ -10,18 +10,18 @@ export default StyleSheet.create({
     flexWrap: 'wrap',
   },
   activityMeetButton: {
-    backgroundColor: Colors.home.meetButton,
+    backgroundColor: Colors.meet,
     width: '50%',
     height: '65%',
   },
   activityEventButton: {
-    backgroundColor: Colors.home.eventButton,
+    backgroundColor: Colors.event,
     width: '50%',
     height: '65%',
 
   },
   activityContentButton: {
-    backgroundColor: Colors.home.contentButton,
+    backgroundColor: Colors.content,
     width: '100%',
     height: '35%',
   },
