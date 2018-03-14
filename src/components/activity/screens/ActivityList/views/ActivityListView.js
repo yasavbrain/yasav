@@ -4,6 +4,7 @@ import { FlatList } from 'react-native';
 import I18n from 'yasav/locales/i18n'
 import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
 import Style from '../styles/style.js';
+import StyleList from 'yasav/src/styles/List'
 import SearchInputContainer from 'yasav/src/components/search/screens/SearchInput/containers/SearchInputContainer'
 import { SearchType } from 'yasav/src/const';
 
@@ -74,17 +75,24 @@ export default class ActivityListView extends React.Component {
   // BUG: need to put the style inline for the 3 buttons of the FAB. The Style.addMeetingButton doesn't work for no reason
   render() {
     return (
-      <Container style={Style.container}>
+      <Container style={StyleList.container}>
         <SearchInputContainer
           requestType={SearchType.ACTIVITY}
           enableSearchActivity={this.props.enableSearchActivity}
         />
         <Content>
+<<<<<<< HEAD
           <FlatList
             style={Style.list}
             data={this.props.displayActivityList}
             renderItem={this.renderItem}
             keyExtractor={item => item.activity.id}
+=======
+          <List
+            style={StyleList.list}
+            dataArray={this.props.displayActivityList}
+            renderRow={this.renderRow}
+>>>>>>> Added a common style for List
           />
         </Content>
         <Fab

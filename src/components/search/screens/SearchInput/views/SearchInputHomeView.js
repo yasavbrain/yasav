@@ -2,7 +2,7 @@ import React from 'react';
 import { Header, Item, Icon, Input, Button, Text, Container, Content, ListItem, List } from 'native-base';
 import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
 import I18n from 'yasav/locales/i18n';
-import Style from '../styles/style';
+import StyleList from 'yasav/src/styles/List'
 import SearchInputCommonView from './SearchInputCommonView'
 
 export default class SearchInputHomeView extends React.Component {  
@@ -29,10 +29,10 @@ export default class SearchInputHomeView extends React.Component {
       return (
         <ListItem>
           <Content>
-            <Text style={Style.listItemTitle}>{item.activity.title}</Text>
+            <Text style={StyleList.listItemTitle}>{item.activity.title}</Text>
           </Content>
           <Content>
-            <Text style={Style.listItemDescription}>{ this.shortenedDescription(item.activity.description)}</Text>
+            <Text style={StyleList.listItemDescription}>{ this.shortenedDescription(item.activity.description)}</Text>
           </Content>
         </ListItem>
       );
@@ -41,10 +41,10 @@ export default class SearchInputHomeView extends React.Component {
       return (
         <ListItem>
           <Content>
-            <Text style={Style.listItemTitle}>{item.name}</Text>
+            <Text style={StyleList.listItemTitle}>{item.name}</Text>
           </Content>
           <Content>
-            <Text style={Style.listItemDescription}>{item.link_to_me}</Text>
+            <Text style={StyleList.listItemDescription}>{item.link_to_me}</Text>
           </Content>
         </ListItem>
       );
@@ -53,7 +53,7 @@ export default class SearchInputHomeView extends React.Component {
   
   render() {
     return (
-      <Container style={Style.container}>
+      <Container style={StyleList.container}>
         <GenericHeader
           goBack={this.props.goBack}
           title="Search"
@@ -63,7 +63,7 @@ export default class SearchInputHomeView extends React.Component {
         />
         <Content>
           <List
-            style={Style.list}
+            style={StyleList.list}
             dataArray={this.props.requestResult}
             renderRow={this.renderRow}
           />
