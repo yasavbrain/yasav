@@ -36,7 +36,7 @@ export default class InterlocutorListView extends React.Component {
         />
         <SearchInputContainer
           requestType={SearchType.INTERLOCUTOR}
-          enableSearch={this.props.enableSearch}
+          enableSearchInterlocutor={this.props.enableSearchInterlocutor}
         />
         <Content>
           <List

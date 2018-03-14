@@ -4,6 +4,11 @@ export default {
     active: '#FFFFFF',
     inactive: '#DDDDDD',
   },
+  searchBar: {
+    background: '#E3E1E1',
+    active: '#FFFFFF',
+    inactive: '#DDDDDD',
+  },
   home: {
     meetButton: '#78A5A3',
     eventButton: '#E1B16A',

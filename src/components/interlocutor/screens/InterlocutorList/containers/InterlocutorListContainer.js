@@ -7,14 +7,14 @@ class InterlocutorListContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = { searchActive: 0 };
-    this.updateInterlocutorListView = this.updateInterlocutorListView.bind(this);
+    this.enableSearchInterlocutor = this.enableSearchInterlocutor.bind(this);
   }
 
   componentDidMount() {
     this.props.getInterlocutorList();
   }
 
-  enableSearch() {
+  enableSearchInterlocutor() {
     this.setState({ searchActive: 1 });
   }
 
@@ -29,7 +29,7 @@ class InterlocutorListContainer extends React.Component {
         goBack={this.props.goBack}
         displayInterlocutorList={interlocutorList}
         navigateToInterlocutorDisplayScreen={this.props.navigateToInterlocutorDisplayScreen}
-        enableSearch={this.enableSearch}
+        enableSearchInterlocutor={this.enableSearchInterlocutor}
       />
     );
   }
