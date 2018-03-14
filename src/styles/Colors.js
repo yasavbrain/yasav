@@ -35,4 +35,7 @@ export default {
   unselected: '#3B7AC4',
 
   background: '#FFFFFF',
+
+  alternatedEven: '#FFFFFF',
+  alternatedOdd: '#EEF0F2',
 };
