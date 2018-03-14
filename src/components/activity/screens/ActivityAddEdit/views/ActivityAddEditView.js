@@ -16,7 +16,6 @@ export default class ActivityAddView extends React.Component {
 
     this.state = { selectedInput: '' };
 
-    this.renderTags = this.renderTags.bind(this);
     this.getTitle = this.getTitle.bind(this);
     this.renderSaveButton = this.renderSaveButton.bind(this);
   }
@@ -65,15 +64,6 @@ export default class ActivityAddView extends React.Component {
       </Button>
     );
   }
-  /*
-  renderTags() {
-    return this.props.activity.tags.map((tag, index) => (
-      <Badge primary key={index}>
-        <Text onPress={() => this.props.removeTag(tag)}>{tag}</Text>
-      </Badge>
-    ));
-  }
-  */
 
   renderSpecificFields() {
     if (this.props.activity.type === ActivityTypeEnum.CONTENT) {
@@ -135,17 +125,6 @@ export default class ActivityAddView extends React.Component {
                   value={this.props.activity.description}
                   onFocus={() => this.setState({ selectedInput: 'content' })}
                 />
-              </Item>
-              <Item
-                style={{ flex: 1, flexDirection: 'row', marginLeft: 0, display: 'none' }}
-                contentContainerStyle={{ alignItems: 'flex-start' }}
-              >
-                {this.renderTags()}
-              </Item>
-
-              <Item floatingLabel style={{ display: 'none' }}>
-                <Label>Tags</Label>
-                <Input onChangeText={this.props.manageTag} value={this.props.tagInput} />
               </Item>
 
               {this.renderValidationButtons()}
