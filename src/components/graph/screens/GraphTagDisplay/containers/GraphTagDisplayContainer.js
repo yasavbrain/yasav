@@ -14,6 +14,7 @@ class GraphTagDisplayContainer extends React.Component {
     super(props);
     this.createD3GRaph = this.createD3GRaph.bind(this);
     this.generateCirclePath = this.generateCirclePath.bind(this);
+    this.createD3Nodes = this.createD3Nodes.bind(this);
 
     // this.data = [
     //   { 'number': 8, 'name': 'Fun activities'},
@@ -41,7 +42,7 @@ class GraphTagDisplayContainer extends React.Component {
     return circle
   }
 
-  createD3GRaph() {
+  createD3GRaph(data) {
     // const arcs = d3.shape.pie()
     //   .value(item => item.number)(this.data);
     // console.log('ARCS', arcs);
@@ -57,22 +58,23 @@ class GraphTagDisplayContainer extends React.Component {
     //   .y(function(d) { return d.y; })
     //   .r(function(d) { return d.r; });
 
-    const data = [
-      {x: 50, y: 50, r: 10, fill: "green", label: "jean"},
-      {x: 150, y: 150, r: 5, fill: "red", label: "marc"},
-      {x: 70, y: 70, r: 25, fill: "blue", label: "john"}
-    ];
     let paths = []
     paths = paths.concat({
       path: this.generateCirclePath(data[0].x, data[0].y, data[0].r),
+      x: data[0].x,
+      y: data[0].y,
       label: data[0].label,
     });
     paths = paths.concat({
       path: this.generateCirclePath(data[1].x, data[1].y, data[1].r),
+      x: data[1].x,
+      y: data[1].y,
       label: data[1].label,
     });
     paths = paths.concat({
       path: this.generateCirclePath(data[2].x, data[2].y, data[2].r),
+      x: data[2].x,
+      y: data[2].y,
       label: data[2].label,
     });
     // path += this.generateCirclePath(data[1].x, data[1].y, data[1].r)
@@ -81,12 +83,43 @@ class GraphTagDisplayContainer extends React.Component {
     return paths;
   }
 
+  createD3Nodes(data) {
+    let nodes = []
+    nodes = nodes.concat({
+      x: data[0].x,
+      y: data[0].y,
+      radius: data[0].r,
+      label: data[0].label,
+    });
+
+    nodes = nodes.concat({
+      x: data[1].x,
+      y: data[1].y,
+      radius: data[1].r,
+      label: data[1].label,
+    });
+
+    nodes = nodes.concat({
+      x: data[2].x,
+      y: data[2].y,
+      radius: data[2].r,
+      label: data[2].label,
+    });
+    return nodes;
+  }
+
   render() {
-    const paths = this.createD3GRaph();
+    const data = [
+      {x: 50, y: 50, r: 10, fill: "green", label: "jean"},
+      {x: 150, y: 150, r: 5, fill: "red", label: "marc"},
+      {x: 70, y: 70, r: 25, fill: "blue", label: "john"}
+    ];
+    const paths = this.createD3GRaph(data);
+    const nodes = this.createD3Nodes(data);
     return (
       <GraphTagDisplayView
         goBack={this.props.goBack}
-        paths={paths}
+        nodes={nodes}
       />
     );
   }

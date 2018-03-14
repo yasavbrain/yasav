@@ -1,8 +1,9 @@
 import React from 'react';
-import { Container, Content, Text } from 'native-base';
+import { Container, Content } from 'native-base';
 import I18n from 'yasav/locales/i18n'
 import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
 import { ART } from 'react-native';
+import { ARTNode } from '../../../utils/ArtComponents';
 
 export default class GraphTagDisplayView extends React.Component {
   render() {
@@ -18,12 +19,12 @@ export default class GraphTagDisplayView extends React.Component {
           <ART.Surface width={1000} height={600}>
             <ART.Group x={x} y={y}>
               {
-                this.props.paths.map((item, index) => (
-                  <ART.Shape
-                    key={'circle_' + index}
-                    d={item.path}
-                    stroke="#2ca02c"
-                    strokeWidth={3}
+                this.props.nodes.map((item, index) => (
+                  <ARTNode
+                    x={item.x}
+                    y={item.y}
+                    radius={item.radius}
+                    label={item.label}
                   />
                 ))
               }
