@@ -14,8 +14,8 @@ class InterlocutorListContainer extends React.Component {
     this.props.getInterlocutorList();
   }
 
-  enableSearchInterlocutor() {
-    this.setState({ searchActive: 1 });
+  enableSearchInterlocutor(i) {
+    this.setState({ searchActive: i });
   }
 
   render() {

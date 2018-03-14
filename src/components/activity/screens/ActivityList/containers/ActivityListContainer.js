@@ -15,8 +15,8 @@ class ActivityListContainer extends React.Component {
     this.props.getActivityList();
   }
 
-  enableSearchActivity() {
-    this.setState({ searchActive: 1 });
+  enableSearchActivity(i) {
+    this.setState({ searchActive: i });
   }
 
 

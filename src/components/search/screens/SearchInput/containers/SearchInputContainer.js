@@ -15,11 +15,21 @@ export class SearchInputContainer extends React.Component {
   doSearch(request) {
     if (this.props.requestType == SearchType.INTERLOCUTOR) {
       this.props.getInterlocutorListFromRequest(request)
-      this.props.enableSearchInterlocutor()
+      if (request.length > 0) {
+        this.props.enableSearchInterlocutor(1)
+      }
+      else {
+        this.props.enableSearchInterlocutor(0)
+      }
     }
     if (this.props.requestType == SearchType.ACTIVITY) {
       this.props.getActivityListFromRequest(request)
-      this.props.enableSearchActivity()
+      if (request.length > 0) {
+        this.props.enableSearchActivity(1)
+      }
+      else {
+        this.props.enableSearchActivity(0)
+      }
     }
     if (this.props.requestType == SearchType.INTERLOCUTOR_ACTIVITY) {
       this.props.getActivityListFromRequest(request)
@@ -29,16 +39,12 @@ export class SearchInputContainer extends React.Component {
   
   render() {
     if (this.props.requestType == SearchType.INTERLOCUTOR_ACTIVITY) {
-      console.log('interlocutor')
-      console.log(this.props.interlocutorListFromRequest)
-      console.log('activity')
-      console.log(this.props.activityListFromRequest)
+      requestResult = this.props.interlocutorListFromRequest.concat(this.props.activityListFromRequest)
       return (
         <SearchInputHomeView
           goBack={this.props.goBack}
           doSearch={this.doSearch}
-          interlocutorListFromRequest={this.props.interlocutorListFromRequest}
-          activityListFromRequest={this.props.activityListFromRequest}
+          requestResult={requestResult}
         />
       );
     }
