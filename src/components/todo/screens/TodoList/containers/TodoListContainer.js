@@ -13,26 +13,26 @@ class TodoListContainer extends React.Component {
     this.toggleTodo = this.toggleTodo.bind(this);
     this.deleteTodo = this.deleteTodo.bind(this);
     this.state = {
-      visible: StatusEnum.TODO,
+      visible: -1,
       displayedTodos: null,
     };
   }
 
   componentDidMount() {
     this.props.getTodoList()
-      .then(() => this.filterTodos(StatusEnum.TODO));
+      .then(() => this.filterTodos(this.state.visible));
   }
 
   filterTodos(newSelectedFilter) {
     if (newSelectedFilter === -1) {
       this.setState({
         visible: newSelectedFilter,
-        displayedTodos: this.props.todoList,
+        displayedTodos: this.props.todoList.sort((a, b) => (a.status - b.status === 0)? b.id - a.id : a.status - b.status),
       });
     } else {
       this.setState({
         visible: newSelectedFilter,
-        displayedTodos: this.props.todoList.filter(todo => (todo.status === newSelectedFilter)),
+        displayedTodos: this.props.todoList.filter(todo => (todo.status === newSelectedFilter)).sort((a, b) => (a.status - b.status === 0)? b.id - a.id : a.status - b.status),
       });
     }
   }
@@ -57,7 +57,6 @@ class TodoListContainer extends React.Component {
         todoList={this.state.displayedTodos}
         visible={this.state.visible}
         goBack={this.props.goBack}
-        filterTodos={this.filterTodos}
         toggleTodo={this.toggleTodo}
         deleteTodo={this.deleteTodo}
       />

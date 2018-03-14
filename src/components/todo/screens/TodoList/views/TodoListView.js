@@ -1,59 +1,45 @@
 import React from 'react';
-import { Container, Content, ListItem, Text, CheckBox, Picker } from 'native-base';
-import { FlatList } from 'react-native';
+import { Container, Content, ListItem, Text, CheckBox, Picker, List, View, Item, Icon, Input, Button } from 'native-base';
 import I18n from 'yasav/locales/i18n.js';
 import { MenuHeader } from 'src/viewElements/shared/Header.js';
 import { StatusEnum } from 'yasav/src/const.js';
+import Style from '../styles/style.js';
 
 export default class TodoListView extends React.Component {
   constructor(props) {
     super(props);
-    this.renderItem = this.renderItem.bind(this);
-    this.renderMenu = this.renderMenu.bind(this);
+    this.renderRow = this.renderRow.bind(this);
   }
 
-  renderMenu() {
-    // mode property is just for Android (dropdown vs dialog)
-    return (
-      <Picker
-        mode="dropdown"
-        selectedValue={this.props.visible}
-        onValueChange={this.props.filterTodos}
-      >
-        <Picker.Item label={I18n.t('todo.todoList.filterAll')} value={-1} />
-        <Picker.Item label={I18n.t('todo.todoList.filterDone')} value={StatusEnum.DONE} />
-        <Picker.Item label={I18n.t('todo.todoList.filterTodo')} value={StatusEnum.TODO} />
-      </Picker>
-    );
-  }
-
-  renderItem({ item }) {
-    console.log(item.id);
+  renderRow(item) {
     return (
       <ListItem
-        style={{ backgroundColor: 0 }}
         onPress={() => this.props.toggleTodo(item)}
         onLongPress={ () => this.props.deleteTodo(item.key)}
       >
-        <CheckBox
-          checked={item.status === StatusEnum.DONE}
+        <CheckBox style={[Style.checkbox, (item.status === StatusEnum.DONE)? Style.checkboxSelected: Style.checkboxUnselected]} checked={item.status === StatusEnum.DONE}
         />
-        <Text>{item.title}</Text>
+        <Text style={[Style.todoText, (item.status === StatusEnum.DONE)? Style.todoTextDone: Style.todoTextTodo]}>{item.title}</Text>
       </ListItem>
     );
   }
 
   render() {
-    // TODO : solve the bug preventing the display of the the Picker in the
-    // header menu
+    console.log(this.props.todoList)
     return (
-      <Container>
-        <Content>
-          {this.renderMenu()}
-          <FlatList
-            data={this.props.todoList}
-            renderItem={this.renderItem}
-            keyExtractor={item => item.id}
+      <Container style={Style.container}>
+        <Content style={Style.content}>
+          <Item style={Style.addForm}>
+            <Button transparent>
+              <Icon name='add' style={Style.addTodoButton}/>
+            </Button>
+            <Input placeholder='Add a new todo here' style={Style.input}/>
+          </Item>
+          <List
+            dataArray={this.props.todoList}
+            //dataArray={[this.props.todoList]}
+            renderRow={this.renderRow}
+            //renderRow={(item) => <ListItem><Text>Lol</Text></ListItem>}
           />
         </Content>
       </Container>
