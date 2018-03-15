@@ -59,6 +59,7 @@ class TodoListContainer extends React.Component {
     }else{
       todos = this.state.displayedTodos
     }
+    
     return (
       <TodoListView
         todoList={todos}

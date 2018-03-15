@@ -25,10 +25,6 @@ export default class TodoListView extends React.Component {
   }
 
   render() {
-    console.log(this.props.todoList)
-    // Todo : 
-    // Debug render row
-    // Add connection
     return (
       <Container style={Style.container}>
         <Content style={Style.content}>
@@ -40,9 +36,7 @@ export default class TodoListView extends React.Component {
           </Item>
           <List
             dataArray={this.props.todoList}
-            //dataArray={[this.props.todoList]}
             renderRow={this.renderRow}
-            //renderRow={(item) => <ListItem><Text>Lol</Text></ListItem>}
           />
         </Content>
       </Container>
