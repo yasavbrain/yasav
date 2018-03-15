@@ -17,17 +17,11 @@ export default class ActivityListView extends React.Component {
     this.navigateToActivityAddMeeting = this.navigateToActivityAddMeeting.bind(this);
     this.navigateToActivityAddContent = this.navigateToActivityAddContent.bind(this);
     this.navigateToActivityAddEvent = this.navigateToActivityAddEvent.bind(this);
-    this.renderRow = this.renderRow.bind(this);
+    this.renderItem = this.renderItem.bind(this);
 
     this.state = {
       active: false
     };
-  }
-
-  i = 0
-
-  componentWillUpdate(){
-    this.i = 0
   }
 
   navigateToActivityDisplayScreen(item) {
@@ -60,18 +54,20 @@ export default class ActivityListView extends React.Component {
 
 
   // TODO : Find a way to remove that arrow function in the render
-  renderRow(item) {
-    this.i = this.i + 1
+  renderItem(item) {
+    
+    innerItem = item.item
+    console.log(item)
     return (
       <ListItem
-        style={[Style.listItemGeneric, (this.i%2 == 0)? Style.listItemEven: Style.listItemOdd]}
-        onPress={() => this.navigateToActivityDisplayScreen(item.activity)}
+        style={[Style.listItemGeneric, (item.index%2 == 0)? Style.listItemEven: Style.listItemOdd]}
+        onPress={() => this.navigateToActivityDisplayScreen(innerItem.activity)}
       >
         <Content>
-          <Text style={Style.listItemTitle}>{item.activity.title}</Text>
+          <Text style={Style.listItemTitle}>{innerItem.activity.title}</Text>
         </Content>
         <Content>
-          <Text style={Style.listItemDescription}>{ this.shortenedDescription(item.activity.description)}</Text>
+          <Text style={Style.listItemDescription}>{ this.shortenedDescription(innerItem.activity.description)}</Text>
         </Content>
       </ListItem>
     );
@@ -86,10 +82,11 @@ export default class ActivityListView extends React.Component {
           enableSearchActivity={this.props.enableSearchActivity}
         />
         <Content>
-          <List
+          <FlatList
             style={Style.list}
-            dataArray={this.props.displayActivityList}
-            renderRow={this.renderRow}
+            data={this.props.displayActivityList}
+            renderItem={this.renderItem}
+            keyExtractor={item => item.activity.id}
           />
         </Content>
         <Fab

@@ -9,18 +9,19 @@ import Style from '../styles/style.js';
 export default class TodoListView extends React.Component {
   constructor(props) {
     super(props);
-    this.renderRow = this.renderRow.bind(this);
+    this.renderItem = this.renderItem.bind(this);
   }
 
   renderItem(item) {
+    innerItem = item.item
     return (
       <ListItem
-        onPress={() => this.props.toggleTodo(item)}
-        onLongPress={ () => this.props.deleteTodo(item.key)}
+        onPress={() => this.props.toggleTodo(innerItem)}
+        onLongPress={ () => this.props.deleteTodo(innerItem.key)}
       >
-        <CheckBox style={[Style.checkbox, (item.status === StatusEnum.DONE)? Style.checkboxSelected: Style.checkboxUnselected]} checked={item.status === StatusEnum.DONE}
+        <CheckBox style={[Style.checkbox, (innerItem.status === StatusEnum.DONE)? Style.checkboxSelected: Style.checkboxUnselected]} checked={innerItem.status === StatusEnum.DONE}
         />
-        <Text style={[Style.todoText, (item.status === StatusEnum.DONE)? Style.todoTextDone: Style.todoTextTodo]}>{item.title}</Text>
+        <Text style={[Style.todoText, (innerItem.status === StatusEnum.DONE)? Style.todoTextDone: Style.todoTextTodo]}>{innerItem.title}</Text>
       </ListItem>
     );
   }
