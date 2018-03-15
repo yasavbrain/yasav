@@ -15,15 +15,15 @@ const d3 = {
 class GraphTagDisplayContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.createD3Nodes = this.createD3Nodes.bind(this);
-    this.createD3Edges = this.createD3Edges.bind(this);
+    this.toARTNodes = this.toARTNodes.bind(this);
+    this.toARTEdges = this.toARTEdges.bind(this);
     this.ticked = this.ticked.bind(this);
     this.width = Dimensions.get('window').width;
     this.height = Dimensions.get('window').height;
     this.data = [
-      { x: 0, y: 0, r: 10, label: 'jean', id: 1 },
-      { x: 200, y: 0, r: 5, label: 'marc', id: 2 },
-      { x: 0, y: 300, r: 25, label: 'john', id: 3 }
+      { x: 0, y: 0, r: 50, label: 'jean', id: 1 },
+      { x: 200, y: 0, r: 75, label: 'marc', id: 2 },
+      { x: 0, y: 300, r: 125, label: 'john', id: 3 }
     ];
 
     this.links = [
@@ -52,11 +52,11 @@ class GraphTagDisplayContainer extends React.Component {
     this.setState({ data: this.data });
   }
 
-  createD3Nodes(data) {
+  toARTNodes(data) {
     let nodes = [];
     nodes = data.map(item => ({
-      x: item.x,
-      y: item.y,
+      x: item.x - item.r,
+      y: item.y - item.r,
       radius: item.r,
       label: item.label,
       id: item.id,
@@ -65,22 +65,22 @@ class GraphTagDisplayContainer extends React.Component {
   }
 
 
-  createD3Edges(links) {
+  toARTEdges(links) {
     let edges = [];
     // we want the line to link the center of the sources and targets
     edges = links.map(item => ({
-      x1: item.source.x + item.source.r,
-      y1: item.source.y + item.source.r,
-      x2: item.target.x + item.target.r,
-      y2: item.target.y + item.target.r,
+      x1: item.source.x,
+      y1: item.source.y,
+      x2: item.target.x,
+      y2: item.target.y,
       id: item.id,
     }));
     return edges;
   }
 
   render() {
-    const nodes = this.createD3Nodes(this.state.data);
-    const edges = this.createD3Edges(this.state.links);
+    const nodes = this.toARTNodes(this.state.data);
+    const edges = this.toARTEdges(this.state.links);
     return (
       <GraphTagDisplayView
         goBack={this.props.goBack}
