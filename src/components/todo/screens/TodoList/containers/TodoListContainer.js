@@ -39,6 +39,8 @@ class TodoListContainer extends React.Component {
   }
 
   toggleTodo(item) {
+    console.log("TAGGLE")
+    console.log(item)
     this.props.toggleTodo(item)
       .then(() => {
         this.filterTodos(this.state.visible);
@@ -53,13 +55,6 @@ class TodoListContainer extends React.Component {
   }
 
   render() {
-    // TOFIX. Without this strange statement, it's not working for some dark reasons
-    if(this.state.displayedTodos === null){
-      todos = this.props.todoList
-    }else{
-      todos = this.state.displayedTodos
-    }
-    
     return (
       <TodoListView
         todoList={this.state.displayedTodos}

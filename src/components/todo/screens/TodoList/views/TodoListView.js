@@ -13,15 +13,14 @@ export default class TodoListView extends React.Component {
   }
 
   renderItem(item) {
-    innerItem = item.item
     return (
       <ListItem
-        onPress={() => this.props.toggleTodo(innerItem)}
-        onLongPress={ () => this.props.deleteTodo(innerItem.key)}
+        onPress={() => this.props.toggleTodo(item.item)}
+        onLongPress={ () => this.props.deleteTodo(item.item.id)}
       >
-        <CheckBox style={[Style.checkbox, (innerItem.status === StatusEnum.DONE)? Style.checkboxSelected: Style.checkboxUnselected]} checked={innerItem.status === StatusEnum.DONE}
+        <CheckBox style={[Style.checkbox, (item.item.status === StatusEnum.DONE)? Style.checkboxSelected: Style.checkboxUnselected]} checked={item.item.status === StatusEnum.DONE}
         />
-        <Text style={[Style.todoText, (innerItem.status === StatusEnum.DONE)? Style.todoTextDone: Style.todoTextTodo]}>{innerItem.title}</Text>
+        <Text style={[Style.todoText, (item.item.status === StatusEnum.DONE)? Style.todoTextDone: Style.todoTextTodo]}>{item.item.title}</Text>
       </ListItem>
     );
   }

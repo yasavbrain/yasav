@@ -55,19 +55,16 @@ export default class ActivityListView extends React.Component {
 
   // TODO : Find a way to remove that arrow function in the render
   renderItem(item) {
-    
-    innerItem = item.item
-    console.log(item)
     return (
       <ListItem
         style={[Style.listItemGeneric, (item.index%2 == 0)? Style.listItemEven: Style.listItemOdd]}
-        onPress={() => this.navigateToActivityDisplayScreen(innerItem.activity)}
+        onPress={() => this.navigateToActivityDisplayScreen(item.item.activity)}
       >
         <Content>
-          <Text style={Style.listItemTitle}>{innerItem.activity.title}</Text>
+          <Text style={Style.listItemTitle}>{item.item.activity.title}</Text>
         </Content>
         <Content>
-          <Text style={Style.listItemDescription}>{ this.shortenedDescription(innerItem.activity.description)}</Text>
+          <Text style={Style.listItemDescription}>{ this.shortenedDescription(item.item.activity.description)}</Text>
         </Content>
       </ListItem>
     );
