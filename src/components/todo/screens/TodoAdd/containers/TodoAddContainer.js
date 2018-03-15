@@ -35,11 +35,11 @@ class TodoAddContainer extends React.Component {
   setTitle(title) {
     this.setState({ ...this.state, todo: { ...this.state.todo, title } });
     // Check empty chars (white space, ..)
-    this.setState({ isFormValid: title.length > 0 });
+    this.setState({ isFormValid: title.trim().length > 0 });
   }
 
   addTodo() {
-    this.props.addTodo(this.state.todo)
+    this.props.addTodo({ ...this.state.todo, title: this.state.todo.title.trim() })
       .then(() => this.props.goBackToPreviousScreen(this.screenId));
   }
 

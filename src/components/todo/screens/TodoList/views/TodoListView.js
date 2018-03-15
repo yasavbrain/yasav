@@ -1,55 +1,48 @@
 import React from 'react';
-import { Container, Content, ListItem, Text, CheckBox, Picker } from 'native-base';
-import { FlatList } from 'react-native';
+import { Container, Content, ListItem, Text, CheckBox, Picker, List, View, Item, Icon, Input, Button } from 'native-base';
+import { FlatList } from 'react-native'
 import I18n from 'yasav/locales/i18n.js';
 import { MenuHeader } from 'src/viewElements/shared/Header.js';
 import { StatusEnum } from 'yasav/src/const.js';
+import Style from '../styles/style.js';
 
 export default class TodoListView extends React.Component {
   constructor(props) {
     super(props);
     this.renderItem = this.renderItem.bind(this);
-    this.renderMenu = this.renderMenu.bind(this);
   }
 
-  renderMenu() {
-    // mode property is just for Android (dropdown vs dialog)
-    return (
-      <Picker
-        mode="dropdown"
-        selectedValue={this.props.visible}
-        onValueChange={this.props.filterTodos}
-      >
-        <Picker.Item label={I18n.t('todo.todoList.filterAll')} value={-1} />
-        <Picker.Item label={I18n.t('todo.todoList.filterDone')} value={StatusEnum.DONE} />
-        <Picker.Item label={I18n.t('todo.todoList.filterTodo')} value={StatusEnum.TODO} />
-      </Picker>
-    );
-  }
-
-  renderItem({ item }) {
-    console.log(item.id);
+  renderItem(item) {
     return (
       <ListItem
-        style={{ backgroundColor: 0 }}
-        onPress={() => this.props.toggleTodo(item)}
-        onLongPress={ () => this.props.deleteTodo(item.key)}
+        onPress={() => this.props.toggleTodo(item.item)}
+        onLongPress={ () => this.props.deleteTodo(item.item.id)}
       >
-        <CheckBox
-          checked={item.status === StatusEnum.DONE}
+        <CheckBox 
+          style={[Style.checkbox, (item.item.status === StatusEnum.DONE)? Style.checkboxSelected: Style.checkboxUnselected]} 
+          checked={item.item.status === StatusEnum.DONE}
+          onPress={() => this.props.toggleTodo(item.item)}
+          onLongPress={ () => this.props.deleteTodo(item.item.id)}
         />
-        <Text>{item.title}</Text>
+        <Text style={[Style.todoText, (item.item.status === StatusEnum.DONE)? Style.todoTextDone: Style.todoTextTodo]}>{item.item.title}</Text>
       </ListItem>
     );
   }
 
   render() {
-    // TODO : solve the bug preventing the display of the the Picker in the
-    // header menu
     return (
-      <Container>
-        <Content>
-          {this.renderMenu()}
+      <Container style={Style.container}>
+        <Content style={Style.content}>
+          <Item style={Style.addForm}>
+            <Button transparent onPress={this.props.addTodo}>
+              <Icon name='add' style={[Style.addTodoButton, (this.props.isFormValid)?Style.addTodoButtonValid:Style.addTodoButtonInvalid]}/>
+            </Button>
+            <Input 
+              placeholder={I18n.t('todo.todoList.addPlaceholder')}
+              style={Style.input} 
+              onChangeText={(title) => this.props.setTitle(title)} 
+              value={this.props.todoTitle} />
+          </Item>
           <FlatList
             data={this.props.todoList}
             renderItem={this.renderItem}

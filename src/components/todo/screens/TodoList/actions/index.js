@@ -5,7 +5,7 @@ import { StatusEnum } from 'yasav/src/const';
 
 export function getTodoList() {
   return (dispatch, getState) => {
-    return executeSql('SELECT * FROM todo')
+    return executeSql('SELECT * FROM todo ORDER BY status, id')
     .then((res) => {
       // mapping the todo from the DB into the store
       let todoList = res.rows._array.map(todo => ({

@@ -35,11 +35,9 @@ export default {
   },
   home: {
     title: 'Yasav',
-    activityListButton: 'Liste d\'activités',
-    todoListButton: 'Liste de Todos',
-    addActivityButton: 'Ajouter une activité',
-    todoAddButton: 'Ajouter une ToDo',
-    interlocutorListButton: 'Liste de mes interlocuteurs',
+    quickAddMeeting: 'Ajouter une rencontre',
+    quickAddEvent: 'Ajouter un événement',
+    quickAddContent: 'Ajouter un contenu',
   },
   todo: {
     todoAdd: {
@@ -48,10 +46,11 @@ export default {
     },
     todoList: {
       title: 'Liste des todo',
-      content: 'En tant quutilisateur, je veux pouvoir voir toutes mes ToDo sous forme de liste',
+      content: 'En tant qu\'utilisateur, je veux pouvoir voir toutes mes ToDo sous forme de liste',
       filterAll: 'All Tasks',
       filterDone: 'Done Tasks',
       filterTodo: 'Todo Tasks',
+      addPlaceholder: 'Ajouter une tâche ici',
     },
   },
   interlocutor: {

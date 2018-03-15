@@ -10,10 +10,13 @@ export default {
     inactive    : '#DDDDDD',
   },
 
+  inactive      : '#DDDDDD',
+  darkActive    : '#333333',
+  darkInactive  : '#DDDDDD',
+
   meet          : '#78A5A3',
   event         : '#E1B16A',
   content       : '#CE5A57',
-
 
   title         : '#FF0000',
   subtitle      : '#DD0000',

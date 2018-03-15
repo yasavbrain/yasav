@@ -57,7 +57,7 @@ export default class HomeView extends React.Component {
           >
             <View style={Style.home.activityButtonWrapper}>
               <Icon name="person" style={Style.home.icon} />
-              <Text style={Style.home.text}>Something about someone</Text>
+              <Text style={Style.home.text}>{I18n.t('home.quickAddMeeting')}</Text>
             </View>
           </TouchableOpacity>
 
@@ -68,7 +68,7 @@ export default class HomeView extends React.Component {
           >
             <View style={Style.home.activityButtonWrapper}>
               <Icon name="calendar" style={Style.home.icon} color="white" />
-              <Text style={Style.home.text}>Something about an event</Text>
+              <Text style={Style.home.text}>{I18n.t('home.quickAddEvent')}</Text>
             </View>
           </TouchableOpacity>
 
@@ -79,7 +79,7 @@ export default class HomeView extends React.Component {
           >
             <View style={Style.home.activityButtonWrapper}>
               <Icon name="book" style={Style.home.icon} color="white" />
-              <Text style={Style.home.text}>Something I heard or read about</Text>
+              <Text style={Style.home.text}>{I18n.t('home.quickAddContent')}</Text>
             </View>
           </TouchableOpacity>
 

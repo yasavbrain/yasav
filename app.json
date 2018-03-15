@@ -5,10 +5,10 @@
     "version": "0.1.0",
     "slug": "yasav",
     "sdkVersion": "23.0.0",
-    "androidStatusBarColor": "#ffffff",
+    "androidStatusBarColor": "#44546A",
     "androidStatusBar": {
       "barStyle": "light-content",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#44546A"
     },
     "ios": {
       "bundleIdentifier": "com.yasav.yasav"
