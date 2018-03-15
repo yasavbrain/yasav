@@ -22,6 +22,7 @@ export default class TodoListView extends React.Component {
           style={[Style.checkbox, (item.item.status === StatusEnum.DONE)? Style.checkboxSelected: Style.checkboxUnselected]} 
           checked={item.item.status === StatusEnum.DONE}
           onPress={() => this.props.toggleTodo(item.item)}
+          onLongPress={ () => this.props.deleteTodo(item.item.id)}
         />
         <Text style={[Style.todoText, (item.item.status === StatusEnum.DONE)? Style.todoTextDone: Style.todoTextTodo]}>{item.item.title}</Text>
       </ListItem>
@@ -34,7 +35,7 @@ export default class TodoListView extends React.Component {
         <Content style={Style.content}>
           <Item style={Style.addForm}>
             <Button transparent onPress={this.props.addTodo}>
-              <Icon name='add' style={Style.addTodoButton}/>
+              <Icon name='add' style={[Style.addTodoButton, (this.props.isFormValid)?Style.addTodoButtonValid:Style.addTodoButtonInvalid]}/>
             </Button>
             <Input 
               placeholder={I18n.t('todo.todoList.addPlaceholder')}

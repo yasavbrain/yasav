@@ -10,7 +10,9 @@ export default {
     inactive    : '#DDDDDD',
   },
 
-  inactive    : '#DDDDDD',
+  inactive      : '#DDDDDD',
+  darkActive    : '#333333',
+  darkInactive  : '#DDDDDD',
 
   meet          : '#78A5A3',
   event         : '#E1B16A',

@@ -68,18 +68,22 @@ class TodoListContainer extends React.Component {
   }
 
   addTodo() {
-    this.props.addTodo(this.state.todo)
+    if(this.state.isFormValid){
+      this.props.addTodo(this.state.todo)
       .then(() => {
         this.setState({
             todo: {
             title: '',
             status: StatusEnum.TODO,
             activityId: 0,
-          },
+            },
+            isFormValid: false,
         })
         this.props.getTodoList()
         .then(() => this.filterTodos(this.state.visible));
       });
+    }
+
   }
 
   render() {
@@ -94,6 +98,7 @@ class TodoListContainer extends React.Component {
         addTodo={this.addTodo}
         setTitle={this.setTitle}
         todoTitle={this.state.todo.title}
+        isFormValid={this.state.isFormValid}
       />
     );
   }

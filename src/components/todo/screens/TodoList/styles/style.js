@@ -11,6 +11,12 @@ export default StyleSheet.create({
   addTodoButton: {
     color: Colors.disabled
   },
+  addTodoButtonValid: {
+    color: Colors.darkActive,
+  },
+  addTodoButtonInvalid: {
+    color: Colors.darkInactive,
+  },
   addForm: {
     borderBottomWidth: 0,
   },
