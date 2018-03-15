@@ -1,125 +1,93 @@
 import React from 'react';
-import { ART } from 'react-native';
+import { ART, Dimensions } from 'react-native';
 import * as shape from 'd3-shape';
 import * as hierarchy from 'd3-hierarchy';
+import * as force from 'd3-force';
 import GraphTagDisplayView from '../views/GraphTagDisplayView';
 
 const d3 = {
   shape,
   hierarchy,
+  force,
 };
+
 
 class GraphTagDisplayContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.createD3GRaph = this.createD3GRaph.bind(this);
-    this.generateCirclePath = this.generateCirclePath.bind(this);
     this.createD3Nodes = this.createD3Nodes.bind(this);
+    this.createD3Edges = this.createD3Edges.bind(this);
+    this.ticked = this.ticked.bind(this);
+    this.width = Dimensions.get('window').width;
+    this.height = Dimensions.get('window').height;
+    this.data = [
+      { x: 0, y: 0, r: 10, label: 'jean', id: 1 },
+      { x: 200, y: 0, r: 5, label: 'marc', id: 2 },
+      { x: 0, y: 300, r: 25, label: 'john', id: 3 }
+    ];
 
-    // this.data = [
-    //   { 'number': 8, 'name': 'Fun activities'},
-    //   { 'number': 7, 'name': 'Dog'},
-    //   { 'number': 16, 'name': 'Food'},
-    //   { 'number': 23, 'name': 'Car'},
-    //   { 'number': 42, 'name': 'Rent'},
-    //   { 'number': 4, 'name': 'Misc'},
-    // ];
-    this.data = {
-      'name': 'Eve',
-      'children': [
-        { 'name': 'Cain' },
-        { 'name': 'John' },
-        { 'name': 'Louis' },
-      ],
-    }
+    this.links = [
+      { id: 1, source: this.data[0], target: this.data[1] },
+      { id: 2, source: this.data[0], target: this.data[2] },
+    ];
+    this.state = {
+      data: this.data,
+      links: this.links,
+    };
   }
 
-  generateCirclePath(x, y, radius) {
-    const circle = ART.Path()
-      .move(radius, 0)
-      .arc(0, radius * 2, radius)
-      .arc(0, radius * -2, radius);
-    return circle
+  componentDidMount() {
+    this.force = d3.force.forceSimulation(this.data)
+      // .force('charge', d3.force.forceManyBody(-300))
+      // .force('link', d3.force.forceLink(this.state.links))
+      .force('center', d3.force.forceCenter(this.width / 2, this.height / 2))
+      .force('x', d3.force.forceX().strength(0.2))
+      .force('y', d3.force.forceY().strength(0.2))
+      .force('collide', d3.force.forceCollide().radius(d => d.r))
+      .on('tick', this.ticked);
   }
 
-  createD3GRaph(data) {
-    // const arcs = d3.shape.pie()
-    //   .value(item => item.number)(this.data);
-    // console.log('ARCS', arcs);
 
-    // let root = d3.hierarchy.hierarchy(this.data);
-    // let pack = d3.hierarchy.pack()
-    //   .size(10, 10)
-    //   .padding(3);
-    // let ret = pack(root)
-    // console.log("RET", ret);
-    // let myC = this.circleGen()
-    //   .x(function(d) { return d.x; })
-    //   .y(function(d) { return d.y; })
-    //   .r(function(d) { return d.r; });
-
-    let paths = []
-    paths = paths.concat({
-      path: this.generateCirclePath(data[0].x, data[0].y, data[0].r),
-      x: data[0].x,
-      y: data[0].y,
-      label: data[0].label,
-    });
-    paths = paths.concat({
-      path: this.generateCirclePath(data[1].x, data[1].y, data[1].r),
-      x: data[1].x,
-      y: data[1].y,
-      label: data[1].label,
-    });
-    paths = paths.concat({
-      path: this.generateCirclePath(data[2].x, data[2].y, data[2].r),
-      x: data[2].x,
-      y: data[2].y,
-      label: data[2].label,
-    });
-    // path += this.generateCirclePath(data[1].x, data[1].y, data[1].r)
-    // path += this.generateCirclePath(data[2].x, data[2].y, data[2].r)
-    console.log(paths)
-    return paths;
+  ticked() {
+    this.setState({ data: this.data });
   }
 
   createD3Nodes(data) {
-    let nodes = []
-    nodes = nodes.concat({
-      x: data[0].x,
-      y: data[0].y,
-      radius: data[0].r,
-      label: data[0].label,
-    });
-
-    nodes = nodes.concat({
-      x: data[1].x,
-      y: data[1].y,
-      radius: data[1].r,
-      label: data[1].label,
-    });
-
-    nodes = nodes.concat({
-      x: data[2].x,
-      y: data[2].y,
-      radius: data[2].r,
-      label: data[2].label,
-    });
+    let nodes = [];
+    nodes = data.map(item => ({
+      x: item.x,
+      y: item.y,
+      radius: item.r,
+      label: item.label,
+      id: item.id,
+    }));
     return nodes;
   }
 
+
+  createD3Edges(links) {
+    let edges = [];
+    // we want the line to link the center of the sources and targets
+    edges = links.map(item => ({
+      x1: item.source.x + item.source.r,
+      y1: item.source.y + item.source.r,
+      x2: item.target.x + item.target.r,
+      y2: item.target.y + item.target.r,
+      id: item.id,
+    }));
+    return edges;
+  }
+
   render() {
-    const data = [
-      {x: 50, y: 50, r: 10, fill: "green", label: "jean"},
-      {x: 150, y: 150, r: 5, fill: "red", label: "marc"},
-      {x: 70, y: 70, r: 25, fill: "blue", label: "john"}
-    ];
-    const paths = this.createD3GRaph(data);
-    const nodes = this.createD3Nodes(data);
+    const nodes = this.createD3Nodes(this.state.data);
+    const edges = this.createD3Edges(this.state.links);
     return (
       <GraphTagDisplayView
         goBack={this.props.goBack}
+        width={this.width}
+        height={this.height}
         nodes={nodes}
+        edges={edges}
       />
     );
   }

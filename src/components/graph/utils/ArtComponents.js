@@ -5,13 +5,15 @@ import { ART } from 'react-native';
 export class ARTCircle extends React.Component {
   render() {
     const { radius, ...rest } = this.props;
-
+    // move(x, y)
+    // arc(x2, y2, arc_r) : from current point to point (x2, y2), using radius = arc_r
+    // Here we want the circle to in a squarre, with origin as a upper left corner
     const circle = ART.Path()
       .move(radius, 0)
       .arc(0, radius * 2, radius)
-      .arc(0, radius * -2, radius);
+      .arc(0, radius * -2, radius)
 
-    return <ART.Shape d={circle} stroke="#2ca02c" strokeWidth={3} {...rest} />;
+    return <ART.Shape d={circle} stroke="#020202" strokeWidth={1} opacity={0.3} fill="#D1F5F0" {...rest} />;
   }
 }
 
@@ -21,16 +23,20 @@ export class ARTLine extends React.Component {
 
     const line = ART.Path()
       .move(x1, y1)
-      .line(x2, y2);
-
-    return <ART.Shape {...rest} d={line} />;
+      .lineTo(x2, y2);
+    return <ART.Shape {...rest} stroke="#020202" strokeWidth={1} d={line} />;
   }
 }
 
 export class ARTText extends React.Component {
   render() {
     return (
-      <ART.Text font={'13px "Helvetica Neue", "Helvetica", Arial'} fill="#000000">
+      <ART.Text
+        font={'14 px "Helvetica Neue", "Helvetica", Arial'}
+        fill="#000000"
+        x={this.props.x}
+        y={this.props.y}
+      >
         {this.props.label}
       </ART.Text>
     );
@@ -40,10 +46,13 @@ export class ARTText extends React.Component {
 export class ARTNode extends React.Component {
   render() {
     const { x, y, radius, label, ...rest } = this.props;
+    // For the label the upper left corner is the reference
+    const xLabel = radius - 14
+    const yLabel = radius
     return (
       <ART.Group x={x} y={y}>
         <ARTCircle radius={radius} />
-        <ARTText label={label} />
+        <ARTText label={label} x={xLabel} y={yLabel} />
       </ART.Group>
     );
   }

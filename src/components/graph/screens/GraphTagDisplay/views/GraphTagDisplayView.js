@@ -3,12 +3,10 @@ import { Container, Content } from 'native-base';
 import I18n from 'yasav/locales/i18n'
 import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
 import { ART } from 'react-native';
-import { ARTNode } from '../../../utils/ArtComponents';
+import { ARTNode, ARTLine } from '../../../utils/ArtComponents';
 
 export default class GraphTagDisplayView extends React.Component {
   render() {
-    const x = 150 / 2;
-    const y = 150 / 2;
     return (
       <Container>
         <GenericHeader
@@ -16,11 +14,12 @@ export default class GraphTagDisplayView extends React.Component {
           title={I18n.t('activity.activityDisplay.title')}
         />
         <Content>
-          <ART.Surface width={1000} height={600}>
-            <ART.Group x={x} y={y}>
+          <ART.Surface width={this.props.width} height={this.props.height}>
+            <ART.Group x={0} y={0}>
               {
-                this.props.nodes.map((item, index) => (
+                this.props.nodes.map(item => (
                   <ARTNode
+                    key={item.id}
                     x={item.x}
                     y={item.y}
                     radius={item.radius}
@@ -28,6 +27,18 @@ export default class GraphTagDisplayView extends React.Component {
                   />
                 ))
               }
+              {
+                this.props.edges.map(item => (
+                  <ARTLine
+                    key={item.id}
+                    x1={item.x1}
+                    y1={item.y1}
+                    x2={item.x2}
+                    y2={item.y2}
+                  />
+                ))
+              }
+
             </ART.Group>
           </ART.Surface>
         </Content>
