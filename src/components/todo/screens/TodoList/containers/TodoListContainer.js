@@ -62,9 +62,10 @@ class TodoListContainer extends React.Component {
     
     return (
       <TodoListView
-        todoList={todos}
+        todoList={this.state.displayedTodos}
         visible={this.state.visible}
         goBack={this.props.goBack}
+        filterTodos={this.filterTodos}
         toggleTodo={this.toggleTodo}
         deleteTodo={this.deleteTodo}
       />

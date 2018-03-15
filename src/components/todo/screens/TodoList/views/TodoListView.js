@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Content, ListItem, Text, CheckBox, Picker, List, View, Item, Icon, Input, Button } from 'native-base';
+import { FlatList } from 'react-native'
 import I18n from 'yasav/locales/i18n.js';
 import { MenuHeader } from 'src/viewElements/shared/Header.js';
 import { StatusEnum } from 'yasav/src/const.js';
@@ -11,7 +12,7 @@ export default class TodoListView extends React.Component {
     this.renderRow = this.renderRow.bind(this);
   }
 
-  renderRow(item) {
+  renderItem(item) {
     return (
       <ListItem
         onPress={() => this.props.toggleTodo(item)}
@@ -34,9 +35,10 @@ export default class TodoListView extends React.Component {
             </Button>
             <Input placeholder='Add a new todo here' style={Style.input}/>
           </Item>
-          <List
-            dataArray={this.props.todoList}
-            renderRow={this.renderRow}
+          <FlatList
+            data={this.props.todoList}
+            renderItem={this.renderItem}
+            keyExtractor={item => item.id}
           />
         </Content>
       </Container>
