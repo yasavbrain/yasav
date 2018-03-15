@@ -10,6 +10,7 @@ export class SearchInputContainer extends React.Component {
   constructor(props) {
     super(props);
     this.doSearch = this.doSearch.bind(this);
+    this.state = { enableHomeSearch: 0 }
   }
 
   doSearch(request) {
@@ -32,19 +33,31 @@ export class SearchInputContainer extends React.Component {
       }
     }
     if (this.props.requestType == SearchType.INTERLOCUTOR_ACTIVITY) {
-      this.props.getActivityListFromRequest(request)
-      this.props.getInterlocutorListFromRequest(request)
+      if (request.length > 0) {
+        this.props.getActivityListFromRequest(request)
+        this.props.getInterlocutorListFromRequest(request)
+        this.setState({enableHomeSearch:1})
+      }
+      else {
+        this.setState({enableHomeSearch:0})
+      }
     }
   }
   
   render() {
     if (this.props.requestType == SearchType.INTERLOCUTOR_ACTIVITY) {
-      requestResult = this.props.interlocutorListFromRequest.concat(this.props.activityListFromRequest)
+      if (this.state.enableHomeSearch == 1) {
+        requestResult = this.props.interlocutorListFromRequest.concat(this.props.activityListFromRequest)
+      }
+      else {
+        requestResult = []
+      }
       return (
         <SearchInputHomeView
           goBack={this.props.goBack}
           doSearch={this.doSearch}
           requestResult={requestResult}
+          navigateToDisplayScreen={this.props.navigateToDisplayScreen}
         />
       );
     }

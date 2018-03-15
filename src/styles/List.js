@@ -16,7 +16,7 @@ export default StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     marginLeft: 0,
-    paddingLeft: 20,
+    paddingLeft: 10,
     paddingRight: 20,
     paddingTop: 10,
     paddingBottom: 10,
@@ -28,12 +28,18 @@ export default StyleSheet.create({
   listItemOdd: {
     backgroundColor: Colors.alternatedOdd,
   },
+  containerHeadText:{
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  listItemIcon: {
+    paddingRight: 10,
+  },
   listItemTitle: {
     fontSize: 15,
   },
   listItemDescription: {
     fontSize: 12,
-    paddingLeft: 10,
     paddingTop: 10,
   },
 });

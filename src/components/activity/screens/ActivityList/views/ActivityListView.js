@@ -7,6 +7,7 @@ import Style from '../styles/style.js';
 import StyleList from 'yasav/src/styles/List'
 import SearchInputContainer from 'yasav/src/components/search/screens/SearchInput/containers/SearchInputContainer'
 import { SearchType } from 'yasav/src/const';
+import ListView from 'yasav/src/viewElements/shared/listView/ListView'
 
 import Colors from 'yasav/src/styles/Colors';
 
@@ -29,17 +30,6 @@ export default class ActivityListView extends React.Component {
     this.props.navigateToActivityDisplayScreen(item);
   }
 
-  shortenedDescription(description){
-    i = 120
-    if(description.length <= i){
-      return description
-    }
-    while(description.substring(i, i+1) != ' '){
-      i -= 1
-    }
-    return description.substring(0, i) + "..."
-  }
-
   navigateToActivityAddMeeting() {
     this.setState({ active: !this.state.active });
     this.props.navigateToActivityAddMeeting();
@@ -52,26 +42,7 @@ export default class ActivityListView extends React.Component {
     this.setState({ active: !this.state.active });
     this.props.navigateToActivityAddContent();
   }
-
-
-  // TODO : Find a way to remove that arrow function in the render
-  renderItem(item) {
-    return (
-      <ListItem
-        id={item.item.activity.id}
-        style={[Style.listItemGeneric, (item.index%2 == 0)? Style.listItemEven: Style.listItemOdd]}
-        onPress={() => this.navigateToActivityDisplayScreen(item.item.activity)}
-      >
-        <Content>
-          <Text style={Style.listItemTitle}>{item.item.activity.title}</Text>
-        </Content>
-        <Content>
-          <Text style={Style.listItemDescription}>{ this.shortenedDescription(item.item.activity.description)}</Text>
-        </Content>
-      </ListItem>
-    );
-  }
-
+  
   // BUG: need to put the style inline for the 3 buttons of the FAB. The Style.addMeetingButton doesn't work for no reason
   render() {
     return (
@@ -80,21 +51,10 @@ export default class ActivityListView extends React.Component {
           requestType={SearchType.ACTIVITY}
           enableSearchActivity={this.props.enableSearchActivity}
         />
-        <Content>
-<<<<<<< HEAD
-          <FlatList
-            style={Style.list}
-            data={this.props.displayActivityList}
-            renderItem={this.renderItem}
-            keyExtractor={item => item.activity.id}
-=======
-          <List
-            style={StyleList.list}
-            dataArray={this.props.displayActivityList}
-            renderRow={this.renderRow}
->>>>>>> Added a common style for List
-          />
-        </Content>
+        <ListView 
+          displayList={this.props.displayActivityList}
+          navigateToDisplayScreen={this.navigateToActivityDisplayScreen}
+        />
         <Fab
             active={this.state.active}
             direction="up"

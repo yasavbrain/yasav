@@ -26,9 +26,11 @@ export function getInterlocutorListFromRequest(request) {
     )
       .then((res) => {
         const interlocutorListFromRequest = res.rows._array.map(interlocutor => ({
-          name: interlocutor.name,
-          link_to_me: interlocutor.link_to_me,
-          id: interlocutor.id,
+          interlocutor: {
+            name: interlocutor.name,
+            link_to_me: interlocutor.link_to_me,
+            id: interlocutor.id,
+          }
         }));
         dispatch({ type: GET_INTERLOCUTOR_LIST_FROM_REQUEST, interlocutorListFromRequest });
         return res
