@@ -35,11 +35,9 @@ export default {
   },
   home: {
     title: 'YAsAv',
-    activityListButton: 'Activity List',
-    todoListButton: 'Todo List',
-    addActivityButton: 'Add activity',
-    todoAddButton: 'Add ToDo',
-    interlocutorListButton: 'Interlocutors List',
+    quickAddMeeting: 'Add a note about someone',
+    quickAddEvent: 'Add a note about an event',
+    quickAddContent: 'Add a note I heard or read about',
   },
   todo: {
     todoAdd: {
@@ -52,6 +50,7 @@ export default {
       filterAll: 'All Tasks',
       filterDone: 'Done Tasks',
       filterTodo: 'Todo Tasks',
+      addPlaceholder: 'Add a new todo here',
     },
   },
   interlocutor: {
