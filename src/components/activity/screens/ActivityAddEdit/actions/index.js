@@ -1,10 +1,10 @@
 import moment from 'moment';
 
-import { ADD_ACTIVITY, EDIT_ACTIVITY } from './types';
+import { ADD_ACTIVITY, EDIT_ACTIVITY, ADD_TAGS } from './types';
 import { executeSql } from 'yasav/src/Database';
 import { ActivityTypeEnum } from 'yasav/src/const';
 
-export function addActivity(activity, interlocutorId) {
+export function addActivity(activity, tagsId, interlocutorId) {
   return (dispatch, getState) => {
     let request;
     let params;
@@ -37,8 +37,18 @@ export function addActivity(activity, interlocutorId) {
         params = null;
     }
     executeSql(request, params)
-      .then(({ insertId }) => {
-        const activityWithId = { ...activity, id: insertId };
+      .then(({ activityId }) => {
+        request = `INSERT INTO
+        activity_tag(activity_id, tag_id)
+        VALUES  `
+        params = []
+        tagsId.foreach((tagId) => {
+          request += '(?,?),'
+          params = params.concat(activityId, tagId)
+        })   
+        console.log(request)
+        console.log(params)
+        const activityWithId = { ...activity, id: activityId };
         dispatch({ type: ADD_ACTIVITY, activity: activityWithId });
       });
   };
