@@ -4,6 +4,45 @@ import { ADD_ACTIVITY, EDIT_ACTIVITY, ADD_TAGS } from './types';
 import { executeSql } from 'yasav/src/Database';
 import { ActivityTypeEnum } from 'yasav/src/const';
 
+export function addTags(tags) {
+  return (dispatch, getState) => {
+    // SELECT * WHERE tag_slug = tag
+    if(tags.length > 0){
+      newTags = tags
+      request = 'SELECT * FROM tag  WHERE '
+      searchParams = []
+      newTags.forEach((tag) => {
+        request += 'slug = ? OR '
+        searchParams = searchParams.concat(tag.slug)
+      })
+
+      request = request.substr(0,request.length-3)
+      return executeSql(request, searchParams)
+      .then((res) => {
+        ids = []
+        res.rows._array.forEach(t => {
+          newTags = newTags.filter( tagToFilter => { console.log(tagToFilter.slug + " - " + t.slug); return tagToFilter.slug !== t.slug} )
+          ids = ids.concat(t.id)
+        })
+        let promises = []
+        request = "INSERT INTO tag (name, slug) VALUES (?, ?)"
+        newTags.forEach(tag => {
+          promises = promises.concat(executeSql(request, [tag.value, tag.slug]))
+        })
+
+        return Promise.all(promises)
+          .then (results => {
+            ids = ids.concat(results.map(i => i.insertId))
+            //console.log(ids)
+            return ids
+          });
+      });
+    } else {
+      return []
+    }
+  }
+}
+
 export function addActivity(activity, tagsId, interlocutorId) {
   return (dispatch, getState) => {
     let request;
@@ -38,18 +77,13 @@ export function addActivity(activity, tagsId, interlocutorId) {
     }
     executeSql(request, params)
       .then(({ activityId }) => {
-        request = `INSERT INTO
-        activity_tag(activity_id, tag_id)
-        VALUES  `
-        params = []
-        tagsId.foreach((tagId) => {
-          request += '(?,?),'
-          params = params.concat(activityId, tagId)
-        })   
-        console.log(request)
-        console.log(params)
-        const activityWithId = { ...activity, id: activityId };
-        dispatch({ type: ADD_ACTIVITY, activity: activityWithId });
+        promises = []
+        tagsId.forEach(tagId => promises = promises.concat(executeSql('INSERT INTO activity_tag(activity_id, tag_id) VALUES (?, ?'), [activityId, tagId]))
+        Promises.all(promises)
+        .then(result => {
+          const activityWithId = { ...activity, id: activityId };
+          dispatch({ type: ADD_ACTIVITY, activity: activityWithId });
+        })
       });
   };
 }

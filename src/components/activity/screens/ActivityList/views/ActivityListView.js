@@ -57,6 +57,7 @@ export default class ActivityListView extends React.Component {
   renderItem(item) {
     return (
       <ListItem
+        id={item.item.activity.id}
         style={[Style.listItemGeneric, (item.index%2 == 0)? Style.listItemEven: Style.listItemOdd]}
         onPress={() => this.navigateToActivityDisplayScreen(item.item.activity)}
       >

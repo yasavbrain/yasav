@@ -73,7 +73,6 @@ class ActivityAddEditContainer extends React.Component {
   }
 
   setDescription(description) {
-    console.log(this.cleanTags(description.match(/#\S+/g)))
     this.setState({
       ...this.state,
       activity: { ...this.state.activity, description, tags: this.cleanTags(description.match(/#\S+/g))},
@@ -118,8 +117,10 @@ class ActivityAddEditContainer extends React.Component {
         );
     } else {
       this.props.addTags(this.state.activity.tags)
-      .then(tagsId =>  
-        this.props.addActivity(this.state.activity, tagsId)
+      .then(tagsId =>
+        {
+          this.props.addActivity(this.state.activity, tagsId)
+        }
       );
     }
     this.props.goBack();
@@ -196,11 +197,14 @@ class ActivityAddEditContainer extends React.Component {
   }
 
   cleanTags(tags) {
-    
     if (tags) {
       newTags = []
       tags.forEach((tag) => {
-        newTags = newTags.concat(this.replaceAccent(tag.toLowerCase()).replace(/[^a-zA-Z0-9]/g, ""))
+        newTag = {
+          slug: this.replaceAccent(tag.toLowerCase()).replace(/[^a-zA-Z0-9]/g, ""), 
+          value: tag.substr(1)
+        }
+        newTags = newTags.concat(newTag)
       })
       return newTags
     }
@@ -261,7 +265,7 @@ function mapDispatchToProps(dispatch) {
     addActivity: (activity, interlocutorId) => dispatch(addActivity(activity, interlocutorId)),
     addInterlocutor: interlocutor => dispatch(addInterlocutor(interlocutor)),
     getActivityFromId: id => dispatch(getActivityFromId(id)),
-    addTags: (tags, activityId ) => dispatch(addTags(tags, activityId))
+    addTags: (tags) => dispatch(addTags(tags))
   };
 }
 
