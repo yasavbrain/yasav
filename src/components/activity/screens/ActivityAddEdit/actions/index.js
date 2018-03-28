@@ -75,12 +75,12 @@ export function addActivity(activity, tagsId, interlocutorId) {
         params = null;
     }
     executeSql(request, params)
-      .then(({ activityId }) => {
+      .then(({ insertId }) => {
         promises = []
-        tagsId.forEach(tagId => promises = promises.concat(executeSql('INSERT INTO activity_tag(activity_id, tag_id) VALUES (?, ?'), [activityId, tagId]))
+        tagsId.forEach(tagId => promises = promises.concat(executeSql('INSERT INTO activity_tag(activity_id, tag_id) VALUES (?, ?'), [insertId, tagId]))
         Promises.all(promises)
         .then(result => {
-          const activityWithId = { ...activity, id: activityId };
+          const activityWithId = { ...activity, id: insertId };
           dispatch({ type: ADD_ACTIVITY, activity: activityWithId });
         })
       });
