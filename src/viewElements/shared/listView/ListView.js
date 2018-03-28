@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header, Item, Icon, Input, Button, Text, Container, Content, ListItem, List, View } from 'native-base';
+import { Header, Item, Icon, Input, Button, Text, Container, Content, ListItem, View } from 'native-base';
 import { FlatList } from 'react-native';
 import I18n from 'yasav/locales/i18n';
 import StyleList from 'yasav/src/styles/List'
@@ -31,17 +31,16 @@ export default class ListView extends React.Component {
   // TODO : Find a way to remove that arrow function in the render
   renderRow(item) {
     this.i = this.i + 1
-    console.log(item)
       return (
         <ListItem
           style={[StyleList.listItemGeneric, (this.i%2 == 0)? StyleList.listItemEven: StyleList.listItemOdd]}
-          onPress={() => this.props.navigateToDisplayScreen((item.activity) ? item : item)}
+          onPress={() => this.props.navigateToDisplayScreen((item.item.activity) ? item.item : item.item)}
         >
           <View style={StyleList.containerHeadText}>
-            <Icon style={StyleList.listItemIcon} name={(item.activity)? ((item.activity.type == ActivityTypeEnum.CONTENT)? "book":((item.activity.type == ActivityTypeEnum.MEETING)? "person":"calendar")) : "person"} />
+            <Icon style={StyleList.listItemIcon} name={(item.item.activity)? ((item.item.activity.type == ActivityTypeEnum.CONTENT)? "book":((item.item.activity.type == ActivityTypeEnum.MEETING)? "person":"calendar")) : "person"} />
             <View>
-              <Text style={StyleList.listItemTitle}>{(item.activity)? item.activity.title: item.interlocutor.name}</Text>
-              <Text style={StyleList.listItemDescription}>{ this.shortenedDescription((item.activity)? item.activity.description: item.interlocutor.link_to_me)}</Text>
+              <Text style={StyleList.listItemTitle}>{(item.item.activity)? item.item.activity.title: item.item.interlocutor.name}</Text>
+              <Text style={StyleList.listItemDescription}>{ this.shortenedDescription((item.item.activity)? item.item.activity.description: item.item.interlocutor.link_to_me)}</Text>
             </View>
           </View>
         </ListItem>
@@ -51,10 +50,11 @@ export default class ListView extends React.Component {
   render() {
     return (
         <Content>
-          <List
+          <FlatList
             style={StyleList.list}
-            dataArray={this.props.displayList}
-            renderRow={this.renderRow}
+            data={this.props.displayList}
+            renderItem={this.renderRow}
+            keyExtractor={item => (item.activity)? "a-"+item.activity.id: "i-"+item.interlocutor.id}
           />
         </Content>
     );

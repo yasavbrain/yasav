@@ -21,7 +21,7 @@ export default class SearchInputCommonView extends React.Component {
           <Icon name="search" />
           <Input
             placeholder={I18n.t('search.searchBar')}
-            onChangeText={request => this.doSearch(request)} 
+            onChangeText={request => this.doSearch(request)}
           />
         </Item>
       </Header>

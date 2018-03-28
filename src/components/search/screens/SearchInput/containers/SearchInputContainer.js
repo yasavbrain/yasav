@@ -14,18 +14,18 @@ export class SearchInputContainer extends React.Component {
   }
 
   doSearch(request) {
-    if (this.props.requestType == SearchType.INTERLOCUTOR) {
-      this.props.getInterlocutorListFromRequest(request)
+    if (this.props.requestType == SearchType.INTERLOCUTOR) { 
       if (request.length > 0) {
+        this.props.getInterlocutorListFromRequest(request)
         this.props.enableSearchInterlocutor(1)
       }
       else {
-        this.props.enableSearchInterlocutor(0)
+        this.props.enableSearchInterlocutor(0) //If request == 0, it means that the search is not enabled. 
       }
     }
     if (this.props.requestType == SearchType.ACTIVITY) {
-      this.props.getActivityListFromRequest(request)
       if (request.length > 0) {
+        this.props.getActivityListFromRequest(request)
         this.props.enableSearchActivity(1)
       }
       else {

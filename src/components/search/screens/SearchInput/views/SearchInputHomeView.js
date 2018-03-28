@@ -17,6 +17,7 @@ export default class SearchInputHomeView extends React.Component {
   }
 
   render() {
+    //console.log(this.props.requestResult)
     return (
       <Container style={StyleList.container}>
         <GenericHeader

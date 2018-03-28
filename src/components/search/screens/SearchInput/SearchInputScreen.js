@@ -10,13 +10,10 @@ export default class SearchInputScreen extends React.Component{
     }
     
     navigateToDisplayScreen(item) {
-      console.log(item)
       if (item.activity) {
-        console.log(item.activity)
         this.props.navigation.navigate('ActivityDisplayScreen', item.activity.id)
       }
       else if (item.interlocutor) {
-        console.log(item.interlocutor)
         this.props.navigation.navigate('InterlocutorDisplayScreen', item.interlocutor);
       }
     }
