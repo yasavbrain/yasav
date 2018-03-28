@@ -5,7 +5,7 @@ import 'moment/locale/fr';
 import { ActivityTypeEnum } from 'yasav/src/const';
 import { addInterlocutor } from 'yasav/src/components/interlocutor/screens/InterlocutorAdd/actions/index';
 import ActivityAddEditView from '../views/ActivityAddEditView';
-import { addActivity, editActivity } from '../actions/index';
+import { addActivity, editActivity, addTags } from '../actions/index';
 import { getActivityFromId } from '../../ActivityDisplay/actions/index';
 
 moment.locale('fr');
@@ -44,6 +44,7 @@ class ActivityAddEditContainer extends React.Component {
     this.removeTag = this.removeTag.bind(this);
     this.validateForm = this.validateForm.bind(this);
     this.getInterlocutorState = this.getInterlocutorState.bind(this);
+    this.cleanTags = this.cleanTags.bind(this);
   }
 
   componentDidMount() {
@@ -74,7 +75,7 @@ class ActivityAddEditContainer extends React.Component {
   setDescription(description) {
     this.setState({
       ...this.state,
-      activity: { ...this.state.activity, description },
+      activity: { ...this.state.activity, description, tags: this.cleanTags(description.match(/#\S+/g))},
     }, this.validateForm);
   }
 
@@ -108,12 +109,19 @@ class ActivityAddEditContainer extends React.Component {
 
   addActivity() {
     if (this.state.activity.type === ActivityTypeEnum.MEETING) {
-      this.props.addInterlocutor(this.state.interlocutor)
-        .then((interlocutorId) => {
-          this.props.addActivity(this.state.activity, interlocutorId);
-        });
+      let promises = [this.props.addInterlocutor(this.state.interlocutor), this.props.addTags(this.state.activity.tags)]
+      Promise.all(promises)
+        .then (results => {
+          this.props.addActivity(this.state.activity, tagsId = results[1], interlocutorId = results[0])
+        }
+        );
     } else {
-      this.props.addActivity(this.state.activity);
+      this.props.addTags(this.state.activity.tags)
+      .then(tagsId =>
+        {
+          this.props.addActivity(this.state.activity, tagsId)
+        }
+      );
     }
     this.props.goBack();
   }
@@ -188,6 +196,37 @@ class ActivityAddEditContainer extends React.Component {
     this.setState({ isFormValid });
   }
 
+  cleanTags(tags) {
+    if (tags) {
+      newTags = []
+      tags.forEach((tag) => {
+        newTag = {
+          slug: this.replaceAccent(tag.toLowerCase()).replace(/[^a-zA-Z0-9]/g, ""), 
+          value: tag.substr(1)
+        }
+        newTags = newTags.concat(newTag)
+      })
+      return newTags
+    }
+    return tags
+  }
+
+  replaceAccent(tag) {
+    var strAccents = tag.split('');
+		var strAccentsOut = new Array();
+		var strAccentsLen = strAccents.length;
+		var accents = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
+		var accentsOut = "AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz";
+		for (var y = 0; y < strAccentsLen; y++) {
+			if (accents.indexOf(strAccents[y]) != -1) {
+				strAccentsOut[y] = accentsOut.substr(accents.indexOf(strAccents[y]), 1);
+			} else
+				strAccentsOut[y] = strAccents[y];
+		}
+    strAccentsOut = strAccentsOut.join('');
+    return strAccentsOut;
+  }
+
 
   render() {
     return (
@@ -226,6 +265,7 @@ function mapDispatchToProps(dispatch) {
     addActivity: (activity, interlocutorId) => dispatch(addActivity(activity, interlocutorId)),
     addInterlocutor: interlocutor => dispatch(addInterlocutor(interlocutor)),
     getActivityFromId: id => dispatch(getActivityFromId(id)),
+    addTags: (tags) => dispatch(addTags(tags))
   };
 }
 

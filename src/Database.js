@@ -34,7 +34,8 @@ export const CREATE_DB_TABLES_REQUESTS = [
   );`,
   `CREATE TABLE IF NOT EXISTS tag (
     id INTEGER PRIMARY KEY NOT NULL,
-    name TEXT
+    name TEXT,
+    slug TEXT
   );`,
   `CREATE TABLE IF NOT EXISTS activity_tag (
     id INTEGER PRIMARY KEY NOT NULL,

@@ -25,14 +25,14 @@ export default class Root extends React.Component {
     this.setState({ fontLoaded: true });
 
     // To uncomment to update the database (quickfix)
-    // dropAllTables();
+    //dropAllTables(); console.log("DROPPED")
     // TODO : add scripts to update the database scheme in newer versions
-      db.transaction(tx => {
-        CREATE_DB_TABLES_REQUESTS.forEach(req => tx.executeSql(req));
-      },
-      err => console.log(err),
-       () => logTableList()
-     );
+    db.transaction(tx => {
+      CREATE_DB_TABLES_REQUESTS.forEach(req => tx.executeSql(req));
+    },
+    err => console.log(err),
+      () => logTableList()
+    );
   }
 
   render() {
