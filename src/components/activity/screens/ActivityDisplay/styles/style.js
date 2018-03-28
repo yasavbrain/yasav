@@ -40,6 +40,10 @@ export default StyleSheet.create({
   editButton: {
     backgroundColor: Colors.primary,
     borderRadius: 0,
+  },
+  tag: {
+    color: Colors.primary,
+    fontWeight: '500',
   }
 });
 

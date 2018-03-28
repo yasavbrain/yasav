@@ -9,6 +9,7 @@ class ActivityDisplayScreen extends React.Component {
     super(props);
 
     this.deleteActivity = this.deleteActivity.bind(this);
+    this.navigateToEditActivity = this.navigateToEditActivity.bind(this);
   }
 
   componentDidMount() {
@@ -23,13 +24,17 @@ class ActivityDisplayScreen extends React.Component {
     });
   }
 
+  navigateToEditActivity() {
+    this.props.navigateToEditActivity(this.props.activityDisplay.activity.id);
+  }
+
   render() {
     if (this.props.activityDisplay) {
       return (
         <ActivityDisplayView
           goBack={this.props.goBack}
           activityAndInterlocutor={this.props.activityDisplay}
-          navigateToEditActivity={this.props.navigateToEditActivity}
+          navigateToEditActivity={this.navigateToEditActivity}
           deleteActivity={this.deleteActivity}
         />
       );
