@@ -21,7 +21,7 @@ export function addTags(tags) {
       .then((res) => {
         ids = []
         res.rows._array.forEach(t => {
-          newTags = newTags.filter( tagToFilter => { console.log(tagToFilter.slug + " - " + t.slug); return tagToFilter.slug !== t.slug} )
+          newTags = newTags.filter( tagToFilter => tagToFilter.slug !== t.slug )
           ids = ids.concat(t.id)
         })
         let promises = []
@@ -33,7 +33,6 @@ export function addTags(tags) {
         return Promise.all(promises)
           .then (results => {
             ids = ids.concat(results.map(i => i.insertId))
-            //console.log(ids)
             return ids
           });
       });
