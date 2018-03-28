@@ -1,14 +1,16 @@
 import React from 'react';
-import { ART, Dimensions } from 'react-native';
+import { ART, Dimensions, PanResponder } from 'react-native';
 import * as shape from 'd3-shape';
 import * as hierarchy from 'd3-hierarchy';
 import * as force from 'd3-force';
+import * as zoom from 'd3-zoom';
 import GraphTagDisplayView from '../views/GraphTagDisplayView';
 
 const d3 = {
   shape,
   hierarchy,
   force,
+  zoom,
 };
 
 
@@ -36,6 +38,19 @@ class GraphTagDisplayContainer extends React.Component {
     };
   }
 
+  componentWillMount() {
+    this._panResponder = PanResponder.create({
+      onMoveShouldSetResponderCapture: () => true, //Tell iOS that we are allowing the movement
+      onMoveShouldSetPanResponderCapture: () => true, // Same here, tell iOS that we allow dragging
+      onMoveShouldSetPanResponder: (evt, gestureState) => true,
+      onPanResponderMove: (event, { dx, dy }) => {
+        console.log(("MOVE"))
+        const zoomIdentity = d3.zoom.zoomIdentity.translate(dx, dy)
+        this._onDrag(zoomIdentity)
+      },
+    });
+  }
+
   componentDidMount() {
     this.force = d3.force.forceSimulation(this.data)
       // .force('charge', d3.force.forceManyBody(-300))
@@ -47,6 +62,13 @@ class GraphTagDisplayContainer extends React.Component {
       .on('tick', this.ticked);
   }
 
+  _onDrag(zoomIdentity){
+    console.log("DRAGGING", zoomIdentity)
+    this.setState({
+      rescaledX: zoomIdentity.rescaleX(this.state.mainScaleX),
+      rescaledY: zoomIdentity.rescaleY(this.state.mainScaleY)
+    })
+  }
 
   ticked() {
     this.setState({ data: this.data });
@@ -86,6 +108,8 @@ class GraphTagDisplayContainer extends React.Component {
         goBack={this.props.goBack}
         width={this.width}
         height={this.height}
+        rescaledX={this.state.rescaledX}
+        rescaledY={this.props.rescaledY}
         nodes={nodes}
         edges={edges}
       />
