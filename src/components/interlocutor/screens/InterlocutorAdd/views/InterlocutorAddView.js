@@ -47,8 +47,9 @@ export default class InterlocutorAddView extends React.Component {
           />
         </Item>
         <FlatList
-          data={this.props.interlocutorList}
+          data={(this.props.displayInterlocutorList)?this.props.interlocutorList:[]}
           renderItem={this.renderItem}
+          keyExtractor={item => item.id}
         />
         {this.renderLinkToMe()}
       </Form>

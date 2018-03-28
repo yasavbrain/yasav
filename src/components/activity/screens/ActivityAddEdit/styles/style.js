@@ -21,5 +21,9 @@ export default StyleSheet.create({
   inputWrapperLight: {
     borderBottomWidth: 0,
   },
+  addTodoButton: {
+    backgroundColor: Colors.primary,
+    marginTop: 20,
+  }
 });
 

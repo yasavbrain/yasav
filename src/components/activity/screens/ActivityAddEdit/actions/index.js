@@ -6,8 +6,7 @@ import { ActivityTypeEnum } from 'yasav/src/const';
 
 export function addTags(tags) {
   return (dispatch, getState) => {
-    // SELECT * WHERE tag_slug = tag
-    if(tags.length > 0){
+    if(tags && tags.length > 0){
       newTags = tags
       request = 'SELECT * FROM tag  WHERE '
       searchParams = []
@@ -19,7 +18,7 @@ export function addTags(tags) {
       request = request.substr(0,request.length-3)
       return executeSql(request, searchParams)
       .then((res) => {
-        ids = []
+        let ids = []
         res.rows._array.forEach(t => {
           newTags = newTags.filter( tagToFilter => tagToFilter.slug !== t.slug )
           ids = ids.concat(t.id)
@@ -37,7 +36,7 @@ export function addTags(tags) {
           });
       });
     } else {
-      return []
+      return new Promise((resolve, reject) => resolve([]));
     }
   }
 }
@@ -77,8 +76,9 @@ export function addActivity(activity, tagsId, interlocutorId) {
     executeSql(request, params)
       .then(({ insertId }) => {
         promises = []
-        tagsId.forEach(tagId => promises = promises.concat(executeSql('INSERT INTO activity_tag(activity_id, tag_id) VALUES (?, ?'), [insertId, tagId]))
-        Promises.all(promises)
+        tagsId.forEach(tagId => promises = promises.concat(executeSql('INSERT INTO activity_tag(activity_id, tag_id) VALUES ('+insertId+', '+tagId+')'))
+        )
+        Promise.all(promises)
         .then(result => {
           const activityWithId = { ...activity, id: insertId };
           dispatch({ type: ADD_ACTIVITY, activity: activityWithId });

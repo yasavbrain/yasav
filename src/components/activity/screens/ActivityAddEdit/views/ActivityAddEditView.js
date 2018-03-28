@@ -44,7 +44,7 @@ export default class ActivityAddView extends React.Component {
       return null;
     }
     return (
-      <Button primary full style={{ marginTop: 20 }} onPress={this.props.addTodoActivity} disabled={!this.props.isFormValid}>
+      <Button primary full style={Style.addTodoButton} onPress={this.props.addTodoActivity} disabled={!this.props.isFormValid}>
         <Text>{I18n.t('activity.activityAddEdit.addTodoButton')}</Text>
       </Button>
     );

@@ -20,6 +20,19 @@ export function logTableList() {
   });
 }
 
+export function showTableContent(tableName) {
+  db.transaction(tx => {
+    tx.executeSql(
+      'SELECT * FROM '+tableName,
+       null,
+      (tx, res) => {
+        res.rows._array.forEach(row => console.log(row))
+      },
+      (tx, err) => console.log("err", err)
+    );
+  });
+}
+
 export function dropAllTables() {
   executeSql(`DROP TABLE IF EXISTS activity`);
   executeSql(`DROP TABLE IF EXISTS interlocutor`);
