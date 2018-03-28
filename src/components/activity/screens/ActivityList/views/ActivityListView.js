@@ -19,7 +19,6 @@ export default class ActivityListView extends React.Component {
     this.navigateToActivityAddMeeting = this.navigateToActivityAddMeeting.bind(this);
     this.navigateToActivityAddContent = this.navigateToActivityAddContent.bind(this);
     this.navigateToActivityAddEvent = this.navigateToActivityAddEvent.bind(this);
-    this.renderItem = this.renderItem.bind(this);
 
     this.state = {
       active: false
