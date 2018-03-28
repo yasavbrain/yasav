@@ -30,6 +30,11 @@ function calcCenter(x1, y1, x2, y2) {
   };
 }
 
+function isInCircle(x, y, cx, cy, r) {
+  const d = Math.sqrt((cx - x) ** 2 + (cy - y) **2)
+  return d < r
+}
+
 
 export default class GraphTagDisplayView extends React.Component {
   constructor(props) {
@@ -39,6 +44,31 @@ export default class GraphTagDisplayView extends React.Component {
       left: 0,
       top: 0,
     };
+  }
+
+  handleSelect(locationX, locationY) {
+    // locationX, locationY : location of the user touch input in the disaplyed
+    // scale and current translation
+    // we need to convert it into the "original" coordinates, independant from
+    // scale and translation
+    const x_orig_coord = locationX / this.state.zoom - this.state.left
+    const y_orig_coord = locationY / this.state.zoom - this.state.top
+
+    // do not forget, in the original & independant coordinate system, the x and
+    // y node properties corresponds to the top left corner of a square
+    // surrounding the node
+    this.props.nodes.forEach(node => {
+      const inCircle = isInCircle(
+        x_orig_coord,
+        y_orig_coord,
+        node.x + node.radius,
+        node.y + node.radius,
+        node.radius
+      )
+      if (inCircle) {
+        console.log("Selected node", node.label)
+      }
+    });
   }
 
   processPinch(x1, y1, x2, y2) {
@@ -106,7 +136,9 @@ export default class GraphTagDisplayView extends React.Component {
 
   componentWillMount() {
     this._panResponder = PanResponder.create({
-      onPanResponderGrant: () => {},
+      onPanResponderGrant: ({ nativeEvent }, gestureState) => {
+        this.handleSelect(nativeEvent.locationX, nativeEvent.locationY)
+      },
       onPanResponderTerminate: () => {},
       onMoveShouldSetPanResponder: () => true,
       onStartShouldSetPanResponder: () => true,
