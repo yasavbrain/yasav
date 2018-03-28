@@ -1,5 +1,5 @@
 import React from 'react';
-import { ART, Dimensions, PanResponder } from 'react-native';
+import { Dimensions } from 'react-native';
 import * as shape from 'd3-shape';
 import * as hierarchy from 'd3-hierarchy';
 import * as force from 'd3-force';

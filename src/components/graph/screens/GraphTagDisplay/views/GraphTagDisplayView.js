@@ -1,22 +1,15 @@
 import React from 'react';
-import { Container, Content, View } from 'native-base';
+import { Container, View } from 'native-base';
 import I18n from 'yasav/locales/i18n'
 import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
 import { ART, PanResponder } from 'react-native';
 import { ARTNode, ARTLine } from '../../../utils/ArtComponents';
-import * as zoom from 'd3-zoom';
-import * as scale from 'd3-scale';
-
-const d3 = {
-  zoom,
-  scale,
-}
 
 // based on https://snack.expo.io/@msand/svg-pinch-to-pan-and-zoom
 function calcDistance(x1, y1, x2, y2) {
   const dx = x1 - x2;
   const dy = y1 - y2;
-  return Math.sqrt(dx * dx + dy * dy);
+  return Math.sqrt((dx * dx) + (dy * dy));
 }
 
 function middle(p1, p2) {
@@ -31,8 +24,8 @@ function calcCenter(x1, y1, x2, y2) {
 }
 
 function isInCircle(x, y, cx, cy, r) {
-  const d = Math.sqrt((cx - x) ** 2 + (cy - y) **2)
-  return d < r
+  const d = Math.sqrt(((cx - x) ** 2) + ((cy - y) ** 2));
+  return d < r;
 }
 
 
@@ -46,27 +39,64 @@ export default class GraphTagDisplayView extends React.Component {
     };
   }
 
+  componentWillMount() {
+    this._panResponder = PanResponder.create({
+      onPanResponderGrant: ({ nativeEvent }) => {
+        this.handleSelect(nativeEvent.locationX, nativeEvent.locationY);
+      },
+      onPanResponderTerminate: () => {},
+      onMoveShouldSetPanResponder: () => true,
+      onStartShouldSetPanResponder: () => true,
+      onShouldBlockNativeResponder: () => true,
+      onPanResponderTerminationRequest: () => true,
+      onMoveShouldSetPanResponderCapture: () => true,
+      onStartShouldSetPanResponderCapture: () => true,
+      onPanResponderMove: (evt) => {
+        const { touches } = evt.nativeEvent;
+        const { length } = touches;
+        if (length === 1) {
+          const [{ locationX, locationY }] = touches;
+          this.processTouch(locationX, locationY);
+        } else if (length === 2) {
+          const [touch1, touch2] = touches;
+          this.processPinch(
+            touch1.locationX,
+            touch1.locationY,
+            touch2.locationX,
+            touch2.locationY,
+          );
+        }
+      },
+      onPanResponderRelease: () => {
+        this.setState({
+          isZooming: false,
+          isMoving: false,
+        });
+      },
+    });
+  }
+
   handleSelect(locationX, locationY) {
     // locationX, locationY : location of the user touch input in the disaplyed
     // scale and current translation
     // we need to convert it into the "original" coordinates, independant from
     // scale and translation
-    const x_orig_coord = locationX / this.state.zoom - this.state.left
-    const y_orig_coord = locationY / this.state.zoom - this.state.top
+    const xOrigCoord = (locationX / this.state.zoom) - this.state.left;
+    const yOrigCoord = (locationY / this.state.zoom) - this.state.top;
 
     // do not forget, in the original & independant coordinate system, the x and
     // y node properties corresponds to the top left corner of a square
     // surrounding the node
-    this.props.nodes.forEach(node => {
+    this.props.nodes.forEach((node) => {
       const inCircle = isInCircle(
-        x_orig_coord,
-        y_orig_coord,
+        xOrigCoord,
+        yOrigCoord,
         node.x + node.radius,
         node.y + node.radius,
-        node.radius
-      )
+        node.radius,
+      );
       if (inCircle) {
-        console.log("Selected node", node.label)
+        console.log('Selected node', node.label);
       }
     });
   }
@@ -100,8 +130,8 @@ export default class GraphTagDisplayView extends React.Component {
       const dx = x - initialX;
       const dy = y - initialY;
 
-      const left = (initialLeft + dx - x) * touchZoom + x;
-      const top = (initialTop + dy - y) * touchZoom + y;
+      const left = ((initialLeft + dx - x) * touchZoom) + x;
+      const top = ((initialTop + dy - y) * touchZoom) + y;
       const zoom = initialZoom * touchZoom;
 
       this.setState({
@@ -134,43 +164,6 @@ export default class GraphTagDisplayView extends React.Component {
     }
   }
 
-  componentWillMount() {
-    this._panResponder = PanResponder.create({
-      onPanResponderGrant: ({ nativeEvent }, gestureState) => {
-        this.handleSelect(nativeEvent.locationX, nativeEvent.locationY)
-      },
-      onPanResponderTerminate: () => {},
-      onMoveShouldSetPanResponder: () => true,
-      onStartShouldSetPanResponder: () => true,
-      onShouldBlockNativeResponder: () => true,
-      onPanResponderTerminationRequest: () => true,
-      onMoveShouldSetPanResponderCapture: () => true,
-      onStartShouldSetPanResponderCapture: () => true,
-      onPanResponderMove: evt => {
-        const touches = evt.nativeEvent.touches;
-        const length = touches.length;
-        if (length === 1) {
-          const [{ locationX, locationY }] = touches;
-          this.processTouch(locationX, locationY);
-        } else if (length === 2) {
-          const [touch1, touch2] = touches;
-          this.processPinch(
-            touch1.locationX,
-            touch1.locationY,
-            touch2.locationX,
-            touch2.locationY
-          );
-        }
-      },
-      onPanResponderRelease: () => {
-        this.setState({
-          isZooming: false,
-          isMoving: false,
-        });
-      },
-    });
-  }
-
   render() {
     return (
       <Container>
@@ -180,7 +173,12 @@ export default class GraphTagDisplayView extends React.Component {
         />
         <View {...this._panResponder.panHandlers}>
           <ART.Surface width={this.props.width} height={this.props.height}>
-            <ART.Group x={this.state.left} y={this.state.top} scaleX={this.state.zoom} scaleY={this.state.zoom}>
+            <ART.Group
+              x={this.state.left}
+              y={this.state.top}
+              scaleX={this.state.zoom}
+              scaleY={this.state.zoom}
+            >
               {
                 this.props.nodes.map(item => (
                   <ARTNode
