@@ -38,19 +38,6 @@ class GraphTagDisplayContainer extends React.Component {
     };
   }
 
-  componentWillMount() {
-    this._panResponder = PanResponder.create({
-      onMoveShouldSetResponderCapture: () => true, //Tell iOS that we are allowing the movement
-      onMoveShouldSetPanResponderCapture: () => true, // Same here, tell iOS that we allow dragging
-      onMoveShouldSetPanResponder: (evt, gestureState) => true,
-      onPanResponderMove: (event, { dx, dy }) => {
-        console.log(("MOVE"))
-        const zoomIdentity = d3.zoom.zoomIdentity.translate(dx, dy)
-        this._onDrag(zoomIdentity)
-      },
-    });
-  }
-
   componentDidMount() {
     this.force = d3.force.forceSimulation(this.data)
       // .force('charge', d3.force.forceManyBody(-300))
@@ -60,14 +47,6 @@ class GraphTagDisplayContainer extends React.Component {
       .force('y', d3.force.forceY().strength(0.2))
       .force('collide', d3.force.forceCollide().radius(d => d.r))
       .on('tick', this.ticked);
-  }
-
-  _onDrag(zoomIdentity){
-    console.log("DRAGGING", zoomIdentity)
-    this.setState({
-      rescaledX: zoomIdentity.rescaleX(this.state.mainScaleX),
-      rescaledY: zoomIdentity.rescaleY(this.state.mainScaleY)
-    })
   }
 
   ticked() {
@@ -108,8 +87,6 @@ class GraphTagDisplayContainer extends React.Component {
         goBack={this.props.goBack}
         width={this.width}
         height={this.height}
-        rescaledX={this.state.rescaledX}
-        rescaledY={this.props.rescaledY}
         nodes={nodes}
         edges={edges}
       />

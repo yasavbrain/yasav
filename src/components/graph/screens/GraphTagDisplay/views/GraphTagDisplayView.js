@@ -182,15 +182,6 @@ export default class GraphTagDisplayView extends React.Component {
           <ART.Surface width={this.props.width} height={this.props.height}>
             <ART.Group x={this.state.left} y={this.state.top} scaleX={this.state.zoom} scaleY={this.state.zoom}>
               {
-                // this.props.nodes.map(item => (
-                //   <ARTNode
-                //     key={item.id}
-                //     x={this.state.rescaledX(item.x)}
-                //     y={this.state.rescaledY(item.y)}
-                //     radius={this.state.rescaledX(item.radius)}
-                //     label={item.label}
-                //   />
-                // ))
                 this.props.nodes.map(item => (
                   <ARTNode
                     key={item.id}
@@ -202,15 +193,6 @@ export default class GraphTagDisplayView extends React.Component {
                 ))
               }
               {
-                // this.props.edges.map(item => (
-                //   <ARTLine
-                //     key={item.id}
-                //     x1={this.state.rescaledX(item.x1)}
-                //     y1={this.state.rescaledY(item.y1)}
-                //     x2={this.state.rescaledX(item.x2)}
-                //     y2={this.state.rescaledY(item.y2)}
-                //   />
-                // ))
                 this.props.edges.map(item => (
                   <ARTLine
                     key={item.id}
