@@ -16,8 +16,6 @@ export default class ActivityAddScreen extends React.Component {
     if (this.props.navigation.state.params) {
       type = this.props.navigation.state.params;
     }
-    console.log(this.props.navigation.state);
-    console.log(type);
     
     return (
       <ActivityAddEditContainer

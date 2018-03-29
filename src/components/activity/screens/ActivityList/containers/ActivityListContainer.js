@@ -7,24 +7,24 @@ import ActivityListView from '../views/ActivityListView';
 class ActivityListContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { searchActive: 0 };
-    this.enableSearchActivity = this.enableSearchActivity.bind(this);
+    this.state = { searchActive: false };
+    this.modifySearchActivity = this.modifySearchActivity.bind(this);
   }
   
   componentDidMount() {
     this.props.getActivityList();
   }
 
-  enableSearchActivity() {
-    this.setState({ searchActive: 1 });
+  modifySearchActivity(isActive) {
+    this.setState({ searchActive: isActive });
   }
 
 
   render() {
-    if (this.state.searchActive == 0) {
-      var activityList = this.props.activityListAll;
-    } else if (this.state.searchActive == 1) {
+    if (this.state.searchActive) {
       var activityList = this.props.activityListFromRequest;
+    } else {
+      var activityList = this.props.activityListAll;
     }
     return (
       <ActivityListView
@@ -34,7 +34,7 @@ class ActivityListContainer extends React.Component {
         navigateToActivityAddContent={this.props.navigateToActivityAddContent}
         navigateToActivityDisplayScreen={this.props.navigateToActivityDisplayScreen}
         displayActivityList={activityList}
-        enableSearchActivity={this.enableSearchActivity}
+        modifySearchActivity={this.modifySearchActivity}
       />
     );
   }

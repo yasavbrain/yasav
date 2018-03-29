@@ -4,7 +4,7 @@ import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
 import I18n from 'yasav/locales/i18n';
 import Style from '../styles/style';
 
-export default class SearchInputView extends React.Component {
+export default class SearchCommonView extends React.Component {
   constructor(props) {
     super(props);
     this.doSearch = this.doSearch.bind(this);
@@ -21,7 +21,7 @@ export default class SearchInputView extends React.Component {
           <Icon name="search" />
           <Input
             placeholder={I18n.t('search.searchBar')}
-            onChangeText={request => this.doSearch(request)} 
+            onChangeText={request => this.doSearch(request)}
           />
         </Item>
       </Header>

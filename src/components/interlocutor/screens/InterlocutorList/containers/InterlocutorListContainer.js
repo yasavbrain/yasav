@@ -6,30 +6,30 @@ import InterlocutorListView from '../views/InterlocutorListView';
 class InterlocutorListContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { searchActive: 0 };
-    this.enableSearchInterlocutor = this.enableSearchInterlocutor.bind(this);
+    this.state = { searchActive: false };
+    this.modifySearchInterlocutor = this.modifySearchInterlocutor.bind(this);
   }
 
   componentDidMount() {
     this.props.getInterlocutorList();
   }
 
-  enableSearchInterlocutor() {
-    this.setState({ searchActive: 1 });
+  modifySearchInterlocutor(is_active) {
+    this.setState({ searchActive: is_active });
   }
 
   render() {
-    if (this.state.searchActive == 0) {
-      var interlocutorList = this.props.interlocutorListAll;
-    } else if (this.state.searchActive == 1) {
+    if (this.state.searchActive) {
       var interlocutorList = this.props.interlocutorListFromRequest;
+    } else {
+      var interlocutorList = this.props.interlocutorListAll;
     }
     return (
       <InterlocutorListView
         goBack={this.props.goBack}
         displayInterlocutorList={interlocutorList}
         navigateToInterlocutorDisplayScreen={this.props.navigateToInterlocutorDisplayScreen}
-        enableSearchInterlocutor={this.enableSearchInterlocutor}
+        modifySearchInterlocutor={this.modifySearchInterlocutor}
       />
     );
   }

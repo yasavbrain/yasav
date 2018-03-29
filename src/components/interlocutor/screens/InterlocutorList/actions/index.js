@@ -17,19 +17,27 @@ export function getInterlocutorList() {
 }
 
 export function getInterlocutorListFromRequest(request) {
-  return (dispatch, getState) => executeSql(
-    `SELECT name, link_to_me, id 
-    FROM interlocutor
-    WHERE name LIKE ? OR link_to_me LIKE ?`,
-    ["%" + request + "%", "%" + request + "%"]
-  )
-    .then((res) => {
-      const interlocutorListFromRequest = res.rows._array.map(interlocutor => ({
-        name: interlocutor.name,
-        link_to_me: interlocutor.link_to_me,
-        id: interlocutor.id,
-      }));
-      dispatch({ type: GET_INTERLOCUTOR_LIST_FROM_REQUEST, interlocutorListFromRequest });
-      return res
-    });
+  if ( request.length > 0 ) {
+    return (dispatch, getState) => executeSql(
+      `SELECT name, link_to_me, id 
+      FROM interlocutor
+      WHERE name LIKE ? OR link_to_me LIKE ?`,
+      ["%" + request + "%", "%" + request + "%"]
+    )
+      .then((res) => {
+        const interlocutorListFromRequest = res.rows._array.map(interlocutor => ({
+          interlocutor: {
+            name: interlocutor.name,
+            link_to_me: interlocutor.link_to_me,
+            id: interlocutor.id,
+          }
+        }));
+        dispatch({ type: GET_INTERLOCUTOR_LIST_FROM_REQUEST, interlocutorListFromRequest });
+        return res
+      });
+  }
+  else {
+    interlocutorListFromRequest = []
+    return (dispatch) => dispatch({ type: GET_INTERLOCUTOR_LIST_FROM_REQUEST, interlocutorListFromRequest });
+  }
 }

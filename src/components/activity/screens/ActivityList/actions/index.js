@@ -33,24 +33,30 @@ export function getActivityList() {
 }
 
 export function getActivityListFromRequest(request) {
-  return (dispatch, getState) => executeSql(
-    `SELECT id, title, description, activity_date, content_source, type, interlocutor_id
-    FROM activity
-    WHERE title LIKE ? OR description LIKE ?`,
-    ["%" + request + "%","%" + request + "%"]
-  )
-    .then((res) => {
-      const activityListFromRequest = res.rows._array.map(activity => ({
-        activity: {
-          id: activity.id,
-          title: activity.title,
-          description: activity.description,
-          activity_date: activity.activity_date,
-          content_source: activity.content_source,
-          type: activity.type,
-          interlocutor_id: activity.interlocutor_id,
-        }
-      }));
-      dispatch({ type: GET_ACTIVITY_LIST_FROM_REQUEST, activityListFromRequest });
-    });
+  if (request.length > 0) {
+    return (dispatch, getState) => executeSql(
+      `SELECT id, title, description, activity_date, content_source, type, interlocutor_id
+      FROM activity
+      WHERE title LIKE ? OR description LIKE ?`,
+      ["%" + request + "%","%" + request + "%"]
+    )
+      .then((res) => {
+        const activityListFromRequest = res.rows._array.map(activity => ({
+          activity: {
+            id: activity.id,
+            title: activity.title,
+            description: activity.description,
+            activity_date: activity.activity_date,
+            content_source: activity.content_source,
+            type: activity.type,
+            interlocutor_id: activity.interlocutor_id,
+          }
+        }));
+        dispatch({ type: GET_ACTIVITY_LIST_FROM_REQUEST, activityListFromRequest });
+      });
+  }
+  else {
+    activityListFromRequest = []
+    return (dispatch) => dispatch({ type: GET_ACTIVITY_LIST_FROM_REQUEST, activityListFromRequest });
+  }
 }

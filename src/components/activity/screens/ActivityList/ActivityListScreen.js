@@ -12,8 +12,8 @@ export default class ActivityListScreen extends React.Component {
     this.navigateToActivityDisplayScreen = this.navigateToActivityDisplayScreen.bind(this);
   }
 
-  navigateToActivityDisplayScreen(activity) {
-    this.props.navigation.navigate('ActivityDisplayScreen', activity.id);
+  navigateToActivityDisplayScreen(item) {
+    this.props.navigation.navigate('ActivityDisplayScreen', item.activity.id);
   }
 
   navigateToActivityAddEvent() {
