@@ -8,19 +8,6 @@ export default StyleSheet.create({
     marginTop: 5,
     marginBottom: 10,
   },
-  inputWrapper: {
-    borderBottomWidth: 1,
-    borderColor: Colors.focused,
-    marginRight: 15,
-  },
-  inputWrapperSelected: {
-    borderColor: Colors.primary,
-    borderBottomWidth: 2,
-    marginRight: 15,
-  },
-  inputWrapperLight: {
-    borderBottomWidth: 0,
-  },
   addTodoButton: {
     backgroundColor: Colors.primary,
     marginTop: 20,
