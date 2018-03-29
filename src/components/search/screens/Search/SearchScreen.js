@@ -1,8 +1,8 @@
 import React from 'react';
 import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
-import SearchInputContainer from './containers/SearchInputContainer'
+import SearchContainer from './containers/SearchContainer'
 
-export default class SearchInputScreen extends React.Component{
+export default class SearchScreen extends React.Component{
 
     constructor(props) {
       super(props);
@@ -21,7 +21,7 @@ export default class SearchInputScreen extends React.Component{
     render () {
       const { goBack, state } = this.props.navigation
       return (
-        <SearchInputContainer
+        <SearchContainer
         goBack = {this.props.navigation.goBack}
         requestType = {this.props.navigation.state.params}
         navigateToDisplayScreen = {this.navigateToDisplayScreen}

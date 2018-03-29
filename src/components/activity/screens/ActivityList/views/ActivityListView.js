@@ -5,7 +5,7 @@ import I18n from 'yasav/locales/i18n'
 import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
 import Style from '../styles/style.js';
 import StyleList from 'yasav/src/styles/List'
-import SearchInputContainer from 'yasav/src/components/search/screens/SearchInput/containers/SearchInputContainer'
+import SearchContainer from 'yasav/src/components/search/screens/Search/containers/SearchContainer'
 import { SearchType } from 'yasav/src/const';
 import ListView from 'yasav/src/viewElements/shared/listView/ListView'
 
@@ -46,9 +46,9 @@ export default class ActivityListView extends React.Component {
   render() {
     return (
       <Container style={StyleList.container}>
-        <SearchInputContainer
+        <SearchContainer
           requestType={SearchType.ACTIVITY}
-          enableSearchActivity={this.props.enableSearchActivity}
+          modifySearchActivity={this.props.modifySearchActivity}
         />
         <ListView 
           displayList={this.props.displayActivityList}

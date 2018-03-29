@@ -12,28 +12,28 @@ export default class ListView extends React.Component {
     this.renderRow = this.renderRow.bind(this);
   }
 
-  i = 0
+  listItemCount = 0
 
   componentWillUpdate(){
-    this.i = 0
+    this.listItemCount = 0
   }
     
   shortenedDescription(description){
-    i = 120
-    if(description.length <= i){
+    descriptionMaxChars = 120
+    if(description.length <= descriptionMaxChars){
       return description
     }
-    while(description.substring(i, i+1) != ' '){
-      i -= 1
+    while(description.substring(descriptionMaxChars, descriptionMaxChars+1) != ' '){
+      descriptionMaxChars -= 1
     }
-    return description.substring(0, i) + "..."
+    return description.substring(0, descriptionMaxChars) + "..."
   }
   // TODO : Find a way to remove that arrow function in the render
   renderRow(item) {
-    this.i = this.i + 1
+    this.listItemCount = this.listItemCount + 1
       return (
         <ListItem
-          style={[StyleList.listItemGeneric, (this.i%2 == 0)? StyleList.listItemEven: StyleList.listItemOdd]}
+          style={[StyleList.listItemGeneric, (this.listItemCount%2 == 0)? StyleList.listItemEven: StyleList.listItemOdd]}
           onPress={() => this.props.navigateToDisplayScreen((item.item.activity) ? item.item : item.item)}
         >
           <View style={StyleList.containerHeadText}>

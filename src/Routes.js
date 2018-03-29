@@ -18,7 +18,7 @@ import TodoAddScreen from './components/todo/screens/TodoAdd/TodoAddScreen';
 import InterlocutorListScreen from './components/interlocutor/screens/InterlocutorList/InterlocutorListScreen';
 import InterlocutorDisplayScreen from './components/interlocutor/screens/InterlocutorDisplay/InterlocutorDisplayScreen';
 import GraphTagDisplayScreen from './components/graph/screens/GraphTagDisplay/GraphTagDisplayScreen';
-import SearchInputScreen from './components/search/screens/SearchInput/SearchInputScreen';
+import SearchScreen from './components/search/screens/Search/SearchScreen';
 
 
 // const OldRoutes = StackNavigator({
@@ -95,7 +95,7 @@ const Routes = StackNavigator({
             navigation.navigate('GraphTagDisplayScreen');
           }}
         navigateToSearchScreen={(type) => {
-          navigation.navigate('SearchInputScreen',type)
+          navigation.navigate('SearchScreen',type)
         }}
       />,
     }),
@@ -136,8 +136,8 @@ const Routes = StackNavigator({
       header: null,
     },
   },
-  SearchInputScreen: {
-    screen: SearchInputScreen,
+  SearchScreen: {
+    screen: SearchScreen,
     navigationOptions: {
       header: null,
     },

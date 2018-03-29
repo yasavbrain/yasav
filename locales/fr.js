@@ -66,6 +66,7 @@ export default {
     },
   },
   search: {
-    searchBar: 'Search'
+    searchBar: 'Search',
+    globalSearchTitle: 'Search'
   },
 };

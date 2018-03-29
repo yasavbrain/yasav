@@ -3,10 +3,10 @@ import { Header, Item, Icon, Input, Button, Text, Container, Content, ListItem, 
 import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
 import I18n from 'yasav/locales/i18n';
 import StyleList from 'yasav/src/styles/List'
-import SearchInputCommonView from './SearchInputCommonView'
+import SearchCommonView from './SearchCommonView'
 import ListView from 'yasav/src/viewElements/shared/listView/ListView'
 
-export default class SearchInputHomeView extends React.Component {
+export default class GlobalSearchView extends React.Component {
   constructor(props) {
     super(props);
     this.navigateToDisplayScreen=this.navigateToDisplayScreen.bind(this)
@@ -17,14 +17,13 @@ export default class SearchInputHomeView extends React.Component {
   }
 
   render() {
-    //console.log(this.props.requestResult)
     return (
       <Container style={StyleList.container}>
         <GenericHeader
           goBack={this.props.goBack}
-          title="Search"
+          title={I18n.t('search.globalSearchTitle')}
         />
-        <SearchInputCommonView
+        <SearchCommonView
           doSearch={this.props.doSearch}
         />
         <ListView 
