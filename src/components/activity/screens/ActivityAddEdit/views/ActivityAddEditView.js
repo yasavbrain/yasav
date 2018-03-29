@@ -5,6 +5,7 @@ import InterlocutorAddContainer from 'yasav/src/components/interlocutor/screens/
 
 import I18n from 'yasav/locales/i18n';
 import Style from '../styles/style.js';
+import FormStyle from 'src/styles/Forms';
 import HeaderStyle from 'yasav/src/styles/Header';
 import { GenericHeader, MenuHeader } from 'yasav/src/viewElements/shared/Header';
 
@@ -44,7 +45,7 @@ export default class ActivityAddView extends React.Component {
       return null;
     }
     return (
-      <Button primary full style={{ marginTop: 20 }} onPress={this.props.addTodoActivity} disabled={!this.props.isFormValid}>
+      <Button primary full style={Style.addTodoButton} onPress={this.props.addTodoActivity} disabled={!this.props.isFormValid}>
         <Text>{I18n.t('activity.activityAddEdit.addTodoButton')}</Text>
       </Button>
     );
@@ -68,13 +69,14 @@ export default class ActivityAddView extends React.Component {
   renderSpecificFields() {
     if (this.props.activity.type === ActivityTypeEnum.CONTENT) {
       return (
-        <Item floatingLabel style={this.state.selectedInput === 'contentSource' ? Style.inputWrapperSelected : Style.inputWrapper}>
+        <Item floatingLabel style={this.state.selectedInput === 'contentSource' ? FormStyle.inputWrapperSelected : FormStyle.inputWrapper}>
           <Label>{I18n.t('activity.activityAddEdit.form.contentSource')}</Label>
           <Input
             onChangeText={this.props.setContentSource}
             value={this.props.activity.contentSource}
             style={Style.input}
             onFocus={() => this.setState({ selectedInput: 'contentSource' })}
+            onBlur={() => this.setState({ selectedInput: '' })}
           />
         </Item>
       );
@@ -104,16 +106,17 @@ export default class ActivityAddView extends React.Component {
           <Content>
             <Form>
               { this.renderSpecificFields() }
-              <Item floatingLabel style={this.state.selectedInput === 'title' ? Style.inputWrapperSelected : Style.inputWrapper}>
+              <Item floatingLabel style={this.state.selectedInput === 'title' ? FormStyle.inputWrapperSelected : FormStyle.inputWrapper}>
                 <Label>{I18n.t('activity.activityAddEdit.form.title')}</Label>
                 <Input
                   onChangeText={this.props.setTitle}
                   value={this.props.activity.title}
                   style={Style.input}
                   onFocus={() => this.setState({ selectedInput: 'title' })}
+                  onBlur={() => this.setState({ selectedInput: '' })}
                 />
               </Item>
-              <Item floatingLabel style={Style.inputWrapperLight}>
+              <Item floatingLabel style={FormStyle.inputWrapperLight}>
                 <Label>{I18n.t('activity.activityAddEdit.form.content')}</Label>
                 <Input
                   onChangeText={this.props.setDescription}
@@ -124,6 +127,7 @@ export default class ActivityAddView extends React.Component {
                   style={Style.textarea}
                   value={this.props.activity.description}
                   onFocus={() => this.setState({ selectedInput: 'content' })}
+                  onBlur={() => this.setState({ selectedInput: '' })}
                 />
               </Item>
 

@@ -9,7 +9,7 @@ import Colors from './styles/Colors'
 import Routes from './Routes';
 import db, { CREATE_DB_TABLES_REQUESTS } from './Database';
 import store from 'src/store/store';
-import { logTableList, dropAllTables } from './utils/DBDebugHelpers';
+import { logTableList, dropAllTables, showTableContent } from './utils/DBDebugHelpers';
 
 export default class Root extends React.Component {
 
@@ -27,6 +27,7 @@ export default class Root extends React.Component {
     // To uncomment to update the database (quickfix)
     //dropAllTables(); console.log("DROPPED")
     // TODO : add scripts to update the database scheme in newer versions
+    //showTableContent('activity_tag')
     db.transaction(tx => {
       CREATE_DB_TABLES_REQUESTS.forEach(req => tx.executeSql(req));
     },

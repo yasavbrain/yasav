@@ -117,11 +117,10 @@ class ActivityAddEditContainer extends React.Component {
         );
     } else {
       this.props.addTags(this.state.activity.tags)
-      .then(tagsId =>
-        {
-          this.props.addActivity(this.state.activity, tagsId)
-        }
-      );
+      .then(tagsId => {
+        this.props.addActivity(this.state.activity, tagsId)
+      
+      });
     }
     this.props.goBack();
   }
