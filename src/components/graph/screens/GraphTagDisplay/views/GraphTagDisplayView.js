@@ -4,30 +4,10 @@ import I18n from 'yasav/locales/i18n'
 import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
 import { ART, PanResponder } from 'react-native';
 import { ARTNode, ARTLine } from '../../../utils/ArtComponents';
+import { calcDistance, calcCenter, isInCircle } from '../../../utils/geometry';
+
 
 // based on https://snack.expo.io/@msand/svg-pinch-to-pan-and-zoom
-function calcDistance(x1, y1, x2, y2) {
-  const dx = x1 - x2;
-  const dy = y1 - y2;
-  return Math.sqrt((dx * dx) + (dy * dy));
-}
-
-function middle(p1, p2) {
-  return (p1 + p2) / 2;
-}
-
-function calcCenter(x1, y1, x2, y2) {
-  return {
-    x: middle(x1, x2),
-    y: middle(y1, y2),
-  };
-}
-
-function isInCircle(x, y, cx, cy, r) {
-  return calcDistance(x, y, cx, cy) < r;
-}
-
-
 export default class GraphTagDisplayView extends React.Component {
   constructor(props) {
     super(props);

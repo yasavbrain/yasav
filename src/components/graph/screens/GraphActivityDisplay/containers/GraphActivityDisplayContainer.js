@@ -19,6 +19,7 @@ class GraphActivityDisplayContainer extends React.Component {
     this.toARTNodes = this.toARTNodes.bind(this);
     this.toARTEdges = this.toARTEdges.bind(this);
     this.ticked = this.ticked.bind(this);
+    this.reset = this.reset.bind(this);
     this.width = Dimensions.get('window').width;
     this.height = Dimensions.get('window').height;
     this.data = [
@@ -50,7 +51,7 @@ class GraphActivityDisplayContainer extends React.Component {
   componentDidMount() {
     this.force = d3.force.forceSimulation(this.data)
       .force('charge', d3.force.forceManyBody(-300).distanceMax(this.height / 2))
-      .force('link', d3.force.forceLink(this.state.links).distance(200))
+      .force('link', d3.force.forceLink(this.links).distance(200))
       // .force('radial', d3.force.forceRadial(500, this.width / 2, this.height / 2))
       // .force('center', d3.force.forceCenter(this.width / 2, this.height / 2))
       // .force('x', d3.force.forceX().strength(0.2))
@@ -66,6 +67,36 @@ class GraphActivityDisplayContainer extends React.Component {
       node.y = Math.max(node.r, Math.min(this.height - node.r, node.y))
     })
     this.setState({ data: this.data });
+  }
+
+  reset(newCenterNodeId) {
+    this.force.stop();
+
+    // gets new data
+    this.data = [{ x: 0, y: 0, r: 50, label: 'jean', id: 1 },
+      { x: 200, y: 420, r: 50, label: 'marc', id: 2 },
+      { x: 200, y: 200, r: 50, label: 'john', id: 3 },
+      { x: 253, y: 126, r: 50, label: 'georges', id: 4 },
+      { x: 325, y: 463, r: 50, fx: this.width / 2, fy: this.height / 2, label: 'georges5', id: 5 },
+    ];
+
+    this.links = [
+      { id: 1, source: this.data[0], target: this.data[4] },
+      { id: 2, source: this.data[1], target: this.data[4] },
+      { id: 3, source: this.data[2], target: this.data[4] },
+      { id: 4, source: this.data[3], target: this.data[4] },
+    ];
+
+    this.force = d3.force.forceSimulation(this.data)
+      .force('charge', d3.force.forceManyBody(-300).distanceMax(this.height / 2))
+      .force('link', d3.force.forceLink(this.links).distance(200))
+      .force('collide', d3.force.forceCollide().strength(1).radius(d => d.r))
+      .on('tick', this.ticked);
+
+    this.setState({
+      data: this.data,
+      links: this.links,
+    });
   }
 
   toARTNodes(data) {
@@ -104,6 +135,7 @@ class GraphActivityDisplayContainer extends React.Component {
         height={this.height}
         nodes={nodes}
         edges={edges}
+        reset={this.reset}
       />
     );
   }
