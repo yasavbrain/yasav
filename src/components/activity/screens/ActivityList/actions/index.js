@@ -34,29 +34,44 @@ export function getActivityList() {
 
 export function getActivityListFromRequest(request) {
   if (request.length > 0) {
-    return (dispatch, getState) => executeSql(
-      `SELECT id, title, description, activity_date, content_source, type, interlocutor_id
+    requestList = request.split(' ');
+    return (dispatch, getState) => {
+      let promises = [];
+      request = `SELECT id, title, description, activity_date, content_source, type, interlocutor_id
       FROM activity
-      WHERE title LIKE ? OR description LIKE ?`,
-      ["%" + request + "%","%" + request + "%"]
-    )
-      .then((res) => {
-        const activityListFromRequest = res.rows._array.map(activity => ({
-          activity: {
-            id: activity.id,
-            title: activity.title,
-            description: activity.description,
-            activity_date: activity.activity_date,
-            content_source: activity.content_source,
-            type: activity.type,
-            interlocutor_id: activity.interlocutor_id,
-          }
-        }));
-        dispatch({ type: GET_ACTIVITY_LIST_FROM_REQUEST, activityListFromRequest });
+      WHERE title LIKE ?
+      OR description LIKE ?`;
+      requestList.forEach((term) => {
+        promises = promises.concat(executeSql(request, ['%' + term + '%', '%' + term + '%']));
       });
+      return Promise.all(promises)
+        .then((res) => {
+          let activityListFromRequest = [];
+          let ids = [];
+          res.forEach((r) => {
+            r.rows._array.forEach((activity) => {
+              if (ids.indexOf(activity.id) == -1) {
+                activityListFromRequest = activityListFromRequest.concat({
+                  activity: {
+                    id: activity.id,
+                    title: activity.title,
+                    description: activity.description,
+                    activity_date: activity.activity_date,
+                    content_source: activity.content_source,
+                    type: activity.type,
+                    interlocutor_id: activity.interlocutor_id,
+                  },
+                });
+                ids = ids.concat(activity.id);
+              }
+            });
+          });
+          dispatch({ type: GET_ACTIVITY_LIST_FROM_REQUEST, activityListFromRequest });
+        });
+    };
   }
   else {
-    activityListFromRequest = []
-    return (dispatch) => dispatch({ type: GET_ACTIVITY_LIST_FROM_REQUEST, activityListFromRequest });
+    activityListFromRequest = [];
+    return dispatch => dispatch({ type: GET_ACTIVITY_LIST_FROM_REQUEST, activityListFromRequest });
   }
 }
