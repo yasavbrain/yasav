@@ -19,7 +19,7 @@ import InterlocutorListScreen from './components/interlocutor/screens/Interlocut
 import InterlocutorDisplayScreen from './components/interlocutor/screens/InterlocutorDisplay/InterlocutorDisplayScreen';
 import GraphTagDisplayScreen from './components/graph/screens/GraphTagDisplay/GraphTagDisplayScreen';
 import SearchScreen from './components/search/screens/Search/SearchScreen';
-
+import GraphActivityDisplayScreen from './components/graph/screens/GraphActivityDisplay/GraphActivityDisplayScreen';
 
 // const OldRoutes = StackNavigator({
 //   HomeScreen: { screen: HomeScreen },
@@ -138,6 +138,12 @@ const Routes = StackNavigator({
   },
   SearchScreen: {
     screen: SearchScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  GraphActivityDisplayScreen: {
+    screen: GraphActivityDisplayScreen,
     navigationOptions: {
       header: null,
     },
