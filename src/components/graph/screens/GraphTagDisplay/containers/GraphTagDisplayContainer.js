@@ -89,6 +89,7 @@ class GraphTagDisplayContainer extends React.Component {
         height={this.height}
         nodes={nodes}
         edges={edges}
+        navigateToGraphActivityDisplayScreen={this.props.navigateToGraphActivityDisplayScreen}
       />
     );
   }

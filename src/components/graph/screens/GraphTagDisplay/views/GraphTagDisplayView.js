@@ -96,6 +96,7 @@ export default class GraphTagDisplayView extends React.Component {
       );
       if (inCircle) {
         console.log('Selected node', node.label);
+        this.props.navigateToGraphActivityDisplayScreen(node.id);
       }
     });
   }
