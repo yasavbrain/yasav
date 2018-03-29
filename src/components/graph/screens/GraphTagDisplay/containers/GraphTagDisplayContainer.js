@@ -1,14 +1,16 @@
 import React from 'react';
-import { ART, Dimensions } from 'react-native';
+import { Dimensions } from 'react-native';
 import * as shape from 'd3-shape';
 import * as hierarchy from 'd3-hierarchy';
 import * as force from 'd3-force';
+import * as zoom from 'd3-zoom';
 import GraphTagDisplayView from '../views/GraphTagDisplayView';
 
 const d3 = {
   shape,
   hierarchy,
   force,
+  zoom,
 };
 
 
@@ -46,7 +48,6 @@ class GraphTagDisplayContainer extends React.Component {
       .force('collide', d3.force.forceCollide().radius(d => d.r))
       .on('tick', this.ticked);
   }
-
 
   ticked() {
     this.setState({ data: this.data });
