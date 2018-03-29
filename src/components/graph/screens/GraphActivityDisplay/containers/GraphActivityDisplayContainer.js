@@ -45,6 +45,7 @@ class GraphActivityDisplayContainer extends React.Component {
     this.state = {
       data: this.data,
       links: this.links,
+      centralNodeId: this.props.centralNodeId,
     };
   }
 
@@ -69,7 +70,7 @@ class GraphActivityDisplayContainer extends React.Component {
     this.setState({ data: this.data });
   }
 
-  reset(newCenterNodeId) {
+  reset(newCenteralNodeId) {
     this.force.stop();
 
     // gets new data
@@ -96,6 +97,7 @@ class GraphActivityDisplayContainer extends React.Component {
     this.setState({
       data: this.data,
       links: this.links,
+      centralNodeId: newCenteralNodeId,
     });
   }
 
@@ -136,6 +138,9 @@ class GraphActivityDisplayContainer extends React.Component {
         nodes={nodes}
         edges={edges}
         reset={this.reset}
+        navigateToActivityDisplayScreen={this.props.navigateToActivityDisplayScreen}
+        navigateToInterlocutorDisplayScreen={this.props.navigateToInterlocutorDisplayScreen}
+        centralNodeId={this.state.centralNodeId}
       />
     );
   }
