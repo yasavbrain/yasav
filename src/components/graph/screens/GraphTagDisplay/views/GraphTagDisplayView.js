@@ -24,8 +24,7 @@ function calcCenter(x1, y1, x2, y2) {
 }
 
 function isInCircle(x, y, cx, cy, r) {
-  const d = Math.sqrt(((cx - x) ** 2) + ((cy - y) ** 2));
-  return d < r;
+  return calcDistance(x, y, cx, cy) < r;
 }
 
 
@@ -81,8 +80,8 @@ export default class GraphTagDisplayView extends React.Component {
     // scale and current translation
     // we need to convert it into the "original" coordinates, independant from
     // scale and translation
-    const xOrigCoord = (locationX / this.state.zoom) - this.state.left;
-    const yOrigCoord = (locationY / this.state.zoom) - this.state.top;
+    const xOrigCoord = (locationX - this.state.left) / this.state.zoom;
+    const yOrigCoord = (locationY - this.state.top) / this.state.zoom;
 
     // do not forget, in the original & independant coordinate system, the x and
     // y node properties corresponds to the top left corner of a square
@@ -126,13 +125,16 @@ export default class GraphTagDisplayView extends React.Component {
         initialDistance,
       } = this.state;
 
-      const touchZoom = distance / initialDistance;
+      let touchZoom = distance / initialDistance;
+      // we prevent from zooming too far
+      const zoom = Math.max(0.1, initialZoom * touchZoom);
+      touchZoom = zoom / initialZoom
+
       const dx = x - initialX;
       const dy = y - initialY;
 
       const left = ((initialLeft + dx - x) * touchZoom) + x;
       const top = ((initialTop + dy - y) * touchZoom) + y;
-      const zoom = initialZoom * touchZoom;
 
       this.setState({
         zoom,
