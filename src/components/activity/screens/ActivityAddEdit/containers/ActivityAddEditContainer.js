@@ -80,7 +80,7 @@ class ActivityAddEditContainer extends React.Component {
             this.setState({
               ...this.state,
               cursor: pos.start,
-              autocompleteTagList: this.props.tagList.filter(item => item.slug.indexOf(slugBeginningToTest) > -1),
+              autocompleteTagList: this.props.tagList.filter(item => item.slug.indexOf(slugBeginningToTest) > -1 && item.slug !== slugBeginningToTest),
             });
           }
         }
