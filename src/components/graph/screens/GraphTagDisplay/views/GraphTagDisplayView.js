@@ -40,9 +40,7 @@ export default class GraphTagDisplayView extends React.Component {
 
   componentWillMount() {
     this._panResponder = PanResponder.create({
-      onPanResponderGrant: ({ nativeEvent }) => {
-        this.handleSelect(nativeEvent.locationX, nativeEvent.locationY);
-      },
+      onPanResponderGrant: () => {},
       onPanResponderTerminate: () => {},
       onMoveShouldSetPanResponder: () => true,
       onStartShouldSetPanResponder: () => true,
@@ -66,7 +64,10 @@ export default class GraphTagDisplayView extends React.Component {
           );
         }
       },
-      onPanResponderRelease: () => {
+      onPanResponderRelease: ({ nativeEvent }) => {
+        if (!this.state.isMoving) {
+          this.handleSelect(nativeEvent.locationX, nativeEvent.locationY);
+        }
         this.setState({
           isZooming: false,
           isMoving: false,
