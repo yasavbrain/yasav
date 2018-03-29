@@ -1,10 +1,13 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
+import { connect } from 'react-redux';
 import * as shape from 'd3-shape';
 import * as hierarchy from 'd3-hierarchy';
 import * as force from 'd3-force';
 import * as zoom from 'd3-zoom';
+import { GraphNodeType } from 'yasav/src/const';
 import GraphActivityDisplayView from '../views/GraphActivityDisplayView';
+import { getAdjacentNodes } from '../actions';
 
 const d3 = {
   shape,
@@ -22,43 +25,28 @@ class GraphActivityDisplayContainer extends React.Component {
     this.reset = this.reset.bind(this);
     this.width = Dimensions.get('window').width;
     this.height = Dimensions.get('window').height;
-    this.data = [
-      { x: 0, y: 0, r: 50, label: 'jean', id: 1 },
-      { x: 200, y: 420, r: 50, label: 'marc', id: 2 },
-      { x: 200, y: 200, fx: this.width / 2, fy: this.height / 2, r: 50, label: 'john', id: 3 },
-      { x: 253, y: 126, r: 50, label: 'georges', id: 4 },
-      { x: 325, y: 463, r: 50, label: 'georges5', id: 5 },
-      { x: 320, y: 26, r: 50, label: 'georges6', id: 6 },
-      { x: 120, y: 256, r: 50, label: 'georges7', id: 7 },
-      { x: 420, y: 126, r: 50, label: 'georges8', id: 8 },
-    ];
-
-    this.links = [
-      { id: 1, source: this.data[1], target: this.data[2] },
-      { id: 2, source: this.data[0], target: this.data[2] },
-      { id: 3, source: this.data[3], target: this.data[2] },
-      { id: 4, source: this.data[4], target: this.data[2] },
-      { id: 5, source: this.data[5], target: this.data[2] },
-      { id: 6, source: this.data[6], target: this.data[2] },
-      { id: 7, source: this.data[7], target: this.data[2] },
-    ];
+    this.data = [];
+    this.links = [];
     this.state = {
       data: this.data,
-      links: this.links,
-      centralNodeId: this.props.centralNodeId,
     };
   }
 
   componentDidMount() {
-    this.force = d3.force.forceSimulation(this.data)
-      .force('charge', d3.force.forceManyBody(-300).distanceMax(this.height / 2))
-      .force('link', d3.force.forceLink(this.links).distance(200))
-      // .force('radial', d3.force.forceRadial(500, this.width / 2, this.height / 2))
-      // .force('center', d3.force.forceCenter(this.width / 2, this.height / 2))
-      // .force('x', d3.force.forceX().strength(0.2))
-      // .force('y', d3.force.forceY().strength(0.2))
-      .force('collide', d3.force.forceCollide().strength(1).radius(d => d.r))
-      .on('tick', this.ticked);
+    this.props.getAdjacentNodes(this.props.centerNodeId, GraphNodeType.TAG)
+      .then(() => {
+        this.data = this.props.nodesList;
+        this.links = this.props.linksList;
+        this.force = d3.force.forceSimulation(this.data)
+          .force('charge', d3.force.forceManyBody(-300).distanceMax(this.height / 2))
+          .force('link', d3.force.forceLink(this.links).distance(200))
+          // .force('radial', d3.force.forceRadial(500, this.width / 2, this.height / 2))
+          // .force('center', d3.force.forceCenter(this.width / 2, this.height / 2))
+          // .force('x', d3.force.forceX().strength(0.2))
+          // .force('y', d3.force.forceY().strength(0.2))
+          .force('collide', d3.force.forceCollide().strength(1).radius(d => d.r))
+          .on('tick', this.ticked);
+      });
   }
 
   // inspired from https://bl.ocks.org/mbostock/1129492
@@ -70,35 +58,24 @@ class GraphActivityDisplayContainer extends React.Component {
     this.setState({ data: this.data });
   }
 
-  reset(newCenteralNodeId) {
+  reset(newCenteralNodeId, nodeType) {
     this.force.stop();
 
-    // gets new data
-    this.data = [{ x: 0, y: 0, r: 50, label: 'jean', id: 1 },
-      { x: 200, y: 420, r: 50, label: 'marc', id: 2 },
-      { x: 200, y: 200, r: 50, label: 'john', id: 3 },
-      { x: 253, y: 126, r: 50, label: 'georges', id: 4 },
-      { x: 325, y: 463, r: 50, fx: this.width / 2, fy: this.height / 2, label: 'georges5', id: 5 },
-    ];
+    // gets the new data
+    this.props.getAdjacentNodes(newCenteralNodeId.slice(2), nodeType)
+      .then(() => {
+        this.data = this.props.nodesList;
+        this.links = this.props.linksList;
+        this.force = d3.force.forceSimulation(this.data)
+          .force('charge', d3.force.forceManyBody(-300).distanceMax(this.height / 2))
+          .force('link', d3.force.forceLink(this.links).distance(200))
+          .force('collide', d3.force.forceCollide().strength(1).radius(d => d.r))
+          .on('tick', this.ticked);
 
-    this.links = [
-      { id: 1, source: this.data[0], target: this.data[4] },
-      { id: 2, source: this.data[1], target: this.data[4] },
-      { id: 3, source: this.data[2], target: this.data[4] },
-      { id: 4, source: this.data[3], target: this.data[4] },
-    ];
-
-    this.force = d3.force.forceSimulation(this.data)
-      .force('charge', d3.force.forceManyBody(-300).distanceMax(this.height / 2))
-      .force('link', d3.force.forceLink(this.links).distance(200))
-      .force('collide', d3.force.forceCollide().strength(1).radius(d => d.r))
-      .on('tick', this.ticked);
-
-    this.setState({
-      data: this.data,
-      links: this.links,
-      centralNodeId: newCenteralNodeId,
-    });
+        this.setState({
+          data: this.data,
+        });
+      });
   }
 
   toARTNodes(data) {
@@ -109,6 +86,8 @@ class GraphActivityDisplayContainer extends React.Component {
       radius: item.r,
       label: item.label,
       id: item.id,
+      nodeType: item.nodeType,
+      color: item.color,
     }));
     return nodes;
   }
@@ -129,7 +108,7 @@ class GraphActivityDisplayContainer extends React.Component {
 
   render() {
     const nodes = this.toARTNodes(this.state.data);
-    const edges = this.toARTEdges(this.state.links);
+    const edges = this.toARTEdges(this.links);
     return (
       <GraphActivityDisplayView
         goBack={this.props.goBack}
@@ -140,10 +119,122 @@ class GraphActivityDisplayContainer extends React.Component {
         reset={this.reset}
         navigateToActivityDisplayScreen={this.props.navigateToActivityDisplayScreen}
         navigateToInterlocutorDisplayScreen={this.props.navigateToInterlocutorDisplayScreen}
-        centralNodeId={this.state.centralNodeId}
+        centerNodeId={this.props.centerNodeId}
       />
     );
   }
 }
 
-export default GraphActivityDisplayContainer;
+const COLORS = ['#78A5A3', '#E1B16A', '#CE5A57'];
+function mapStateToProps(state, ownProps) {
+
+  const centerNodeId = state.graph.centerNodeId || ownProps.centerNodeId;
+  const centerNodeType = state.graph.centerNodeType || GraphNodeType.TAG; // tag at the launch
+
+  let adjacentNodesList = [];
+  let linksList = [];
+
+  const centralNode = {
+    id: GraphNodeType.TAG + '_' + centerNodeId,
+    label: 'CENTER',
+    r: 50,
+    x: Math.random() * Dimensions.get('window').width,
+    y: Math.random() * Dimensions.get('window').height,
+    fx: Dimensions.get('window').width / 2,
+    fy: Dimensions.get('window').height / 2,
+    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+    nodeType: centerNodeType,
+  };
+
+  switch (centerNodeType) {
+    case GraphNodeType.TAG:
+      adjacentNodesList = state.graph.adjacentActivitiesList.map(activity => ({
+        id: GraphNodeType.ACTIVITY + '_' + activity.id,
+        label: activity.title,
+        r: 50,
+        x: Math.random() * Dimensions.get('window').width,
+        y: Math.random() * Dimensions.get('window').height,
+        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        nodeType: activity.nodeType,
+      }));
+      linksList = state.graph.adjacentActivitiesList.map(activity => ({
+        id: activity.linkId,
+        source: adjacentNodesList.find(node => node.id === GraphNodeType.ACTIVITY + '_' + activity.id),
+        target: centralNode,
+      }));
+      break;
+
+    case GraphNodeType.ACTIVITY: {
+      const adjacentInterlocutorsList = state.graph.adjacentInterlocutorsList.map(interlocutor => ({
+        id: GraphNodeType.INTERLOCUTOR + '_' + interlocutor.id,
+        label: interlocutor.name,
+        r: 50,
+        x: Math.random() * Dimensions.get('window').width,
+        y: Math.random() * Dimensions.get('window').height,
+        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        nodeType: interlocutor.nodeType,
+      }));
+      const linksInterlocutorList = state.graph.adjacentInterlocutorsList.map(interlocutor => ({
+        id: interlocutor.linkId,
+        source: adjacentInterlocutorsList.find(node => node.id === GraphNodeType.INTERLOCUTOR + '_' + interlocutor.id),
+        target: centralNode,
+      }));
+
+      const adjacentTagsList = state.graph.adjacentTagsList.map(tag => ({
+        id: GraphNodeType.TAG + '_' + tag.id,
+        label: tag.name,
+        r: 50,
+        x: Math.random() * Dimensions.get('window').width,
+        y: Math.random() * Dimensions.get('window').height,
+        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        nodeType: tag.nodeType,
+      }));
+      const linksTagList = state.graph.adjacentTagsList.map(tag => ({
+        id: tag.linkId,
+        source: adjacentTagsList.find(node => node.id === GraphNodeType.TAG + '_' + tag.id),
+        target: centralNode,
+      }));
+
+      adjacentNodesList = adjacentInterlocutorsList.concat(adjacentTagsList);
+      linksList = linksInterlocutorList.concat(linksTagList);
+      break;
+    }
+
+    case GraphNodeType.INTERLOCUTOR:
+      adjacentNodesList = state.graph.adjacentActivitiesList.map(activity => ({
+        id: GraphNodeType.ACTIVITY + '_' + activity.id,
+        label: activity.title,
+        r: 50,
+        x: Math.random() * Dimensions.get('window').width,
+        y: Math.random() * Dimensions.get('window').height,
+        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        nodeType: activity.nodeType,
+      }));
+      linksList = state.graph.adjacentActivitiesList.map(activity => ({
+        id: activity.linkId,
+        source: adjacentNodesList.find(node => node.id === GraphNodeType.ACTIVITY + '_' + activity.id),
+        target: centralNode,
+      }));
+      break;
+
+    default:
+      break;
+  }
+
+  // adding the central node
+  const fullNodesList = adjacentNodesList.concat(centralNode);
+
+  return {
+    nodesList: fullNodesList,
+    linksList,
+    centerNodeId,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getAdjacentNodes: (nodeId, nodeType) => dispatch(getAdjacentNodes(nodeId, nodeType)),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GraphActivityDisplayContainer);

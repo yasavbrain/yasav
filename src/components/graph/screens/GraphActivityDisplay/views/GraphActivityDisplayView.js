@@ -31,7 +31,7 @@ export default class GraphActivityDisplayView extends React.Component {
         console.log("centrale node tap on", node.label);
         // this.props.navigateToActivityDisplayScreen(node.id);
       } else if (inCircle) {
-        this.props.reset(node.id);
+        this.props.reset(node.id, node.nodeType);
       }
     });
   }
