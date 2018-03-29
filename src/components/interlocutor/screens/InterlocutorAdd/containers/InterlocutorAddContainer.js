@@ -19,8 +19,8 @@ class InterlocutorAddContainer extends React.Component {
         id: null,
       },
       isFormValid: false,
-      interlocutorList: [],
-      displayInterlocutorList: true,
+      interlocutorListAutocomplete: [],
+      displayInterlocutorListAutocomplete: true,
     };
     this.update = this.update.bind(this);
     this.validateForm = this.validateForm.bind(this);
@@ -38,8 +38,8 @@ class InterlocutorAddContainer extends React.Component {
       {
         ...this.state,
         interlocutor: { ...this.state.interlocutor, name },
-        interlocutorList: this.props.interlocutorList.filter(item => item.name.startsWith(name)),
-        displayInterlocutorList: true,
+        interlocutorListAutocomplete: this.props.interlocutorList.filter(item => item.name.startsWith(name)),
+        displayInterlocutorListAutocomplete: true,
       },
       () => {
         this.validateForm();
@@ -68,7 +68,7 @@ class InterlocutorAddContainer extends React.Component {
           linkToMe: interlocutor.linkToMe || '',
           id: interlocutor.id,
         },
-        displayInterlocutorList: false,
+        displayInterlocutorListAutocomplete: false,
       },
       () => {
         this.validateForm();
@@ -96,9 +96,9 @@ class InterlocutorAddContainer extends React.Component {
         setName={this.setName}
         name={this.state.interlocutor.name}
         setLinkToMe={this.setLinkToMe}
-        interlocutorList={this.state.interlocutorList}
+        interlocutorListAutocomplete={this.state.interlocutorListAutocomplete}
         selectInterlocutor={this.selectInterlocutor}
-        displayInterlocutorList={this.state.displayInterlocutorList}
+        displayInterlocutorListAutocomplete={this.state.displayInterlocutorListAutocomplete}
       />
     );
   }

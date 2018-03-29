@@ -27,7 +27,7 @@ export default class InterlocutorAddView extends React.Component {
   renderLinkToMe() {
     // display this only if we do not know the interlocutor and then we need to
     // create another one
-    if (this.props.interlocutorList && this.props.interlocutorList.length === 0) {
+    if (this.props.interlocutorListAutocomplete && this.props.interlocutorListAutocomplete.length === 0) {
       return (
         <Item floatingLabel style={this.state.selectedInput === 'linkToMe' ? Style.inputWrapperSelected : Style.inputWrapper}>
           <Label>{I18n.t('interlocutor.interlocutorAdd.linkToMe')}</Label>
@@ -55,7 +55,7 @@ export default class InterlocutorAddView extends React.Component {
           />
         </Item>
         <FlatList
-          data={(this.props.displayInterlocutorList) ? this.props.interlocutorList : []}
+          data={(this.props.displayInterlocutorListAutocomplete) ? this.props.interlocutorListAutocomplete : []}
           renderItem={this.renderItem}
           keyExtractor={item => item.id}
         />

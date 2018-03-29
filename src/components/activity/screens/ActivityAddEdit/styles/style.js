@@ -11,6 +11,6 @@ export default StyleSheet.create({
   addTodoButton: {
     backgroundColor: Colors.primary,
     marginTop: 20,
-  }
+  },
 });
 
