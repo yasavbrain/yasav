@@ -27,11 +27,8 @@ export default class GraphActivityDisplayView extends React.Component {
         node.radius,
       );
 
-      if (inCircle && node.id === this.props.centralNodeId) {
-        console.log("centrale node tap on", node.label);
-        // this.props.navigateToActivityDisplayScreen(node.id);
-      } else if (inCircle) {
-        this.props.reset(node.id, node.nodeType);
+      if (inCircle) {
+        this.props.handleNodePress(node.id, node.nodeType);
       }
     });
   }

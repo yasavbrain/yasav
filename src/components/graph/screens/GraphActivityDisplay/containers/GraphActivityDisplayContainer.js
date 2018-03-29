@@ -22,6 +22,7 @@ class GraphActivityDisplayContainer extends React.Component {
     this.toARTNodes = this.toARTNodes.bind(this);
     this.toARTEdges = this.toARTEdges.bind(this);
     this.ticked = this.ticked.bind(this);
+    this.handleNodePress = this.handleNodePress.bind(this);
     this.reset = this.reset.bind(this);
     this.width = Dimensions.get('window').width;
     this.height = Dimensions.get('window').height;
@@ -56,6 +57,24 @@ class GraphActivityDisplayContainer extends React.Component {
       node.y = Math.max(node.r, Math.min(this.height - node.r, node.y))
     })
     this.setState({ data: this.data });
+  }
+
+  handleNodePress(nodeId, nodeType) {
+    const { centerNodeId, centerNodeType } = this.props;
+    if (nodeId.slice(2) === centerNodeId) {
+      switch (centerNodeType) {
+        case GraphNodeType.ACTIVITY:
+          this.props.navigateToActivityDisplayScreen(centerNodeId);
+          break;
+        case GraphNodeType.INTERLOCUTOR:
+          this.props.navigateToInterlocutorDisplayScreen(centerNodeId);
+          break;
+        default:
+          break;
+      }
+    } else {
+      this.reset(nodeId, nodeType);
+    }
   }
 
   reset(newCenteralNodeId, nodeType) {
@@ -116,10 +135,7 @@ class GraphActivityDisplayContainer extends React.Component {
         height={this.height}
         nodes={nodes}
         edges={edges}
-        reset={this.reset}
-        navigateToActivityDisplayScreen={this.props.navigateToActivityDisplayScreen}
-        navigateToInterlocutorDisplayScreen={this.props.navigateToInterlocutorDisplayScreen}
-        centerNodeId={this.props.centerNodeId}
+        handleNodePress={this.handleNodePress}
       />
     );
   }
@@ -228,6 +244,7 @@ function mapStateToProps(state, ownProps) {
     nodesList: fullNodesList,
     linksList,
     centerNodeId,
+    centerNodeType,
   };
 }
 
