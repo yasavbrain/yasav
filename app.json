@@ -5,6 +5,7 @@
     "version": "0.1.0",
     "slug": "yasav",
     "sdkVersion": "23.0.0",
+    "orientation": "portrait",
     "androidStatusBarColor": "#44546A",
     "androidStatusBar": {
       "barStyle": "light-content",

@@ -4,7 +4,7 @@ import Colors from 'yasav/src/styles/Colors';
 export default StyleSheet.create({
   textarea: {
     textAlignVertical: 'top',
-    height: 200,
+    height: 150,
     marginTop: 5,
     marginBottom: 10,
   },

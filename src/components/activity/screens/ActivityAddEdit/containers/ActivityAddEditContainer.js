@@ -5,7 +5,7 @@ import 'moment/locale/fr';
 import { ActivityTypeEnum } from 'yasav/src/const';
 import { addInterlocutor } from 'yasav/src/components/interlocutor/screens/InterlocutorAdd/actions/index';
 import ActivityAddEditView from '../views/ActivityAddEditView';
-import { addActivity, editActivity, addTags } from '../actions/index';
+import { addActivity, editActivity, addTags, getTags } from '../actions/index';
 import { getActivityFromId } from '../../ActivityDisplay/actions/index';
 
 moment.locale('fr');
@@ -19,7 +19,6 @@ class ActivityAddEditContainer extends React.Component {
     }
     this.state = {
       isFormValid: false,
-      tagInput: '',
       activity: {
         title: '',
         description: '',
@@ -29,6 +28,8 @@ class ActivityAddEditContainer extends React.Component {
         tags: [],
       },
       interlocutor: null,
+      autocompleteTagList: [],
+      cursor: null,
     };
 
     this.addActivity = this.addActivity.bind(this);
@@ -40,14 +41,16 @@ class ActivityAddEditContainer extends React.Component {
     this.setContentSource = this.setContentSource.bind(this);
     this.setDescription = this.setDescription.bind(this);
     this.setTitle = this.setTitle.bind(this);
-    this.manageTag = this.manageTag.bind(this);
-    this.removeTag = this.removeTag.bind(this);
     this.validateForm = this.validateForm.bind(this);
     this.getInterlocutorState = this.getInterlocutorState.bind(this);
     this.cleanTags = this.cleanTags.bind(this);
+    this.clanTag = this.clanTag.bind(this);
+    this.onSelectionChange = this.onSelectionChange.bind(this);
+    this.selectTag = this.selectTag.bind(this);
   }
 
   componentDidMount() {
+    this.props.getTags();
     if (this.props.id !== -1) {
       this.props.getActivityFromId(this.props.id)
         .then(() => {
@@ -60,6 +63,37 @@ class ActivityAddEditContainer extends React.Component {
         });
     }
   }
+
+
+  onSelectionChange(e) {
+    const pos = e.nativeEvent.selection;
+    let isUpdated = false;
+    if (pos.start === pos.end) {
+      const descriptionToCursor = this.state.activity.description.substr(0, pos.start);
+      const tagBegin = descriptionToCursor.lastIndexOf('#');
+      if (tagBegin > -1) {
+        const tagToSearch = descriptionToCursor.substr(tagBegin);
+        if (tagToSearch.indexOf(' ') === -1) {
+          if (tagToSearch.length > 1) { // If length == 1, then it's just "#"
+            const slugBeginningToTest = this.clanTag(tagToSearch);
+            isUpdated = true;
+            this.setState({
+              ...this.state,
+              cursor: pos.start,
+              autocompleteTagList: this.props.tagList.filter(item => item.slug.indexOf(slugBeginningToTest) > -1),
+            });
+          }
+        }
+      }
+    }
+    if (isUpdated === false) {
+      this.setState({
+        ...this.state,
+        autocompleteTagList: [],
+      });
+    }
+  }
+
 
   getInterlocutorState(interlocutor) {
     this.setState({ ...this.state, interlocutor });
@@ -75,7 +109,7 @@ class ActivityAddEditContainer extends React.Component {
   setDescription(description) {
     this.setState({
       ...this.state,
-      activity: { ...this.state.activity, description, tags: this.cleanTags(description.match(/#\S+/g))},
+      activity: { ...this.state.activity, description, tags: this.cleanTags(description.match(/#\S+/g)) },
     }, this.validateForm);
   }
 
@@ -107,20 +141,37 @@ class ActivityAddEditContainer extends React.Component {
     }, this.validateForm);
   }
 
+  selectTag(name) {
+    const previousDescription = this.state.activity.description;
+    let descriptionBegin = previousDescription.substr(0, this.state.cursor);
+    descriptionBegin = descriptionBegin.substr(0, descriptionBegin.lastIndexOf('#'));
+
+    let descriptionEnd = previousDescription.substr(this.state.cursor);
+    if (descriptionEnd.indexOf(' ') > 0) {
+      descriptionEnd = descriptionEnd.substr(descriptionEnd.indexOf(' '));
+    } else {
+      descriptionEnd = '';
+    }
+    const description = `${descriptionBegin}#${name}${descriptionEnd}`;
+    this.setState({
+      ...this.state,
+      activity: { ...this.state.activity, description, tags: this.cleanTags(description.match(/#\S+/g)) },
+      autocompleteTagList: [],
+    });
+  }
+
   addActivity() {
     if (this.state.activity.type === ActivityTypeEnum.MEETING) {
-      let promises = [this.props.addInterlocutor(this.state.interlocutor), this.props.addTags(this.state.activity.tags)]
+      const promises = [this.props.addInterlocutor(this.state.interlocutor), this.props.addTags(this.state.activity.tags)];
       Promise.all(promises)
-        .then (results => {
-          this.props.addActivity(this.state.activity, tagsId = results[1], interlocutorId = results[0])
-        }
-        );
+        .then((results) => {
+          this.props.addActivity(this.state.activity, tagsId = results[1], interlocutorId = results[0]);
+        });
     } else {
       this.props.addTags(this.state.activity.tags)
-      .then(tagsId => {
-        this.props.addActivity(this.state.activity, tagsId)
-      
-      });
+        .then((tagsId) => {
+          this.props.addActivity(this.state.activity, tagsId);
+        });
     }
     this.props.goBack();
   }
@@ -151,40 +202,6 @@ class ActivityAddEditContainer extends React.Component {
     this.props.navigateToTodoAddScreen(this.state.activity.id);
   }
 
-  removeTag(tag) {
-    this.setState({
-      ...this.state,
-      activity: {
-        ...this.state.activity,
-        tags: this.state.activity.tags.filter(item => item !== tag),
-      },
-    });
-  }
-
-  manageTag(string) {
-    if (string.indexOf(',') !== -1) {
-      const newTagsRessource = string.split(',');
-      const newTags = [];
-      newTagsRessource.forEach((element) => {
-        const elt = element.trim();
-        if (elt !== '') {
-          newTags.push(elt);
-        }
-      });
-      const concatenated = this.state.activity.tags.concat(newTags);
-      const updatedState = concatenated.filter((item, pos) =>
-        concatenated.indexOf(item) === pos);
-
-      this.setState({
-        ...this.state,
-        tagInput: '',
-        activity: { ...this.state.activity, tags: updatedState },
-      });
-    } else {
-      this.setState({ ...this.state, tagInput: string });
-    }
-  }
-
   validateForm() {
     let isFormValid = true;
     if (this.state.activity.type === ActivityTypeEnum.CONTENT) {
@@ -197,31 +214,34 @@ class ActivityAddEditContainer extends React.Component {
 
   cleanTags(tags) {
     if (tags) {
-      newTags = []
+      newTags = [];
       tags.forEach((tag) => {
         newTag = {
-          slug: this.replaceAccent(tag.toLowerCase()).replace(/[^a-zA-Z0-9]/g, ""), 
-          value: tag.substr(1)
-        }
-        newTags = newTags.concat(newTag)
-      })
-      return newTags
+          slug: this.clanTag(tag),
+          value: tag.substr(1),
+        };
+        newTags = newTags.concat(newTag);
+      });
+      return newTags;
     }
-    return tags
+    return tags;
+  }
+
+  clanTag(tag) {
+    return this.replaceAccent(tag.toLowerCase()).replace(/[^a-zA-Z0-9]/g, '');
   }
 
   replaceAccent(tag) {
-    var strAccents = tag.split('');
-		var strAccentsOut = new Array();
-		var strAccentsLen = strAccents.length;
-		var accents = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
-		var accentsOut = "AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz";
-		for (var y = 0; y < strAccentsLen; y++) {
-			if (accents.indexOf(strAccents[y]) != -1) {
-				strAccentsOut[y] = accentsOut.substr(accents.indexOf(strAccents[y]), 1);
-			} else
-				strAccentsOut[y] = strAccents[y];
-		}
+    const strAccents = tag.split('');
+    let strAccentsOut = new Array();
+    const strAccentsLen = strAccents.length;
+    const accents = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
+    const accentsOut = 'AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz';
+    for (let y = 0; y < strAccentsLen; y++) {
+      if (accents.indexOf(strAccents[y]) != -1) {
+        strAccentsOut[y] = accentsOut.substr(accents.indexOf(strAccents[y]), 1);
+      } else { strAccentsOut[y] = strAccents[y]; }
+    }
     strAccentsOut = strAccentsOut.join('');
     return strAccentsOut;
   }
@@ -241,12 +261,12 @@ class ActivityAddEditContainer extends React.Component {
         setTypeMeeting={this.setTypeMeeting}
         setTypeContent={this.setTypeContent}
         activity={this.state.activity}
-        manageTag={this.manageTag}
-        tagInput={this.state.tagInput}
-        removeTag={this.removeTag}
         isFormValid={this.state.isFormValid}
         getInterlocutorState={this.getInterlocutorState}
         isEdit={this.props.id !== -1}
+        onSelectionChange={this.onSelectionChange}
+        autocompleteTagList={this.state.autocompleteTagList}
+        selectTag={this.selectTag}
       />
     );
   }
@@ -255,6 +275,7 @@ class ActivityAddEditContainer extends React.Component {
 function mapStateToProps(state) {
   return {
     activityDisplay: state.activity.activityDisplay,
+    tagList: state.activity.tagList,
   };
 }
 
@@ -264,7 +285,8 @@ function mapDispatchToProps(dispatch) {
     addActivity: (activity, interlocutorId) => dispatch(addActivity(activity, interlocutorId)),
     addInterlocutor: interlocutor => dispatch(addInterlocutor(interlocutor)),
     getActivityFromId: id => dispatch(getActivityFromId(id)),
-    addTags: (tags) => dispatch(addTags(tags))
+    getTags: () => dispatch(getTags()),
+    addTags: tags => dispatch(addTags(tags)),
   };
 }
 
