@@ -62,11 +62,19 @@ export default {
       title: 'Liste de mes interlocuteurs',
     },
     interlocutorDisplay: {
-      title: 'Interlocutor Display'
+      title: 'Interlocutor Display',
     },
   },
   search: {
     searchBar: 'Search',
-    globalSearchTitle: 'Search'
+    globalSearchTitle: 'Search',
+  },
+  graph: {
+    graphActivityDisplay: {
+      title: 'Visualisation',
+    },
+    graphTagDisplay: {
+      title: 'Tags',
+    },
   },
 };

@@ -40,7 +40,7 @@ class GraphActivityDisplayContainer extends React.Component {
         this.data = this.props.nodesList;
         this.links = this.props.linksList;
         this.force = d3.force.forceSimulation(this.data)
-          .force('charge', d3.force.forceManyBody(-300).distanceMax(this.height / 2))
+          .force('charge', d3.force.forceManyBody())//.distanceMax(this.height / 2))
           .force('link', d3.force.forceLink(this.links).distance(200))
           // .force('radial', d3.force.forceRadial(500, this.width / 2, this.height / 2))
           // .force('center', d3.force.forceCenter(this.width / 2, this.height / 2))

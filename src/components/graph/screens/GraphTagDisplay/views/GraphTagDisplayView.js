@@ -151,7 +151,7 @@ export default class GraphTagDisplayView extends React.Component {
       <Container>
         <GenericHeader
           goBack={this.props.goBack}
-          title={I18n.t('activity.activityDisplay.title')}
+          title={I18n.t('graph.graphTagDisplay.title')}
         />
         <View {...this._panResponder.panHandlers}>
           <ART.Surface width={this.props.width} height={this.props.height}>

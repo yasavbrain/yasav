@@ -55,6 +55,8 @@ export class ARTNode extends React.Component {
     // For the label the upper left corner is the reference
     const xLabel = radius;
     const yLabel = radius - 7;
+    // FIXME : multiline does not work for now
+    // for doc, see https://github.com/facebook/react-native/blob/master/Libraries/ART/ReactNativeART.js
     const multiLineLabel = label.split(' ').join('\n');
     return (
       <ART.Group x={x} y={y}>
