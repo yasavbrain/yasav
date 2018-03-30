@@ -48,6 +48,8 @@ class ActivityAddEditContainer extends React.Component {
     this.onSelectionChange = this.onSelectionChange.bind(this);
     this.selectTag = this.selectTag.bind(this);
     this.updateSearchTags = this.updateSearchTags.bind(this);
+
+    this.lock = false;
   }
 
   componentDidMount() {
@@ -70,6 +72,13 @@ class ActivityAddEditContainer extends React.Component {
     this.setState({
       ...this.state,
       cursor: pos,
+    }, () => {
+      if (this.lock) {
+        this.lock = false;
+        this.updateSearchTags()
+      } else {
+        this.lock = true;
+      }
     });
   }
 
@@ -89,7 +98,15 @@ class ActivityAddEditContainer extends React.Component {
     this.setState({
       ...this.state,
       activity: { ...this.state.activity, description, tags: this.cleanTags(description.match(/#\S+/g)) },
-    }, () => { this.updateSearchTags(); this.validateForm(); });
+    }, () => { 
+      if (this.lock) {
+        this.lock = false;
+        this.updateSearchTags()
+      } else {
+        this.lock = true;
+      }
+      this.validateForm(); 
+    });
   }
 
   setContentSource(source) {
