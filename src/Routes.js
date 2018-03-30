@@ -21,35 +21,17 @@ import GraphTagDisplayScreen from './components/graph/screens/GraphTagDisplay/Gr
 import SearchScreen from './components/search/screens/Search/SearchScreen';
 import GraphActivityDisplayScreen from './components/graph/screens/GraphActivityDisplay/GraphActivityDisplayScreen';
 
-// const OldRoutes = StackNavigator({
-//   HomeScreen: { screen: HomeScreen },
-//   ActivityListScreen: { screen: ActivityListScreen },
-//   ActivityDisplayScreen: { screen: ActivityDisplayScreen },
-//   ActivityAddScreen: { screen: ActivityAddScreen },
-//   ActivityEditScreen: { screen: ActivityEditScreen },
-//   TodoListScreen: { screen: TodoListScreen },
-//   TodoAddScreen: { screen: TodoAddScreen },
-//   InterlocutorListScreen: { screen: InterlocutorListScreen },
-//   InterlocutorDisplayScreen: { screen: InterlocutorDisplayScreen },
-// }, {
-//   headerMode: 'none',
-//   cardStyle: {
-//     paddingTop: Platform.OS === 'ios' || Platform.Version > 20 ? 0 : StatusBar.currentHeight,
-//   },
-//
-// });
-
+/*
 const TodoStack = StackNavigator({
   TodoListScreen: { screen: TodoListScreen },
-  TodoAddScreen: { screen: TodoAddScreen },
 }, {
   headerMode: 'none',
-});
+});*/
 
 const TabNav = TabNavigator(
   {
     TodosTab: {
-      screen: TodoStack,
+      screen: TodoListScreen,
       navigationOptions: {
         tabBarLabel: I18n.t('navigation.todoTab'),
       },
@@ -132,6 +114,12 @@ const Routes = StackNavigator({
   },
   GraphTagDisplayScreen: {
     screen: GraphTagDisplayScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  TodoAddScreen: { 
+    screen: TodoAddScreen,
     navigationOptions: {
       header: null,
     },

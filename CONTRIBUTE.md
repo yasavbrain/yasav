@@ -1,16 +1,16 @@
 # Things to know if you want to contribute to YAsAv
 
-## File organisation
+## The File organisation
 
 ```
-.
 ├── package.json
 ├── app.json
+├── locales - The locales files, for I18N
 ├── src
 │   ├── App.js - Main App Component
-│   ├── Routes.js - Routes 
-│   ├── assets (img/fonts ?)
-│   ├── viewElements - Reusable Components
+│   ├── Routes.js - The Routes of the app
+│   ├── assets (img/fonts)
+│   ├── viewElements - Reusable Components 
 │   │   ├── activty
 │   │   │   ├── Card.js
 │   │   │   └── List.js
@@ -61,16 +61,17 @@
 │   │   │   └── reducers
 │   │   │       ├── index.js - Redux Module 
 │   │   │       └── reducers.js - Redux Module Reducers
+│   │   └── ...
 │   ├── store
 │   │   ├── store.js
 │   │   └── reducers.js
 │   ├── styles
-│   │   ├── commonStyle.js
+│   │   ├── commonStyles.js
 │   │   └── ...
 │   └── utils
-│       ├── date-utils.js
-│       ├── string-utils.js
-│       ├── storage-utils.js
-│       └── responsive-utils.js
+│       ├── database-utils.js
+│       └── globalFunctions.js
 └── yarn.lock
 ```
+
+## 
