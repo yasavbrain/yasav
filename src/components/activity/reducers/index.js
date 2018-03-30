@@ -1,5 +1,5 @@
-import { ADD_ACTIVITY, EDIT_ACTIVITY, GET_TAG_LIST, GET_TAG_ID } from '../screens/ActivityAddEdit/actions/types';
-import { GET_ACTIVITY_BY_ID, DELETE_ACTIVITY } from '../screens/ActivityDisplay/actions/types';
+import { ADD_ACTIVITY, EDIT_ACTIVITY, GET_TAG_LIST } from '../screens/ActivityAddEdit/actions/types';
+import { GET_ACTIVITY_BY_ID, DELETE_ACTIVITY, GET_TAG_ID } from '../screens/ActivityDisplay/actions/types';
 import { GET_ACTIVITY_LIST } from '../screens/ActivityList/actions/types';
 
 // To be deleted when activity add is working
