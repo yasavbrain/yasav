@@ -38,7 +38,7 @@ export default class GraphActivityDisplayView extends React.Component {
       <Container>
         <GenericHeader
           goBack={this.props.goBack}
-          title={I18n.t('activity.activityDisplay.title')}
+          title={I18n.t('graph.graphActivityDisplay.title')}
         />
         <TouchableWithoutFeedback onPress={this.handlePress}>
           <View>

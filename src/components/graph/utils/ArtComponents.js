@@ -30,9 +30,15 @@ export class ARTLine extends React.Component {
 
 export class ARTText extends React.Component {
   render() {
+    // 13pt = 17px
+    // 14pt = 19px
     return (
       <ART.Text
-        font={'14 px "Helvetica Neue", "Helvetica", Arial'}
+        font={{
+          fontFamily: 'Helvetica Neue',
+          fontSize: 14,
+        }}
+        alignment="center"
         fill="#000000"
         x={this.props.x}
         y={this.props.y}
@@ -47,12 +53,15 @@ export class ARTNode extends React.Component {
   render() {
     const { x, y, radius, label, color, ...rest } = this.props;
     // For the label the upper left corner is the reference
-    const xLabel = radius - 14;
-    const yLabel = radius;
+    const xLabel = radius;
+    const yLabel = radius - 7;
+    // FIXME : multiline does not work for now
+    // for doc, see https://github.com/facebook/react-native/blob/master/Libraries/ART/ReactNativeART.js
+    const multiLineLabel = label.split(' ').join('\n');
     return (
       <ART.Group x={x} y={y}>
         <ARTCircle radius={radius} color={color} />
-        <ARTText label={label} x={xLabel} y={yLabel} />
+        <ARTText label={multiLineLabel} x={xLabel} y={yLabel} />
       </ART.Group>
     );
   }
