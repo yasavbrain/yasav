@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import { GET_ACTIVITY_BY_ID, DELETE_ACTIVITY } from './types';
+import { GET_ACTIVITY_BY_ID, DELETE_ACTIVITY, GET_TAG_ID } from './types';
 import { executeSql } from 'yasav/src/Database';
 
 export function getActivityFromId(id) {
@@ -29,6 +29,23 @@ export function getActivityFromId(id) {
     dispatch({ type: GET_ACTIVITY_BY_ID, activity });
   });
 }
+
+export function getTagIdByName(slug) {
+  return (dispatch, getState) => executeSql(
+    `SELECT id, name, slug 
+    FROM tag
+    WHERE slug = ?`,
+    [slug])
+    .then((res) => {
+      const tagList = res.rows._array.map(tag => ({
+        name: tag.name,
+        slug: tag.slug,
+        id: tag.id,
+      }));
+      return dispatch({ type: GET_TAG_ID, tagId: tagList[0].id });
+    });
+}
+
 
 export function deleteActivity(activityId) {
   return dispatch => executeSql(

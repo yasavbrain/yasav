@@ -7,6 +7,7 @@ import { addInterlocutor } from 'yasav/src/components/interlocutor/screens/Inter
 import ActivityAddEditView from '../views/ActivityAddEditView';
 import { addActivity, editActivity, addTags, getTags } from '../actions/index';
 import { getActivityFromId } from '../../ActivityDisplay/actions/index';
+import { cleanTag } from 'yasav/src/utils/functions'
 
 moment.locale('fr');
 
@@ -44,10 +45,11 @@ class ActivityAddEditContainer extends React.Component {
     this.validateForm = this.validateForm.bind(this);
     this.getInterlocutorState = this.getInterlocutorState.bind(this);
     this.cleanTags = this.cleanTags.bind(this);
-    this.clanTag = this.clanTag.bind(this);
     this.onSelectionChange = this.onSelectionChange.bind(this);
     this.selectTag = this.selectTag.bind(this);
     this.updateSearchTags = this.updateSearchTags.bind(this);
+
+    this.lock = false;
   }
 
   componentDidMount() {
@@ -65,45 +67,18 @@ class ActivityAddEditContainer extends React.Component {
     }
   }
 
-  updateSearchTags() {
-    const pos = this.state.cursor;
-    let isUpdated = false;
-    if (pos.start === pos.end) {
-      console.log("Test 0")
-      const descriptionToCursor = this.state.activity.description.substr(0, pos.start);
-      const tagBegin = descriptionToCursor.lastIndexOf('#');
-      if (tagBegin > -1) {
-        console.log("Test 1")
-        const tagToSearch = descriptionToCursor.substr(tagBegin);
-        if (tagToSearch.indexOf(' ') === -1) {
-          console.log("Test 2")
-          console.log(tagToSearch)
-          if (tagToSearch.length > 1) { // If length == 1, then it's just "#"
-            const slugBeginningToTest = this.clanTag(tagToSearch);
-            isUpdated = true;
-            console.log("Search")
-            this.setState({
-              ...this.state,
-              autocompleteTagList: this.props.tagList.filter(item => item.slug.indexOf(slugBeginningToTest) > -1 && item.slug !== slugBeginningToTest),
-            });
-          }
-        }
-      }
-    }
-    if (isUpdated === false) {
-      console.log("no search")
-      this.setState({
-        ...this.state,
-        autocompleteTagList: [],
-      });
-    }
-  }
-
   onSelectionChange(e) {
     const pos = e.nativeEvent.selection;
     this.setState({
       ...this.state,
       cursor: pos,
+    }, () => {
+      if (this.lock) {
+        this.lock = false;
+        this.updateSearchTags()
+      } else {
+        this.lock = true;
+      }
     });
   }
 
@@ -123,7 +98,15 @@ class ActivityAddEditContainer extends React.Component {
     this.setState({
       ...this.state,
       activity: { ...this.state.activity, description, tags: this.cleanTags(description.match(/#\S+/g)) },
-    }, () => { this.updateSearchTags(); this.validateForm(); });
+    }, () => { 
+      if (this.lock) {
+        this.lock = false;
+        this.updateSearchTags()
+      } else {
+        this.lock = true;
+      }
+      this.validateForm(); 
+    });
   }
 
   setContentSource(source) {
@@ -152,6 +135,34 @@ class ActivityAddEditContainer extends React.Component {
       ...this.state,
       activity: { ...this.state.activity, type: ActivityTypeEnum.EVENT },
     }, this.validateForm);
+  }
+
+  updateSearchTags() {
+    const pos = this.state.cursor;
+    let isUpdated = false;
+    if (pos && pos.start === pos.end) {
+      const descriptionToCursor = this.state.activity.description.substr(0, pos.start);
+      const tagBegin = descriptionToCursor.lastIndexOf('#');
+      if (tagBegin > -1) {
+        const tagToSearch = descriptionToCursor.substr(tagBegin);
+        if (tagToSearch.indexOf(' ') === -1) {
+          if (tagToSearch.length > 1) { // If length == 1, then it's just "#"
+            const slugBeginningToTest = cleanTag(tagToSearch);
+            isUpdated = true;
+            this.setState({
+              ...this.state,
+              autocompleteTagList: this.props.tagList.filter(item => item.slug.indexOf(slugBeginningToTest) > -1 && item.slug !== slugBeginningToTest),
+            });
+          }
+        }
+      }
+    }
+    if (isUpdated === false) {
+      this.setState({
+        ...this.state,
+        autocompleteTagList: [],
+      });
+    } 
   }
 
   selectTag(name) {
@@ -229,10 +240,10 @@ class ActivityAddEditContainer extends React.Component {
 
   cleanTags(tags) {
     if (tags) {
-      newTags = [];
+      let newTags = [];
       tags.forEach((tag) => {
-        newTag = {
-          slug: this.clanTag(tag),
+        const newTag = {
+          slug: cleanTag(tag),
           value: tag.substr(1),
         };
         newTags = newTags.concat(newTag);
@@ -240,25 +251,6 @@ class ActivityAddEditContainer extends React.Component {
       return newTags;
     }
     return tags;
-  }
-
-  clanTag(tag) {
-    return this.replaceAccent(tag.toLowerCase()).replace(/[^a-zA-Z0-9]/g, '');
-  }
-
-  replaceAccent(tag) {
-    const strAccents = tag.split('');
-    let strAccentsOut = new Array();
-    const strAccentsLen = strAccents.length;
-    const accents = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
-    const accentsOut = 'AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz';
-    for (let y = 0; y < strAccentsLen; y++) {
-      if (accents.indexOf(strAccents[y]) != -1) {
-        strAccentsOut[y] = accentsOut.substr(accents.indexOf(strAccents[y]), 1);
-      } else { strAccentsOut[y] = strAccents[y]; }
-    }
-    strAccentsOut = strAccentsOut.join('');
-    return strAccentsOut;
   }
 
 

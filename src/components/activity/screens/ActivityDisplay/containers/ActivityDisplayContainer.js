@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ActivityDisplayView from '../views/ActivityDisplayView';
 import ActivityDisplayError from '../views/ActivityDisplayError';
-import { getActivityFromId, deleteActivity } from '../actions/index';
+import { getActivityFromId, deleteActivity, getTagIdByName } from '../actions/index';
+import { cleanTag } from 'yasav/src/utils/functions'
 
 class ActivityDisplayScreen extends React.Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class ActivityDisplayScreen extends React.Component {
 
     this.deleteActivity = this.deleteActivity.bind(this);
     this.navigateToEditActivity = this.navigateToEditActivity.bind(this);
+    this.navigateToGraphActivityDisplayScreen = this.navigateToGraphActivityDisplayScreen.bind(this);
   }
 
   componentDidMount() {
@@ -28,6 +30,12 @@ class ActivityDisplayScreen extends React.Component {
     this.props.navigateToEditActivity(this.props.activityDisplay.activity.id);
   }
 
+  navigateToGraphActivityDisplayScreen(tag) {
+    this.props.getTagIdByName(cleanTag(tag)).then(() => {
+      this.props.navigateToGraphActivityDisplayScreen(this.props.tagId, tag);
+    });
+  }
+
   render() {
     if (this.props.activityDisplay) {
       return (
@@ -36,6 +44,7 @@ class ActivityDisplayScreen extends React.Component {
           activityAndInterlocutor={this.props.activityDisplay}
           navigateToEditActivity={this.navigateToEditActivity}
           deleteActivity={this.deleteActivity}
+          navigateToGraphActivityDisplayScreen={this.navigateToGraphActivityDisplayScreen}
         />
       );
     }
@@ -51,6 +60,7 @@ class ActivityDisplayScreen extends React.Component {
 function mapStateToProps(state) {
   return {
     activityDisplay: state.activity.activityDisplay,
+    tagId: state.activity.activityDisplaySelectedTag,
   };
 }
 
@@ -58,6 +68,7 @@ function mapDispatchToProps(dispatch) {
   return {
     getActivityFromId: id => dispatch(getActivityFromId(id)),
     deleteActivity: id => dispatch(deleteActivity(id)),
+    getTagIdByName: name => dispatch(getTagIdByName(name)),
   };
 }
 

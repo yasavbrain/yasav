@@ -43,7 +43,7 @@ export default StyleSheet.create({
   },
   tag: {
     color: Colors.primary,
-    fontWeight: '500',
+    fontWeight: 'bold',
   }
 });
 
