@@ -65,40 +65,6 @@ class ActivityAddEditContainer extends React.Component {
     }
   }
 
-  updateSearchTags() {
-    const pos = this.state.cursor;
-    let isUpdated = false;
-    if (pos.start === pos.end) {
-      console.log("Test 0")
-      const descriptionToCursor = this.state.activity.description.substr(0, pos.start);
-      const tagBegin = descriptionToCursor.lastIndexOf('#');
-      if (tagBegin > -1) {
-        console.log("Test 1")
-        const tagToSearch = descriptionToCursor.substr(tagBegin);
-        if (tagToSearch.indexOf(' ') === -1) {
-          console.log("Test 2")
-          console.log(tagToSearch)
-          if (tagToSearch.length > 1) { // If length == 1, then it's just "#"
-            const slugBeginningToTest = cleanTag(tagToSearch);
-            isUpdated = true;
-            console.log("Search")
-            this.setState({
-              ...this.state,
-              autocompleteTagList: this.props.tagList.filter(item => item.slug.indexOf(slugBeginningToTest) > -1 && item.slug !== slugBeginningToTest),
-            });
-          }
-        }
-      }
-    }
-    if (isUpdated === false) {
-      console.log("no search")
-      this.setState({
-        ...this.state,
-        autocompleteTagList: [],
-      });
-    }
-  }
-
   onSelectionChange(e) {
     const pos = e.nativeEvent.selection;
     this.setState({
@@ -152,6 +118,34 @@ class ActivityAddEditContainer extends React.Component {
       ...this.state,
       activity: { ...this.state.activity, type: ActivityTypeEnum.EVENT },
     }, this.validateForm);
+  }
+
+  updateSearchTags() {
+    const pos = this.state.cursor;
+    let isUpdated = false;
+    if (pos && pos.start === pos.end) {
+      const descriptionToCursor = this.state.activity.description.substr(0, pos.start);
+      const tagBegin = descriptionToCursor.lastIndexOf('#');
+      if (tagBegin > -1) {
+        const tagToSearch = descriptionToCursor.substr(tagBegin);
+        if (tagToSearch.indexOf(' ') === -1) {
+          if (tagToSearch.length > 1) { // If length == 1, then it's just "#"
+            const slugBeginningToTest = cleanTag(tagToSearch);
+            isUpdated = true;
+            this.setState({
+              ...this.state,
+              autocompleteTagList: this.props.tagList.filter(item => item.slug.indexOf(slugBeginningToTest) > -1 && item.slug !== slugBeginningToTest),
+            });
+          }
+        }
+      }
+    }
+    if (isUpdated === false) {
+      this.setState({
+        ...this.state,
+        autocompleteTagList: [],
+      });
+    } 
   }
 
   selectTag(name) {
