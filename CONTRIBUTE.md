@@ -74,4 +74,10 @@
 └── yarn.lock
 ```
 
-## 
+## Linting
+
+We use the Airbnb base for ESLinting
+
+## Pushing code to the project
+
+Just do a pull request, and we will validate it if it's okay !
