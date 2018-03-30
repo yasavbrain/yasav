@@ -18,15 +18,15 @@ export function getInterlocutorList() {
 
 export function getInterlocutorListFromRequest(request) {
   if (request.length > 0) {
-    requestList = request.split(' ');
+    const requestList = request.split(' ');
     return (dispatch, getState) => {
       let promises = [];
-      request = `SELECT name, link_to_me, id 
+      requestSql = `SELECT name, link_to_me, id 
       FROM interlocutor
       WHERE name LIKE ? OR link_to_me LIKE ?`;
       requestList.forEach((term) => {
         if (term.length > 0) {
-          promises = promises.concat(executeSql(request, [`%${  term  }%`, `%${  term  }%`]));
+          promises = promises.concat(executeSql(requestSql, [`%${  term  }%`, `%${  term  }%`]));
         }
       });
       return Promise.all(promises)
@@ -59,6 +59,8 @@ export function getInterlocutorListFromRequest(request) {
         });
     };
   }
-  const interlocutorListFromRequest = [];
-  return dispatch => dispatch({ type: GET_INTERLOCUTOR_LIST_FROM_REQUEST, interlocutorListFromRequest });
+  else {
+    const interlocutorListFromRequest = [];
+    return dispatch => dispatch({ type: GET_INTERLOCUTOR_LIST_FROM_REQUEST, interlocutorListFromRequest });
+  }
 }

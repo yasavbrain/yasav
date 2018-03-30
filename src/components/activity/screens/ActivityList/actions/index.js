@@ -34,25 +34,31 @@ export function getActivityList() {
 
 export function getActivityListFromRequest(request) {
   if (request.length > 0) {
-    requestList = request.split(' ');
+    const requestList = request.split(' ');
+    for (var i = requestList.length; i--;) {
+      if (requestList[i] === '') { requestList.splice(i, 1) };
+    }
     return (dispatch, getState) => {
       let promises = [];
-      request = `SELECT id, title, description, activity_date, content_source, type, interlocutor_id
+      requestSql = `SELECT id, title, description, activity_date, content_source, type, interlocutor_id
       FROM activity
       WHERE title LIKE ?
       OR description LIKE ?`;
       requestList.forEach((term) => {
         if (term.length > 0) {
-          promises = promises.concat(executeSql(request, [`%${  term  }%`, `%${  term  }%`]));
+          promises = promises.concat(executeSql(requestSql, [`%${  term  }%`, `%${  term  }%`]));
         }
       });
       return Promise.all(promises)
         .then((res) => {
           let activityListFrequency = {}; // Key : activity_id ; Value : [activity object, frequency]
+          let indexTermRequest = 0;
           res.forEach((r) => {
+            const regex = new RegExp(requestList[indexTermRequest].toLowerCase(),"g");
             r.rows._array.forEach((activity) => {
+              let frequencyActivity = (activity.title.toLowerCase().match(regex) || []).length + (activity.description.toLowerCase().match(regex) || []).length;
               if (activity.id in activityListFrequency) {
-                activityListFrequency[activity.id][1] += 1;
+                activityListFrequency[activity.id][1] += 1 + Math.log(frequencyActivity);
               } else {
                 activityListFrequency[activity.id] = [{
                   activity: {
@@ -64,9 +70,10 @@ export function getActivityListFromRequest(request) {
                     type: activity.type,
                     interlocutor_id: activity.interlocutor_id,
                   },
-                },1];
+                }, 1 + Math.log(frequencyActivity)];
               }
             });
+            indexTermRequest += 1;
           });
           // Create an array based on the dictionnary activityListFrequency
           const activityListFrequencyArray = Object.keys(activityListFrequency).map(key => [key, activityListFrequency[key][0], activityListFrequency[key][1]]);
@@ -80,6 +87,8 @@ export function getActivityListFromRequest(request) {
         });
     };
   }
-  const activityListFromRequest = [];
-  return dispatch => dispatch({ type: GET_ACTIVITY_LIST_FROM_REQUEST, activityListFromRequest });
+  else {
+    const activityListFromRequest = [];
+    return dispatch => dispatch({ type: GET_ACTIVITY_LIST_FROM_REQUEST, activityListFromRequest });
+  }
 }
