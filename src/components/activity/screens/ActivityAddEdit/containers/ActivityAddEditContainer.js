@@ -47,6 +47,7 @@ class ActivityAddEditContainer extends React.Component {
     this.clanTag = this.clanTag.bind(this);
     this.onSelectionChange = this.onSelectionChange.bind(this);
     this.selectTag = this.selectTag.bind(this);
+    this.updateSearchTags = this.updateSearchTags.bind(this);
   }
 
   componentDidMount() {
@@ -64,22 +65,25 @@ class ActivityAddEditContainer extends React.Component {
     }
   }
 
-
-  onSelectionChange(e) {
-    const pos = e.nativeEvent.selection;
+  updateSearchTags() {
+    const pos = this.state.cursor;
     let isUpdated = false;
     if (pos.start === pos.end) {
+      console.log("Test 0")
       const descriptionToCursor = this.state.activity.description.substr(0, pos.start);
       const tagBegin = descriptionToCursor.lastIndexOf('#');
       if (tagBegin > -1) {
+        console.log("Test 1")
         const tagToSearch = descriptionToCursor.substr(tagBegin);
         if (tagToSearch.indexOf(' ') === -1) {
+          console.log("Test 2")
+          console.log(tagToSearch)
           if (tagToSearch.length > 1) { // If length == 1, then it's just "#"
             const slugBeginningToTest = this.clanTag(tagToSearch);
             isUpdated = true;
+            console.log("Search")
             this.setState({
               ...this.state,
-              cursor: pos.start,
               autocompleteTagList: this.props.tagList.filter(item => item.slug.indexOf(slugBeginningToTest) > -1 && item.slug !== slugBeginningToTest),
             });
           }
@@ -87,11 +91,20 @@ class ActivityAddEditContainer extends React.Component {
       }
     }
     if (isUpdated === false) {
+      console.log("no search")
       this.setState({
         ...this.state,
         autocompleteTagList: [],
       });
-    }
+    } 
+  }
+
+  onSelectionChange(e) {
+    const pos = e.nativeEvent.selection;
+    this.setState({
+      ...this.state,
+      cursor: pos,
+    });
   }
 
 
@@ -110,7 +123,7 @@ class ActivityAddEditContainer extends React.Component {
     this.setState({
       ...this.state,
       activity: { ...this.state.activity, description, tags: this.cleanTags(description.match(/#\S+/g)) },
-    }, this.validateForm);
+    }, () => { this.updateSearchTags(); this.validateForm(); });
   }
 
   setContentSource(source) {
@@ -143,10 +156,10 @@ class ActivityAddEditContainer extends React.Component {
 
   selectTag(name) {
     const previousDescription = this.state.activity.description;
-    let descriptionBegin = previousDescription.substr(0, this.state.cursor);
+    let descriptionBegin = previousDescription.substr(0, this.state.cursor.start);
     descriptionBegin = descriptionBegin.substr(0, descriptionBegin.lastIndexOf('#'));
 
-    let descriptionEnd = previousDescription.substr(this.state.cursor);
+    let descriptionEnd = previousDescription.substr(this.state.cursor.start);
     if (descriptionEnd.indexOf(' ') > 0) {
       descriptionEnd = descriptionEnd.substr(descriptionEnd.indexOf(' '));
     } else {
