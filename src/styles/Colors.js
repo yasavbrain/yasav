@@ -11,6 +11,7 @@ export default {
   },
 
   inactive      : '#DDDDDD',
+  active      : '#FFFFFF',
   darkActive    : '#333333',
   darkInactive  : '#DDDDDD',
 

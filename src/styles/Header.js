@@ -6,7 +6,10 @@ export default StyleSheet.create({
     backgroundColor: Colors.header.background,
     borderBottomWidth: 0,
   },
-  headerTitle: {
+  simpleHeaderTitle: {
+    color: Colors.header.active,
+  },
+  headerTitle:{
     color: Colors.header.active,
   },
   genericHeader: {
@@ -28,4 +31,10 @@ export default StyleSheet.create({
   saveButtonRightInvalid: {
     color: Colors.disabled,
   },
+  searchIcon: {
+    color: Colors.active,
+  },
+  graphIcon:{
+    color: Colors.active,
+  }
 });

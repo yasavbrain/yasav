@@ -99,17 +99,15 @@ export class HomeHeader extends React.Component {
   render() {
     return (
       <Header style={Style.simpleHeader}>
-        <Left>
-        <Button onPress={this.navigateToGraphTagDisplay} transparent>
-            <Icon name="git-network" />
-          </Button>
-        </Left> 
         <Body>
           <Title style={Style.simpleHeaderTitle}>{this.props.title}</Title>
         </Body>
         <Right>
           <Button onPress={this.navigateToSearchScreen} transparent>
-            <Icon name="search" />
+            <Icon name="search" style={Style.searchIcon} />
+          </Button>
+          <Button onPress={this.navigateToGraphTagDisplay} transparent>
+              <Icon name="git-network" style={Style.graphIcon} />
           </Button>
         </Right>
       </Header>
