@@ -42,16 +42,19 @@ export function getActivityListFromRequest(request) {
       WHERE title LIKE ?
       OR description LIKE ?`;
       requestList.forEach((term) => {
-        promises = promises.concat(executeSql(request, ['%' + term + '%', '%' + term + '%']));
+        if (term.length > 0) {
+          promises = promises.concat(executeSql(request, [`%${  term  }%`, `%${  term  }%`]));
+        }
       });
       return Promise.all(promises)
         .then((res) => {
-          let activityListFromRequest = [];
-          let ids = [];
+          let activityListFrequency = {}; // Key : activity_id ; Value : [activity object, frequency]
           res.forEach((r) => {
             r.rows._array.forEach((activity) => {
-              if (ids.indexOf(activity.id) == -1) {
-                activityListFromRequest = activityListFromRequest.concat({
+              if (activity.id in activityListFrequency) {
+                activityListFrequency[activity.id][1] += 1;
+              } else {
+                activityListFrequency[activity.id] = [{
                   activity: {
                     id: activity.id,
                     title: activity.title,
@@ -61,17 +64,22 @@ export function getActivityListFromRequest(request) {
                     type: activity.type,
                     interlocutor_id: activity.interlocutor_id,
                   },
-                });
-                ids = ids.concat(activity.id);
+                },1];
               }
             });
+          });
+          // Create an array based on the dictionnary activityListFrequency
+          const activityListFrequencyArray = Object.keys(activityListFrequency).map(key => [key, activityListFrequency[key][0], activityListFrequency[key][1]]);
+          let activityListFromRequest = [];
+
+          // Fill the activityListFromRequest by a list of tuple (activity object, frequency)
+          activityListFrequencyArray.forEach((activity) => {
+            activityListFromRequest = activityListFromRequest.concat([[activity[1],activity[2]]]);
           });
           dispatch({ type: GET_ACTIVITY_LIST_FROM_REQUEST, activityListFromRequest });
         });
     };
   }
-  else {
-    activityListFromRequest = [];
-    return dispatch => dispatch({ type: GET_ACTIVITY_LIST_FROM_REQUEST, activityListFromRequest });
-  }
+  const activityListFromRequest = [];
+  return dispatch => dispatch({ type: GET_ACTIVITY_LIST_FROM_REQUEST, activityListFromRequest });
 }

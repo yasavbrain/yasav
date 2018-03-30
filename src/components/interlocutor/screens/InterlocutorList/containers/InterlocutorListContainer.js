@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getInterlocutorList } from '../actions';
 import InterlocutorListView from '../views/InterlocutorListView';
+import { sortListQuery } from 'yasav/src/utils/functions';
 
 class InterlocutorListContainer extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class InterlocutorListContainer extends React.Component {
 
   render() {
     if (this.state.searchActive) {
-      var interlocutorList = this.props.interlocutorListFromRequest;
+      var interlocutorList = sortListQuery(this.props.interlocutorListFromRequest);
     } else {
       var interlocutorList = this.props.interlocutorListAll;
     }

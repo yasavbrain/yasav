@@ -25,32 +25,40 @@ export function getInterlocutorListFromRequest(request) {
       FROM interlocutor
       WHERE name LIKE ? OR link_to_me LIKE ?`;
       requestList.forEach((term) => {
-        promises = promises.concat(executeSql(request, ['%' + term + '%', '%' + term + '%']));
+        if (term.length > 0) {
+          promises = promises.concat(executeSql(request, [`%${  term  }%`, `%${  term  }%`]));
+        }
       });
       return Promise.all(promises)
         .then((res) => {
-          let interlocutorListFromRequest = [];
-          let ids = [];
+          let interlocutorListFrequency = {}; // Key : interlocutor_id ; Value : [interlocutor object, frequency]
           res.forEach((r) => {
             r.rows._array.forEach((interlocutor) => {
-              if (ids.indexOf(interlocutor.id) == -1) {
-                interlocutorListFromRequest = interlocutorListFromRequest.concat({
+              if (interlocutor.id in interlocutorListFrequency) {
+                interlocutorListFrequency[interlocutor.id][1] += 1;
+              } else {
+                interlocutorListFrequency[interlocutor.id] = [{
                   interlocutor: {
                     name: interlocutor.name,
                     link_to_me: interlocutor.link_to_me,
                     id: interlocutor.id,
                   },
-                });
-                ids = ids.concat(interlocutor.id);
+                },1];
               }
             });
+          });
+          // Create an array based on the dictionnary activityListFrequency
+          const interlocutorListFrequencyArray = Object.keys(interlocutorListFrequency).map(key => [key, interlocutorListFrequency[key][0], interlocutorListFrequency[key][1]]);
+          let interlocutorListFromRequest = [];
+
+          // Fill the activityListFromRequest by a list of tuple (interlocutor object, frequency)
+          interlocutorListFrequencyArray.forEach((interlocutor) => {
+            interlocutorListFromRequest = interlocutorListFromRequest.concat([[interlocutor[1],interlocutor[2]]]);
           });
           dispatch({ type: GET_INTERLOCUTOR_LIST_FROM_REQUEST, interlocutorListFromRequest });
         });
     };
   }
-  else {
-    interlocutorListFromRequest = [];
-    return dispatch => dispatch({ type: GET_INTERLOCUTOR_LIST_FROM_REQUEST, interlocutorListFromRequest });
-  }
+  const interlocutorListFromRequest = [];
+  return dispatch => dispatch({ type: GET_INTERLOCUTOR_LIST_FROM_REQUEST, interlocutorListFromRequest });
 }

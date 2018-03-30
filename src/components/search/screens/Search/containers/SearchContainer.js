@@ -5,12 +5,13 @@ import { getActivityListFromRequest } from 'yasav/src/components/activity/screen
 import SearchCommonView from '../views/SearchCommonView';
 import GlobalSearchView from '../views/GlobalSearchView';
 import { SearchType } from 'yasav/src/const';
+import { sortListQuery } from 'yasav/src/utils/functions';
 
 export class SearchContainer extends React.Component {
   constructor(props) {
     super(props);
     this.doSearch = this.doSearch.bind(this);
-    this.state = { enableHomeSearch: false }
+    this.state = { enableHomeSearch: false };
   }
 
   doSearch(request) {
@@ -20,7 +21,7 @@ export class SearchContainer extends React.Component {
         this.props.modifySearchInterlocutor(true)
       }
       else {
-        this.props.modifySearchInterlocutor(false) //If request == 0, it means that the search is not enabled. 
+        this.props.modifySearchInterlocutor(false) //If request is False, it means that the search is not enabled. 
       }
     }
     if (this.props.requestType == SearchType.ACTIVITY) {
@@ -47,7 +48,9 @@ export class SearchContainer extends React.Component {
   render() {
     if (this.props.requestType == SearchType.INTERLOCUTOR_ACTIVITY) {
       if (this.state.enableHomeSearch) {
-        requestResult = this.props.interlocutorListFromRequest.concat(this.props.activityListFromRequest)
+        let requestResultFrequency = []
+        requestResultFrequency = this.props.activityListFromRequest.concat(this.props.interlocutorListFromRequest)
+        requestResult = sortListQuery(requestResultFrequency)
       }
       else {
         requestResult = []

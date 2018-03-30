@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getActivityList } from '../actions';
 import { deleteActivity } from '../../ActivityDisplay/actions/index';
 import ActivityListView from '../views/ActivityListView';
+import { sortListQuery } from 'yasav/src/utils/functions';
 
 class ActivityListContainer extends React.Component {
   constructor(props) {
@@ -10,7 +11,7 @@ class ActivityListContainer extends React.Component {
     this.state = { searchActive: false };
     this.modifySearchActivity = this.modifySearchActivity.bind(this);
   }
-  
+
   componentDidMount() {
     this.props.getActivityList();
   }
@@ -19,10 +20,9 @@ class ActivityListContainer extends React.Component {
     this.setState({ searchActive: isActive });
   }
 
-
   render() {
     if (this.state.searchActive) {
-      var activityList = this.props.activityListFromRequest;
+      var activityList = sortListQuery(this.props.activityListFromRequest);
     } else {
       var activityList = this.props.activityListAll;
     }
