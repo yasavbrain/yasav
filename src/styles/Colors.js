@@ -17,6 +17,10 @@ export default {
   meet          : '#78A5A3',
   event         : '#E1B16A',
   content       : '#CE5A57',
+  tag           : '#B6B6B6',
+  tagLight      : '#D9D9D9',
+  tagDark       : '#8C8C8C',
+  interlocutor  : '#5F8280',
 
   title         : '#FF0000',
   subtitle      : '#DD0000',

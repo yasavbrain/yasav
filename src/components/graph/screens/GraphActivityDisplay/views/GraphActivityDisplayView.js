@@ -45,17 +45,6 @@ export default class GraphActivityDisplayView extends React.Component {
             <ART.Surface width={this.props.width} height={this.props.height}>
               <ART.Group x={0} y={0}>
                 {
-                  this.props.nodes.map(item => (
-                    <ARTNode
-                      key={item.id}
-                      x={item.x}
-                      y={item.y}
-                      radius={item.radius}
-                      label={item.label}
-                    />
-                  ))
-                }
-                {
                   this.props.edges.map(item => (
                     <ARTLine
                       key={item.id}
@@ -66,7 +55,18 @@ export default class GraphActivityDisplayView extends React.Component {
                     />
                   ))
                 }
-
+                {
+                  this.props.nodes.map(item => (
+                    <ARTNode
+                      key={item.id}
+                      x={item.x}
+                      y={item.y}
+                      radius={item.radius}
+                      label={item.label}
+                      color={item.color}
+                    />
+                  ))
+                }
               </ART.Group>
             </ART.Surface>
           </View>

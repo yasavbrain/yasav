@@ -5,6 +5,7 @@ import * as shape from 'd3-shape';
 import * as hierarchy from 'd3-hierarchy';
 import * as force from 'd3-force';
 import * as zoom from 'd3-zoom';
+import COLORS from 'yasav/src/styles/Colors';
 import GraphTagDisplayView from '../views/GraphTagDisplayView';
 import { getAllWeightedTags } from '../actions';
 
@@ -75,7 +76,7 @@ class GraphTagDisplayContainer extends React.Component {
   }
 }
 
-const COLORS = ['#78A5A3', '#E1B16A', '#CE5A57'];
+const TAG_COLORS = [COLORS.tag, COLORS.tagLight, COLORS.tagDark];
 function mapStateToProps(state) {
   const tagList = state.graph.weightedTagList.map(tag => ({
     id: tag.id,
@@ -83,7 +84,7 @@ function mapStateToProps(state) {
     r: Math.max(0, 1 + Math.log10(tag.weight)) * 50,
     x: Math.random() * Dimensions.get('window').width,
     y: Math.random() * Dimensions.get('window').height,
-    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+    color: TAG_COLORS[Math.floor(Math.random() * TAG_COLORS.length)],
   }));
   return {
     tagList,

@@ -7,9 +7,8 @@ export default class GraphTagDisplayScreen extends React.Component {
     this.navigateToGraphActivityDisplayScreen = this.navigateToGraphActivityDisplayScreen.bind(this)
   }
 
-  navigateToGraphActivityDisplayScreen(centerNodeId) {
-    console.log("navigating", centerNodeId)
-    this.props.navigation.navigate('GraphActivityDisplayScreen', centerNodeId)
+  navigateToGraphActivityDisplayScreen(centerNodeId, centerNodeName) {
+    this.props.navigation.navigate('GraphActivityDisplayScreen', { centerNodeId, centerNodeName });
   }
 
   render() {

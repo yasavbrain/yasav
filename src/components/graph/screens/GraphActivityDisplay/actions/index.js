@@ -21,12 +21,17 @@ export function getAdjacentTagsFromActivity(activityId) {
         linkId: tag.link_id,
         nodeType: GraphNodeType.TAG,
       }));
-      dispatch({
-        type: GET_ADJACENT_TAGS_FROM_ACTIVITY,
-        tags,
-        centerNodeType: GraphNodeType.ACTIVITY,
-        centerNodeId: activityId,
-      });
+      return executeSql('SELECT title, type FROM activity WHERE activity.id = ?', [activityId])
+        .then((res2) => {
+          dispatch({
+            type: GET_ADJACENT_TAGS_FROM_ACTIVITY,
+            tags,
+            centerNodeType: GraphNodeType.ACTIVITY,
+            centerNodeId: activityId,
+            centerNodeName: res2.rows._array[0].title,
+            centerNodeSubType: res2.rows._array[0].type,
+          });
+        });
     });
 }
 
@@ -44,12 +49,17 @@ export function getAdjacentInterlocutorsFromActivity(activityId) {
         linkId: interlocutor.activity_id,
         nodeType: GraphNodeType.INTERLOCUTOR,
       }));
-      dispatch({
-        type: GET_ADJACENT_INTERLOCUTORS_FROM_ACTIVITY,
-        interlocutors,
-        centerNodeType: GraphNodeType.ACTIVITY,
-        centerNodeId: activityId,
-      });
+      return executeSql('SELECT title, type FROM activity WHERE activity.id = ?', [activityId])
+        .then((res2) => {
+          dispatch({
+            type: GET_ADJACENT_INTERLOCUTORS_FROM_ACTIVITY,
+            interlocutors,
+            centerNodeType: GraphNodeType.ACTIVITY,
+            centerNodeId: activityId,
+            centerNodeName: res2.rows._array[0].title,
+            centerNodeSubType: res2.rows._array[0].type,
+          });
+        });
     });
 }
 
@@ -68,12 +78,16 @@ export function getAdjacentActivitiesFromInterlocutor(interlocutorId) {
         linkId: activity.interlocutor_id,
         nodeType: GraphNodeType.ACTIVITY,
       }));
-      dispatch({
-        type: GET_ADJACENT_ACTIVITIES_FROM_INTERLOCUTOR,
-        activities,
-        centerNodeType: GraphNodeType.INTERLOCUTOR,
-        centerNodeId: interlocutorId,
-      });
+      return executeSql('SELECT name FROM interlocutor WHERE interlocutor.id = ?', [interlocutorId])
+        .then((res2) => {
+          dispatch({
+            type: GET_ADJACENT_ACTIVITIES_FROM_INTERLOCUTOR,
+            activities,
+            centerNodeType: GraphNodeType.INTERLOCUTOR,
+            centerNodeId: interlocutorId,
+            centerNodeName: res2.rows._array[0].name,
+          });
+        });
     });
 }
 
@@ -92,12 +106,16 @@ export function getAdjacentActivitiesFromTag(tagId) {
         linkId: activity.link_id,
         nodeType: GraphNodeType.ACTIVITY,
       }));
-      dispatch({
-        type: GET_ADJACENT_ACTIVITIES_FROM_TAG,
-        activities,
-        centerNodeType: GraphNodeType.TAG,
-        centerNodeId: tagId,
-      });
+      return executeSql('SELECT name FROM tag WHERE tag.id = ?', [tagId])
+        .then((res2) => {
+          dispatch({
+            type: GET_ADJACENT_ACTIVITIES_FROM_TAG,
+            activities,
+            centerNodeType: GraphNodeType.TAG,
+            centerNodeId: tagId,
+            centerNodeName: res2.rows._array[0].name,
+          });
+        });
     });
 }
 

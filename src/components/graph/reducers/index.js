@@ -13,6 +13,8 @@ const initialState = {
   adjacentInterlocutorsList: [],
   centerNodeType: null,
   centerNodeId: null,
+  centerNodeName: null,
+  centerNodeSubType: null,
 };
 
 export default function reducer(state = initialState, action) {
@@ -26,6 +28,7 @@ export default function reducer(state = initialState, action) {
         adjacentActivitiesList: action.activities,
         centerNodeType: action.centerNodeType,
         centerNodeId: action.centerNodeId,
+        centerNodeName: action.centerNodeName,
       };
 
     case GET_ADJACENT_ACTIVITIES_FROM_INTERLOCUTOR:
@@ -34,6 +37,7 @@ export default function reducer(state = initialState, action) {
         adjacentActivitiesList: action.activities,
         centerNodeType: action.centerNodeType,
         centerNodeId: action.centerNodeId,
+        centerNodeName: action.centerNodeName,
       };
 
     case GET_ADJACENT_TAGS_FROM_ACTIVITY:
@@ -42,6 +46,8 @@ export default function reducer(state = initialState, action) {
         adjacentTagsList: action.tags,
         centerNodeType: action.centerNodeType,
         centerNodeId: action.centerNodeId,
+        centerNodeName: action.centerNodeName,
+        centerNodeSubType: action.centerNodeSubType,
       };
 
     case GET_ADJACENT_INTERLOCUTORS_FROM_ACTIVITY:
@@ -50,6 +56,8 @@ export default function reducer(state = initialState, action) {
         adjacentInterlocutorsList: action.interlocutors,
         centerNodeType: action.centerNodeType,
         centerNodeId: action.centerNodeId,
+        centerNodeName: action.centerNodeName,
+        centerNodeSubType: action.centerNodeSubType,
       };
 
     default:

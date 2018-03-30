@@ -13,7 +13,7 @@ export class ARTCircle extends React.Component {
       .arc(0, radius * 2, radius)
       .arc(0, radius * -2, radius);
 
-    return <ART.Shape d={circle} stroke="#020202" strokeWidth={1} opacity={0.3} fill={color} {...rest} />;
+    return <ART.Shape d={circle} stroke="#020202" strokeWidth={1} opacity={1} fill={color} {...rest} />;
   }
 }
 

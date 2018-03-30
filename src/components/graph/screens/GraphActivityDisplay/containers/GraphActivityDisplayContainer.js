@@ -5,7 +5,8 @@ import * as shape from 'd3-shape';
 import * as hierarchy from 'd3-hierarchy';
 import * as force from 'd3-force';
 import * as zoom from 'd3-zoom';
-import { GraphNodeType } from 'yasav/src/const';
+import { GraphNodeType, ActivityTypeEnum } from 'yasav/src/const';
+import COLORS from 'yasav/src/styles/Colors';
 import GraphActivityDisplayView from '../views/GraphActivityDisplayView';
 import { getAdjacentNodes } from '../actions';
 
@@ -141,38 +142,85 @@ class GraphActivityDisplayContainer extends React.Component {
   }
 }
 
-const COLORS = ['#78A5A3', '#E1B16A', '#CE5A57'];
-function mapStateToProps(state, ownProps) {
 
-  const centerNodeId = state.graph.centerNodeId || ownProps.centerNodeId;
+function mapStateToProps(state, ownProps) {
+  const centerNodeId = state.graph.centerNodeId || ownProps.centerNodeId; // first node Id given by the router
   const centerNodeType = state.graph.centerNodeType || GraphNodeType.TAG; // tag at the launch
+  const centerNodeSubType = state.graph.centerNodeSubType;
+  const centerNodeName = state.graph.centerNodeName || ownProps.centerNodeName;
 
   let adjacentNodesList = [];
   let linksList = [];
 
+  let centerColor;
+  switch (centerNodeType) {
+    case GraphNodeType.TAG:
+      centerColor = COLORS.tag;
+      break;
+    case GraphNodeType.INTERLOCUTOR:
+      centerColor = COLORS.interlocutor;
+      break;
+    case GraphNodeType.ACTIVITY:
+      switch (centerNodeSubType) {
+        case ActivityTypeEnum.CONTENT:
+          centerColor = COLORS.content;
+          break;
+        case ActivityTypeEnum.MEETING:
+          centerColor = COLORS.meet;
+          break;
+        case ActivityTypeEnum.EVENT:
+          centerColor = COLORS.event;
+          break;
+        default:
+          centerColor = COLORS.inactive;
+          break;
+      }
+      break;
+    default:
+      centerColor = COLORS.inactive;
+      break;
+  }
+
   const centralNode = {
-    id: GraphNodeType.TAG + '_' + centerNodeId,
-    label: 'CENTER',
+    id: centerNodeType + '_' + centerNodeId,
+    label: centerNodeName,
     r: 50,
     x: Math.random() * Dimensions.get('window').width,
     y: Math.random() * Dimensions.get('window').height,
     fx: Dimensions.get('window').width / 2,
     fy: Dimensions.get('window').height / 2,
-    color: COLORS[Math.floor(Math.random() * COLORS.length)],
+    color: centerColor,
     nodeType: centerNodeType,
   };
 
   switch (centerNodeType) {
     case GraphNodeType.TAG:
-      adjacentNodesList = state.graph.adjacentActivitiesList.map(activity => ({
-        id: GraphNodeType.ACTIVITY + '_' + activity.id,
-        label: activity.title,
-        r: 50,
-        x: Math.random() * Dimensions.get('window').width,
-        y: Math.random() * Dimensions.get('window').height,
-        color: COLORS[Math.floor(Math.random() * COLORS.length)],
-        nodeType: activity.nodeType,
-      }));
+      adjacentNodesList = state.graph.adjacentActivitiesList.map((activity) => {
+        let color;
+        switch (activity.type) {
+          case ActivityTypeEnum.CONTENT:
+            color = COLORS.content;
+            break;
+          case ActivityTypeEnum.MEETING:
+            color = COLORS.meet;
+            break;
+          case ActivityTypeEnum.EVENT:
+            color = COLORS.event;
+            break;
+          default:
+            color = COLORS.inactive;
+            break;
+        }
+        return {
+          id: GraphNodeType.ACTIVITY + '_' + activity.id,
+          label: activity.title,
+          r: 50,
+          x: Math.random() * Dimensions.get('window').width,
+          y: Math.random() * Dimensions.get('window').height,
+          color,
+          nodeType: activity.nodeType,
+        };
+      });
       linksList = state.graph.adjacentActivitiesList.map(activity => ({
         id: activity.linkId,
         source: adjacentNodesList.find(node => node.id === GraphNodeType.ACTIVITY + '_' + activity.id),
@@ -187,7 +235,7 @@ function mapStateToProps(state, ownProps) {
         r: 50,
         x: Math.random() * Dimensions.get('window').width,
         y: Math.random() * Dimensions.get('window').height,
-        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        color: COLORS.interlocutor,
         nodeType: interlocutor.nodeType,
       }));
       const linksInterlocutorList = state.graph.adjacentInterlocutorsList.map(interlocutor => ({
@@ -202,7 +250,7 @@ function mapStateToProps(state, ownProps) {
         r: 50,
         x: Math.random() * Dimensions.get('window').width,
         y: Math.random() * Dimensions.get('window').height,
-        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        color: COLORS.tag,
         nodeType: tag.nodeType,
       }));
       const linksTagList = state.graph.adjacentTagsList.map(tag => ({
@@ -223,7 +271,7 @@ function mapStateToProps(state, ownProps) {
         r: 50,
         x: Math.random() * Dimensions.get('window').width,
         y: Math.random() * Dimensions.get('window').height,
-        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        color: COLORS.meet,
         nodeType: activity.nodeType,
       }));
       linksList = state.graph.adjacentActivitiesList.map(activity => ({
