@@ -4,16 +4,16 @@ import { ART } from 'react-native';
 // from https://github.com/facebook/react-native/issues/13894
 export class ARTCircle extends React.Component {
   render() {
-    const { radius, ...rest } = this.props;
+    const { radius, color, ...rest } = this.props;
     // move(x, y)
     // arc(x2, y2, arc_r) : from current point to point (x2, y2), using radius = arc_r
     // Here we want the circle to in a squarre, with origin as a upper left corner
     const circle = ART.Path()
       .move(radius, 0)
       .arc(0, radius * 2, radius)
-      .arc(0, radius * -2, radius)
+      .arc(0, radius * -2, radius);
 
-    return <ART.Shape d={circle} stroke="#020202" strokeWidth={1} opacity={0.3} fill="#D1F5F0" {...rest} />;
+    return <ART.Shape d={circle} stroke="#020202" strokeWidth={1} opacity={1} fill={color} {...rest} />;
   }
 }
 
@@ -45,13 +45,13 @@ export class ARTText extends React.Component {
 
 export class ARTNode extends React.Component {
   render() {
-    const { x, y, radius, label, ...rest } = this.props;
+    const { x, y, radius, label, color, ...rest } = this.props;
     // For the label the upper left corner is the reference
-    const xLabel = radius - 14
-    const yLabel = radius
+    const xLabel = radius - 14;
+    const yLabel = radius;
     return (
       <ART.Group x={x} y={y}>
-        <ARTCircle radius={radius} />
+        <ARTCircle radius={radius} color={color} />
         <ARTText label={label} x={xLabel} y={yLabel} />
       </ART.Group>
     );

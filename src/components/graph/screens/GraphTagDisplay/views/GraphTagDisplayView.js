@@ -3,9 +3,8 @@ import { Container, View } from 'native-base';
 import I18n from 'yasav/locales/i18n'
 import { GenericHeader } from 'yasav/src/viewElements/shared/Header';
 import { ART, PanResponder } from 'react-native';
-import { ARTNode, ARTLine } from '../../../utils/ArtComponents';
+import { ARTNode } from '../../../utils/ArtComponents';
 import { calcDistance, calcCenter, isInCircle } from '../../../utils/geometry';
-
 
 // based on https://snack.expo.io/@msand/svg-pinch-to-pan-and-zoom
 export default class GraphTagDisplayView extends React.Component {
@@ -76,8 +75,7 @@ export default class GraphTagDisplayView extends React.Component {
         node.radius,
       );
       if (inCircle) {
-        console.log('Selected node', node.label);
-        this.props.navigateToGraphActivityDisplayScreen(node.id);
+        this.props.navigateToGraphActivityDisplayScreen(node.id, node.label);
       }
     });
   }
@@ -171,21 +169,10 @@ export default class GraphTagDisplayView extends React.Component {
                     y={item.y}
                     radius={item.radius}
                     label={item.label}
+                    color={item.color}
                   />
                 ))
               }
-              {
-                this.props.edges.map(item => (
-                  <ARTLine
-                    key={item.id}
-                    x1={item.x1}
-                    y1={item.y1}
-                    x2={item.x2}
-                    y2={item.y2}
-                  />
-                ))
-              }
-
             </ART.Group>
           </ART.Surface>
         </View>

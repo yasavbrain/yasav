@@ -1,10 +1,13 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
+import { connect } from 'react-redux';
 import * as shape from 'd3-shape';
 import * as hierarchy from 'd3-hierarchy';
 import * as force from 'd3-force';
 import * as zoom from 'd3-zoom';
+import Colors from 'yasav/src/styles/Colors';
 import GraphTagDisplayView from '../views/GraphTagDisplayView';
+import { getAllWeightedTags } from '../actions';
 
 const d3 = {
   shape,
@@ -18,35 +21,28 @@ class GraphTagDisplayContainer extends React.Component {
   constructor(props) {
     super(props);
     this.toARTNodes = this.toARTNodes.bind(this);
-    this.toARTEdges = this.toARTEdges.bind(this);
     this.ticked = this.ticked.bind(this);
     this.width = Dimensions.get('window').width;
     this.height = Dimensions.get('window').height;
-    this.data = [
-      { x: 0, y: 0, r: 50, label: 'jean', id: 1 },
-      { x: 200, y: 0, r: 75, label: 'marc', id: 2 },
-      { x: 0, y: 300, r: 125, label: 'john', id: 3 }
-    ];
-
-    this.links = [
-      { id: 1, source: this.data[0], target: this.data[1] },
-      { id: 2, source: this.data[0], target: this.data[2] },
-    ];
+    this.data = [];
     this.state = {
       data: this.data,
-      links: this.links,
     };
   }
 
   componentDidMount() {
-    this.force = d3.force.forceSimulation(this.data)
-      // .force('charge', d3.force.forceManyBody(-300))
-      // .force('link', d3.force.forceLink(this.state.links))
-      .force('center', d3.force.forceCenter(this.width / 2, this.height / 2))
-      .force('x', d3.force.forceX().strength(0.2))
-      .force('y', d3.force.forceY().strength(0.2))
-      .force('collide', d3.force.forceCollide().radius(d => d.r))
-      .on('tick', this.ticked);
+    this.props.getAllWeightedTags()
+      .then(() => {
+        this.data = this.props.tagList; // we do not want to write to props
+        this.force = d3.force.forceSimulation(this.data)
+        // .force('charge', d3.force.forceManyBody(-300))
+        // .force('link', d3.force.forceLink(this.state.links))
+          .force('center', d3.force.forceCenter(this.width / 2, this.height / 2))
+          .force('x', d3.force.forceX().strength(0.2))
+          .force('y', d3.force.forceY().strength(0.2))
+          .force('collide', d3.force.forceCollide().radius(d => d.r))
+          .on('tick', this.ticked);
+      });
   }
 
   ticked() {
@@ -61,38 +57,52 @@ class GraphTagDisplayContainer extends React.Component {
       radius: item.r,
       label: item.label,
       id: item.id,
+      color: item.color,
     }));
     return nodes;
   }
 
-
-  toARTEdges(links) {
-    let edges = [];
-    // we want the line to link the center of the sources and targets
-    edges = links.map(item => ({
-      x1: item.source.x,
-      y1: item.source.y,
-      x2: item.target.x,
-      y2: item.target.y,
-      id: item.id,
-    }));
-    return edges;
-  }
-
   render() {
     const nodes = this.toARTNodes(this.state.data);
-    const edges = this.toARTEdges(this.state.links);
     return (
       <GraphTagDisplayView
         goBack={this.props.goBack}
         width={this.width}
         height={this.height}
         nodes={nodes}
-        edges={edges}
         navigateToGraphActivityDisplayScreen={this.props.navigateToGraphActivityDisplayScreen}
       />
     );
   }
 }
 
-export default GraphTagDisplayContainer;
+function pickColor(weight) {
+  if (weight < 2) {
+    return Colors.tagLight;
+  } else if (weight >= 2 && weight < 5) {
+    return Colors.tag;
+  }
+  return Colors.tagDark;
+}
+
+function mapStateToProps(state) {
+  const tagList = state.graph.weightedTagList.map(tag => ({
+    id: tag.id,
+    label: tag.name,
+    r: Math.max(0, 1 + Math.log10(tag.weight)) * 50,
+    x: Math.random() * Dimensions.get('window').width,
+    y: Math.random() * Dimensions.get('window').height,
+    color: pickColor(tag.weight),
+  }));
+  return {
+    tagList,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getAllWeightedTags: () => dispatch(getAllWeightedTags()),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GraphTagDisplayContainer);

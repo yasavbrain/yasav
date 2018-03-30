@@ -19,4 +19,12 @@ export const SearchType = {
   INTERLOCUTOR: 0,
   ACTIVITY: 1,
   INTERLOCUTOR_ACTIVITY: 2,
-}
+};
+
+export const GraphNodeType = {
+  TAG: 0,
+  ACTIVITY: 1,
+  INTERLOCUTOR: 2,
+};
+
+export const NODE_DEFAULT_RADIUS_SIZE = 50; // in pix

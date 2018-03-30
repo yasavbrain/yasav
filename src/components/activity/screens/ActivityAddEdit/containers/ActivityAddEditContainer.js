@@ -96,7 +96,7 @@ class ActivityAddEditContainer extends React.Component {
         ...this.state,
         autocompleteTagList: [],
       });
-    } 
+    }
   }
 
   onSelectionChange(e) {
@@ -177,14 +177,16 @@ class ActivityAddEditContainer extends React.Component {
     if (this.state.activity.type === ActivityTypeEnum.MEETING) {
       const promises = [this.props.addInterlocutor(this.state.interlocutor), this.props.addTags(this.state.activity.tags)];
       Promise.all(promises)
-        .then((results) => {
-          this.props.addActivity(this.state.activity, tagsId = results[1], interlocutorId = results[0]);
-        });
+        .then ((results) => {
+          this.props.addActivity(this.state.activity, results[1], results[0])
+        }
+        );
     } else {
       this.props.addTags(this.state.activity.tags)
-        .then((tagsId) => {
-          this.props.addActivity(this.state.activity, tagsId);
-        });
+      .then((tagsId) => {
+        this.props.addActivity(this.state.activity, tagsId)
+
+      });
     }
     this.props.goBack();
   }
@@ -295,7 +297,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     editActivity: activity => dispatch(editActivity(activity)),
-    addActivity: (activity, interlocutorId) => dispatch(addActivity(activity, interlocutorId)),
+    addActivity: (activity, tagsId, interlocutorId) => dispatch(addActivity(activity, tagsId, interlocutorId)),
     addInterlocutor: interlocutor => dispatch(addInterlocutor(interlocutor)),
     getActivityFromId: id => dispatch(getActivityFromId(id)),
     getTags: () => dispatch(getTags()),

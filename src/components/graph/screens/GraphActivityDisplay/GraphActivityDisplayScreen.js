@@ -21,7 +21,8 @@ export default class GraphActivityDisplayScreen extends React.Component {
     return (
       <GraphActivityDisplayContainer
         goBack={goBack}
-        centralNodeId={state.params}
+        centerNodeId={state.params.centerNodeId}
+        centerNodeName={state.params.centerNodeName}
         navigateToActivityDisplayScreen={this.navigateToActivityDisplayScreen}
         navigateToInterlocutorDisplayScreen={this.navigateToInterlocutorDisplayScreen}
       />
