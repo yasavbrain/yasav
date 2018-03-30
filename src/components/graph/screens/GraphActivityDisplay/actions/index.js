@@ -38,7 +38,8 @@ export function getAdjacentTagsFromActivity(activityId) {
 export function getAdjacentInterlocutorsFromActivity(activityId) {
   return dispatch => executeSql(
     `SELECT name, interlocutor.id as id, activity.id as activity_id
-    FROM activity INNER JOIN interlocutor ON activity.interlocutor_id = interlocutor.id
+    FROM activity
+      INNER JOIN interlocutor ON activity.interlocutor_id = interlocutor.id
     WHERE activity.id = ?`,
     [activityId],
   )

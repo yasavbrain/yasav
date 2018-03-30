@@ -26,3 +26,5 @@ export const GraphNodeType = {
   ACTIVITY: 1,
   INTERLOCUTOR: 2,
 };
+
+export const NODE_DEFAULT_RADIUS_SIZE = 50; // in pix
