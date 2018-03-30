@@ -22,6 +22,8 @@ export default {
   subtitle      : '#DD0000',
 
   primary       : '#44546A',
+  primaryLight  : '#E1E6ED',
+
 
   error         : '#C9302C',
   warning       : '#EC971F',

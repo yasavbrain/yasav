@@ -1,25 +1,27 @@
 import React from 'react';
-import { Container, Content, Text, Form, Item, Input, Label, Button, Badge, Icon } from 'native-base';
-import { KeyboardAvoidingView, Platform, StatusBar } from 'react-native';
+import { Container, Content, Text, Form, Item, Input, Label, Button, Badge, Icon, ListItem } from 'native-base';
+import { KeyboardAvoidingView, Platform, StatusBar, FlatList } from 'react-native';
 import InterlocutorAddContainer from 'yasav/src/components/interlocutor/screens/InterlocutorAdd/containers/InterlocutorAddContainer';
 
 import I18n from 'yasav/locales/i18n';
-import Style from '../styles/style.js';
 import FormStyle from 'src/styles/Forms';
 import HeaderStyle from 'yasav/src/styles/Header';
 import { GenericHeader, MenuHeader } from 'yasav/src/viewElements/shared/Header';
-
 import { ActivityTypeEnum } from 'yasav/src/const';
+import Style from '../styles/style.js';
+
 
 export default class ActivityAddView extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = { selectedInput: '' };
 
     this.getTitle = this.getTitle.bind(this);
     this.renderSaveButton = this.renderSaveButton.bind(this);
+    this.renderTagItem = this.renderTagItem.bind(this);
+    this.scrollViewFromTop = this.scrollViewFromTop.bind(this);
   }
+
 
   getTitle() {
     let title = '';
@@ -40,30 +42,17 @@ export default class ActivityAddView extends React.Component {
     return title;
   }
 
-  renderValidationButtons() {
-    if (this.props.isEdit) {
-      return null;
+  scrollViewFromTop() {
+    if (this.scrollView !== undefined) {
+      // Hardcoded. Need to be done dynamically.
+      let scroll = 75;
+      if (this.props.activity.type === ActivityTypeEnum.CONTENT) {
+        scroll = 145;
+      } else if (this.props.activity.type === ActivityTypeEnum.MEETING) {
+        scroll = 210;
+      }
+      this.scrollView.props.scrollToPosition(0, scroll);
     }
-    return (
-      <Button primary full style={Style.addTodoButton} onPress={this.props.addTodoActivity} disabled={!this.props.isFormValid}>
-        <Text>{I18n.t('activity.activityAddEdit.addTodoButton')}</Text>
-      </Button>
-    );
-  }
-
-  renderSaveButton() {
-    if (this.props.isEdit) {
-      return (
-        <Button transparent onPress={this.props.editActivity} disabled={!this.props.isFormValid}>
-          <Text>Save</Text>
-        </Button>
-      );
-    }
-    return (
-      <Button transparent onPress={this.props.addActivity} disabled={!this.props.isFormValid} style={HeaderStyle.saveButtonRight}>
-        <Icon name="md-checkmark" style={this.props.isFormValid ? HeaderStyle.saveButtonRightValid : HeaderStyle.saveButtonRightInvalid} />
-      </Button>
-    );
   }
 
   renderSpecificFields() {
@@ -90,6 +79,47 @@ export default class ActivityAddView extends React.Component {
     return null;
   }
 
+  renderTagItem({ item }) {
+    return (
+      <ListItem
+        onPress={() => {
+          this.props.selectTag(item.name);
+          this.descriptionInput._root.focus();
+        }}
+        style={Style.tagFromListItem}
+      >
+        <Text style={Style.tagFromListText}>#{item.name}</Text>
+      </ListItem>
+    );
+  }
+
+  renderSaveButton() {
+    if (this.props.isEdit) {
+      return (
+        <Button transparent onPress={this.props.editActivity} disabled={!this.props.isFormValid} style={HeaderStyle.saveButtonRight}>
+          <Icon name="md-checkmark" style={this.props.isFormValid ? HeaderStyle.saveButtonRightValid : HeaderStyle.saveButtonRightInvalid} />
+        </Button>
+      );
+    }
+    return (
+      <Button transparent onPress={this.props.addActivity} disabled={!this.props.isFormValid} style={HeaderStyle.saveButtonRight}>
+        <Icon name="md-checkmark" style={this.props.isFormValid ? HeaderStyle.saveButtonRightValid : HeaderStyle.saveButtonRightInvalid} />
+      </Button>
+    );
+  }
+
+  renderValidationButtons() {
+    if (this.props.isEdit) {
+      return null;
+    }
+    return (
+      <Button primary full style={Style.addTodoButton} onPress={this.props.addTodoActivity} disabled={!this.props.isFormValid}>
+        <Text>{I18n.t('activity.activityAddEdit.addTodoButton')}</Text>
+      </Button>
+    );
+  }
+
+
   render() {
     return (
       <KeyboardAvoidingView
@@ -103,7 +133,7 @@ export default class ActivityAddView extends React.Component {
             title={this.getTitle()}
             menu={this.renderSaveButton()}
           />
-          <Content>
+          <Content innerRef={(ref) => { this.scrollView = ref; }}>
             <Form>
               { this.renderSpecificFields() }
               <Item floatingLabel style={this.state.selectedInput === 'title' ? FormStyle.inputWrapperSelected : FormStyle.inputWrapper}>
@@ -119,18 +149,28 @@ export default class ActivityAddView extends React.Component {
               <Item floatingLabel style={FormStyle.inputWrapperLight}>
                 <Label>{I18n.t('activity.activityAddEdit.form.content')}</Label>
                 <Input
+                  getRef={(ref) => { this.descriptionInput = ref; }}
                   onChangeText={this.props.setDescription}
                   multiline
                   blurOnSubmit={false}
-                  numberOfLines={5}
+                  autoGrow
                   returnKeyType="none"
                   style={Style.textarea}
+                  maxHeight={150}
                   value={this.props.activity.description}
-                  onFocus={() => this.setState({ selectedInput: 'content' })}
+                  onFocus={() => {
+                    this.scrollViewFromTop();
+                    this.setState({ selectedInput: 'content' });
+                  }}
                   onBlur={() => this.setState({ selectedInput: '' })}
+                  onSelectionChange={this.props.onSelectionChange}
                 />
               </Item>
-
+              <FlatList
+                data={this.props.autocompleteTagList}
+                renderItem={this.renderTagItem}
+                keyExtractor={item => item.id}
+              />
               {this.renderValidationButtons()}
             </Form>
           </Content>
