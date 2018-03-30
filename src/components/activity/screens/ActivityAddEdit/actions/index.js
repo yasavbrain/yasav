@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import { ADD_ACTIVITY, EDIT_ACTIVITY, ADD_TAGS } from './types';
+import { ADD_ACTIVITY, EDIT_ACTIVITY, ADD_TAGS, GET_TAG_LIST } from './types';
 import { executeSql } from 'yasav/src/Database';
 import { ActivityTypeEnum } from 'yasav/src/const';
 
@@ -39,6 +39,20 @@ export function addTags(tags) {
       return new Promise((resolve, reject) => resolve([]));
     }
   }
+}
+
+export function getTags() {
+  return (dispatch, getState) => executeSql(
+    `SELECT id, name, slug 
+    FROM tag`)
+    .then((res) => {
+      const tagList = res.rows._array.map(tag => ({
+        name: tag.name,
+        slug: tag.slug,
+        id: tag.id,
+      }));
+      dispatch({ type: GET_TAG_LIST, tagList });
+    });
 }
 
 export function addActivity(activity, tagsId, interlocutorId) {
