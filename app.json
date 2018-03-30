@@ -1,8 +1,8 @@
 {
    "expo": {
     "name": "Yasav",
-    "icon": "",
-    "version": "0.1.0",
+    "icon": "src/assets/logo.png",
+    "version": "1.0",
     "slug": "yasav",
     "sdkVersion": "23.0.0",
     "orientation": "portrait",
