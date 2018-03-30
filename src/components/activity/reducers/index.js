@@ -1,4 +1,4 @@
-import { ADD_ACTIVITY, EDIT_ACTIVITY, GET_TAG_LIST } from '../screens/ActivityAddEdit/actions/types';
+import { ADD_ACTIVITY, EDIT_ACTIVITY, GET_TAG_LIST, GET_TAG_ID } from '../screens/ActivityAddEdit/actions/types';
 import { GET_ACTIVITY_BY_ID, DELETE_ACTIVITY } from '../screens/ActivityDisplay/actions/types';
 import { GET_ACTIVITY_LIST } from '../screens/ActivityList/actions/types';
 
@@ -12,6 +12,7 @@ const initialState = {
   activityList: [],
   activityDisplay: null,
   tagList: [],
+  activityDisplaySelectedTag: null,
 };
 
 export default function reducer(state = initialState, action) {
@@ -42,6 +43,9 @@ export default function reducer(state = initialState, action) {
 
     case GET_TAG_LIST:
       return { ...state, tagList: action.tagList };
+
+    case GET_TAG_ID:
+      return { ...state, activityDisplaySelectedTag: action.tagId }
 
     case GET_ACTIVITY_BY_ID:
       return { ...state, activityDisplay: action.activity };

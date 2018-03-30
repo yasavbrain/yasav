@@ -36,7 +36,7 @@ export default class ActivityDisplayView extends React.Component {
       }
       newDescription.push(<Text key={i}>{before}</Text>);
       i += 1;
-      newDescription.push(<Text key={i} style={Style.tag}>{tag}</Text>);
+      newDescription.push(<Text key={i} style={Style.tag} onPress={() => this.props.navigateToGraphActivityDisplayScreen(tag)}>{tag}</Text>);
       i += 1;
     }
     if (descriptionToCut.length > 0) {
