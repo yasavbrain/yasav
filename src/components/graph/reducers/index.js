@@ -4,6 +4,7 @@ import {
   GET_ADJACENT_ACTIVITIES_FROM_INTERLOCUTOR,
   GET_ADJACENT_TAGS_FROM_ACTIVITY,
   GET_ADJACENT_INTERLOCUTORS_FROM_ACTIVITY,
+  RESET_CENTER_NODE
 } from '../screens/GraphActivityDisplay/actions/types';
 
 const initialState = {
@@ -58,6 +59,15 @@ export default function reducer(state = initialState, action) {
         centerNodeId: action.centerNodeId,
         centerNodeName: action.centerNodeName,
         centerNodeSubType: action.centerNodeSubType,
+      };
+
+    case RESET_CENTER_NODE:
+      return {
+        ...state,
+        centerNodeType: null,
+        centerNodeId: null,
+        centerNodeName: null,
+        centerNodeSubType: null,
       };
 
     default:
