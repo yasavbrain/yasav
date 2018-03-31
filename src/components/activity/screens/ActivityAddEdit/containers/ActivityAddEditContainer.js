@@ -98,14 +98,14 @@ class ActivityAddEditContainer extends React.Component {
     this.setState({
       ...this.state,
       activity: { ...this.state.activity, description, tags: this.cleanTags(description.match(/#\S+/g)) },
-    }, () => { 
+    }, () => {
       if (this.lock) {
         this.lock = false;
         this.updateSearchTags()
       } else {
         this.lock = true;
       }
-      this.validateForm(); 
+      this.validateForm();
     });
   }
 
@@ -162,7 +162,7 @@ class ActivityAddEditContainer extends React.Component {
         ...this.state,
         autocompleteTagList: [],
       });
-    } 
+    }
   }
 
   selectTag(name) {
@@ -218,12 +218,16 @@ class ActivityAddEditContainer extends React.Component {
 
   addTodoActivity() {
     if (this.state.activity.type === ActivityTypeEnum.MEETING) {
-      this.props.addInterlocutor(this.state.interlocutor)
-        .then((interlocutorId) => {
-          this.props.addActivity(this.state.activity, interlocutorId);
+      const promises = [this.props.addInterlocutor(this.state.interlocutor), this.props.addTags(this.state.activity.tags)];
+      Promise.all(promises)
+        .then((results) => {
+          this.props.addActivity(this.state.activity, results[1], results[0]);
         });
     } else {
-      this.props.addActivity(this.state.activity);
+      this.props.addTags(this.state.activity.tags)
+        .then((tagsId) => {
+          this.props.addActivity(this.state.activity, tagsId);
+        });
     }
     this.props.navigateToTodoAddScreen(this.state.activity.id);
   }
