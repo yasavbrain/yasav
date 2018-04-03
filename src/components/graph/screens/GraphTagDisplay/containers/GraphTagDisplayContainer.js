@@ -45,6 +45,10 @@ class GraphTagDisplayContainer extends React.Component {
       });
   }
 
+  componentWillUnmount() {
+    this.force.stop();
+  }
+
   ticked() {
     this.setState({ data: this.data });
   }

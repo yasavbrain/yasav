@@ -8,7 +8,7 @@ import * as zoom from 'd3-zoom';
 import { GraphNodeType, ActivityTypeEnum, NODE_DEFAULT_RADIUS_SIZE } from 'yasav/src/const';
 import Colors from 'yasav/src/styles/Colors';
 import GraphActivityDisplayView from '../views/GraphActivityDisplayView';
-import { getAdjacentNodes } from '../actions';
+import { getAdjacentNodes, resetCenterNode } from '../actions';
 
 const d3 = {
   shape,
@@ -49,6 +49,11 @@ class GraphActivityDisplayContainer extends React.Component {
           .force('collide', d3.force.forceCollide().strength(1).radius(d => d.r))
           .on('tick', this.ticked);
       });
+  }
+
+  componentWillUnmount() {
+    this.force.stop();
+    this.props.resetCenterNode();
   }
 
   // inspired from https://bl.ocks.org/mbostock/1129492
@@ -299,6 +304,7 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   return {
     getAdjacentNodes: (nodeId, nodeType) => dispatch(getAdjacentNodes(nodeId, nodeType)),
+    resetCenterNode: () => dispatch(resetCenterNode()),
   };
 }
 

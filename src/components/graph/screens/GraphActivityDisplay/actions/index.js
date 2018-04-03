@@ -5,6 +5,7 @@ import {
   GET_ADJACENT_ACTIVITIES_FROM_INTERLOCUTOR,
   GET_ADJACENT_TAGS_FROM_ACTIVITY,
   GET_ADJACENT_INTERLOCUTORS_FROM_ACTIVITY,
+  RESET_CENTER_NODE
 } from './types';
 
 export function getAdjacentTagsFromActivity(activityId) {
@@ -137,4 +138,8 @@ export function getAdjacentNodes(nodeId, nodeType) {
         return null;
     }
   };
+}
+
+export function resetCenterNode() {
+  return { type: RESET_CENTER_NODE };
 }
