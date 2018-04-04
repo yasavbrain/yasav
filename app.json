@@ -1,12 +1,15 @@
 {
    "expo": {
     "name": "Yasav",
-    "icon": "src/assets/logo.png",
-    "version": "1.0",
+    "description": "Digitalize your brain",
     "slug": "yasav",
+    "privacy": "public",
     "sdkVersion": "23.0.0",
+    "version": "1.0.1",
+    "githubUrl": "https://github.com/yasavbrain/yasav",
+    "icon": "src/assets/logo.png",
     "orientation": "portrait",
-    "androidStatusBarColor": "#44546A",
+    "primaryColor": "#44546A",
     "androidStatusBar": {
       "barStyle": "light-content",
       "backgroundColor": "#44546A"
@@ -16,6 +19,6 @@
     },
     "android": {
       "package": "com.yasav.yasav"
-    }
+    },
    }
  }
